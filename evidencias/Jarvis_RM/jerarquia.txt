@@ -1,0 +1,114 @@
+Directional Light  pos(0, 0, 0) rot(52, 328, 0) esc(1, 1, 1)  {Light}
+Jarvis_RM  pos(0, 0, 1.8) rot(0, 0, 0) esc(1, 1, 1)  {JarvisRM}
+  Jarvis  pos(0, 1.45, 0.35) rot(0, 0, 0) esc(1, 1, 1)
+    Nucleo  pos(0, 0, 0) rot(0, 0, 0) esc(0.2, 0.2, 0.2)  {MeshFilter, MeshRenderer}
+    Anillo_A  pos(0, 0, 0) rot(18, 0, 0) esc(1, 1, 1)  {Girar}
+      Segmento_01  pos(0.19, 0, 0) rot(0, 0, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_02  pos(0.185, 0, 0.042) rot(0, 347.143, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_03  pos(0.171, 0, 0.082) rot(0, 334.286, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_04  pos(0.149, 0, 0.118) rot(0, 321.429, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_05  pos(0.118, 0, 0.149) rot(0, 308.571, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_06  pos(0.082, 0, 0.171) rot(0, 295.714, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_07  pos(0.042, 0, 0.185) rot(0, 282.857, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_08  pos(0, 0, 0.19) rot(0, 270, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_09  pos(-0.042, 0, 0.185) rot(0, 257.143, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_10  pos(-0.082, 0, 0.171) rot(0, 244.286, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_11  pos(-0.118, 0, 0.149) rot(0, 231.429, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_12  pos(-0.149, 0, 0.118) rot(0, 218.571, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_13  pos(-0.171, 0, 0.082) rot(0, 205.714, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_14  pos(-0.185, 0, 0.042) rot(0, 192.857, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_15  pos(-0.19, 0, 0) rot(0, 180, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_16  pos(-0.185, 0, -0.042) rot(0, 167.143, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_17  pos(-0.171, 0, -0.082) rot(0, 154.286, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_18  pos(-0.149, 0, -0.118) rot(0, 141.429, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_19  pos(-0.118, 0, -0.149) rot(0, 128.571, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_20  pos(-0.082, 0, -0.171) rot(0, 115.714, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_21  pos(-0.042, 0, -0.185) rot(0, 102.857, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_22  pos(0, 0, -0.19) rot(0, 90, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_23  pos(0.042, 0, -0.185) rot(0, 77.143, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_24  pos(0.082, 0, -0.171) rot(0, 64.286, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_25  pos(0.118, 0, -0.149) rot(0, 51.429, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_26  pos(0.149, 0, -0.118) rot(0, 38.571, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_27  pos(0.171, 0, -0.082) rot(0, 25.714, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+      Segmento_28  pos(0.185, 0, -0.042) rot(0, 12.857, 0) esc(0.016, 0.016, 0.03)  {MeshFilter, MeshRenderer}
+    Anillo_B  pos(0, 0, 0) rot(298, 0, 30) esc(1, 1, 1)  {Girar}
+      Segmento_01  pos(0.25, 0, 0) rot(0, 0, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_02  pos(0.246, 0, 0.046) rot(0, 349.412, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_03  pos(0.233, 0, 0.09) rot(0, 338.824, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_04  pos(0.213, 0, 0.132) rot(0, 328.235, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_05  pos(0.185, 0, 0.168) rot(0, 317.647, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_06  pos(0.151, 0, 0.2) rot(0, 307.059, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_07  pos(0.111, 0, 0.224) rot(0, 296.471, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_08  pos(0.068, 0, 0.24) rot(0, 285.882, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_09  pos(0.023, 0, 0.249) rot(0, 275.294, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_10  pos(-0.023, 0, 0.249) rot(0, 264.706, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_11  pos(-0.068, 0, 0.24) rot(0, 254.118, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_12  pos(-0.111, 0, 0.224) rot(0, 243.529, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_13  pos(-0.151, 0, 0.2) rot(0, 232.941, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_14  pos(-0.185, 0, 0.168) rot(0, 222.353, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_15  pos(-0.213, 0, 0.132) rot(0, 211.765, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_16  pos(-0.233, 0, 0.09) rot(0, 201.177, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_17  pos(-0.246, 0, 0.046) rot(0, 190.588, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_18  pos(-0.25, 0, 0) rot(0, 180, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_19  pos(-0.246, 0, -0.046) rot(0, 169.412, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_20  pos(-0.233, 0, -0.09) rot(0, 158.824, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_21  pos(-0.213, 0, -0.132) rot(0, 148.235, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_22  pos(-0.185, 0, -0.168) rot(0, 137.647, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_23  pos(-0.151, 0, -0.2) rot(0, 127.059, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_24  pos(-0.111, 0, -0.224) rot(0, 116.471, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_25  pos(-0.068, 0, -0.24) rot(0, 105.882, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_26  pos(-0.023, 0, -0.249) rot(0, 95.294, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_27  pos(0.023, 0, -0.249) rot(0, 84.706, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_28  pos(0.068, 0, -0.24) rot(0, 74.118, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_29  pos(0.111, 0, -0.224) rot(0, 63.529, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_30  pos(0.151, 0, -0.2) rot(0, 52.941, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_31  pos(0.185, 0, -0.168) rot(0, 42.353, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_32  pos(0.213, 0, -0.132) rot(0, 31.765, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_33  pos(0.233, 0, -0.09) rot(0, 21.176, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+      Segmento_34  pos(0.246, 0, -0.046) rot(0, 10.588, 0) esc(0.012, 0.012, 0.032)  {MeshFilter, MeshRenderer}
+    Satelites  pos(0, 0, 0) rot(0, 0, 12) esc(1, 1, 1)  {Girar}
+      Satelite_01  pos(0.38, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Cuerpo  pos(0, 0, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+        Antena  pos(0, 0.04, 0) rot(0, 0, 0) esc(0.006, 0.05, 0.006)  {MeshFilter, MeshRenderer}
+      Satelite_02  pos(-0.19, 0, 0.329) rot(0, 0, 0) esc(1, 1, 1)
+        Cuerpo  pos(0, 0, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+        Antena  pos(0, 0.04, 0) rot(0, 0, 0) esc(0.006, 0.05, 0.006)  {MeshFilter, MeshRenderer}
+      Satelite_03  pos(-0.19, 0, -0.329) rot(0, 0, 0) esc(1, 1, 1)
+        Cuerpo  pos(0, 0, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+        Antena  pos(0, 0.04, 0) rot(0, 0, 0) esc(0.006, 0.05, 0.006)  {MeshFilter, MeshRenderer}
+  Panel_Respuesta  pos(0.95, 1.4, 0.2) rot(0, 22, 0) esc(1.6, 1.6, 1.6)
+    Fondo  pos(0, 0, 0) rot(0, 0, 0) esc(0.62, 0.36, 1)  {MeshFilter, MeshRenderer}
+    Marco_superior  pos(0, 0.18, 0) rot(0, 0, 0) esc(0.63, 0.008, 0.008)  {MeshFilter, MeshRenderer}
+    Marco_inferior  pos(0, -0.18, 0) rot(0, 0, 0) esc(0.63, 0.008, 0.008)  {MeshFilter, MeshRenderer}
+    Marco_izquierdo  pos(-0.31, 0, 0) rot(0, 0, 0) esc(0.008, 0.36, 0.008)  {MeshFilter, MeshRenderer}
+    Marco_derecho  pos(0.31, 0, 0) rot(0, 0, 0) esc(0.008, 0.36, 0.008)  {MeshFilter, MeshRenderer}
+    Titulo  pos(0, 0.115, -0.01) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+    Texto  pos(0, -0.045, -0.01) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Texto_usuario  pos(0, 0.98, 0.2) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Tablero_de_estado  pos(-0.95, 1.62, 0.2) rot(0, 338, 0) esc(1, 1, 1)
+    Fondo  pos(0.44, -0.13, 0.01) rot(0, 0, 0) esc(1, 0.42, 1)  {MeshFilter, MeshRenderer}
+    Texto_estado  pos(-0.03, 0.05, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Piso_invisible  pos(0, -0.05, 0) rot(0, 0, 0) esc(1, 1, 1)  {BoxCollider}
+  Zona_de_objetos  pos(0, 1.3, -1.5) rot(0, 0, 0) esc(1, 1, 1)
+RM (Realidad Mixta)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ArranqueRM}
+  OVRCameraRig (inactivo)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {OVRCameraRig, OVRManager, OVRHeadsetEmulator, OVRPassthroughLayer}
+    TrackingSpace  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      CenterEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {AudioListener, Camera}
+      RightEyeAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      TrackerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        LeftControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        LeftControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          LeftHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      RightHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        RightControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        RightControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          RightHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      LeftHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      RightHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Menu de practicas  pos(0, 2.3, 3) rot(0, 0, 0) esc(1, 1, 1)  {MenuPracticasRM}
+    Letrero  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+CamaraEvidencia #EditorOnly  pos(0, 1.5, -1.2) rot(12.225, 0, 0) esc(1, 1, 1)  {Camera, CamaraEvidencia}

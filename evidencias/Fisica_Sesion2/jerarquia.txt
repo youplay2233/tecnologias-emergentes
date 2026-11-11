@@ -1,0 +1,50 @@
+Directional Light  pos(0, 0, 0) rot(52, 328, 0) esc(1, 1, 1)  {Light}
+Fisica_Sesion2  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ReinicioFisica}
+  Pista  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+    Piso  pos(0, -0.025, 2.9) rot(0, 0, 0) esc(1.3, 0.05, 5)  {MeshFilter, BoxCollider, MeshRenderer, AlternarCollider}
+    Rampa  pos(0, 0.41, 1.45) rot(25, 0, 0) esc(1, 1, 1)
+      Superficie  pos(0, 0, 0) rot(0, 0, 0) esc(1.2, 0.05, 1.7)  {MeshFilter, BoxCollider, MeshRenderer}
+      Riel_izquierdo  pos(-0.58, 0.085, 0) rot(0, 0, 0) esc(0.04, 0.12, 1.7)  {MeshFilter, BoxCollider, MeshRenderer}
+      Riel_derecho  pos(0.58, 0.085, 0) rot(0, 0, 0) esc(0.04, 0.12, 1.7)  {MeshFilter, BoxCollider, MeshRenderer}
+    Pared_izquierda  pos(-0.675, 0.2, 2.9) rot(0, 0, 0) esc(0.05, 0.4, 5)  {MeshFilter, BoxCollider, MeshRenderer}
+    Pared_derecha  pos(0.675, 0.2, 2.9) rot(0, 0, 0) esc(0.05, 0.4, 5)  {MeshFilter, BoxCollider, MeshRenderer}
+    Tope_final  pos(0, 0.2, 5.425) rot(0, 0, 0) esc(1.4, 0.4, 0.05)  {MeshFilter, BoxCollider, MeshRenderer}
+    Obstaculos  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      Obstaculo_1_BoxCollider  pos(-0.28, 0.15, 2.95) rot(0, 35, 0) esc(0.3, 0.3, 0.3)  {MeshFilter, BoxCollider, MeshRenderer}
+      Obstaculo_2_MeshCollider  pos(0.3, 0.15, 3.65) rot(0, 0, 0) esc(0.28, 0.15, 0.28)  {MeshFilter, MeshRenderer, MeshCollider}
+      Obstaculo_3_CapsuleCollider  pos(-0.15, 0.13, 4.4) rot(0, 25, 90) esc(0.26, 0.3, 0.26)  {MeshFilter, CapsuleCollider, MeshRenderer}
+  Pelota  pos(0, 0.829, 0.895) rot(0, 0, 0) esc(0.22, 0.22, 0.22)  {MeshFilter, SphereCollider, MeshRenderer, Rigidbody, DetectorColision}
+  Experimento_Discrete_vs_Continuous  pos(1.75, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+    Carril  pos(0, -0.01, 3.9) rot(0, 0, 0) esc(1, 0.02, 7.8)  {MeshFilter, MeshRenderer}
+    Pared_delgada  pos(0, 0.36, 3.4) rot(0, 0, 0) esc(1, 0.7, 0.02)  {MeshFilter, BoxCollider, MeshRenderer}
+    Tope_lejano  pos(0, 0.36, 7.05) rot(0, 0, 0) esc(1, 0.7, 1.5)  {MeshFilter, BoxCollider, MeshRenderer}
+    Pelota_Discrete  pos(-0.22, 0.36, 0.4) rot(0, 0, 0) esc(0.1, 0.1, 0.1)  {MeshFilter, SphereCollider, MeshRenderer, Rigidbody, LanzadorRapido, DetectorColision, TrailRenderer}
+    Pelota_Continuous  pos(0.22, 0.36, 0.4) rot(0, 0, 0) esc(0.1, 0.1, 0.1)  {MeshFilter, SphereCollider, MeshRenderer, Rigidbody, LanzadorRapido, DetectorColision, TrailRenderer}
+    Etiqueta_Discrete  pos(-0.3, 1, 3.4) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+    Etiqueta_Continuous  pos(0.3, 1, 3.4) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Consola_RM  pos(-1.55, 1.45, 3.1) rot(0, 332, 0) esc(1, 1, 1)  {ConsolaRM}
+    Fondo  pos(0, -0.22, 0.01) rot(0, 0, 0) esc(1.15, 0.62, 1)  {MeshFilter, MeshRenderer}
+    Texto  pos(-0.53, 0.05, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Etiqueta  pos(0, 1.25, 5.5) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+RM (Realidad Mixta)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ArranqueRM}
+  OVRCameraRig (inactivo)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {OVRCameraRig, OVRManager, OVRHeadsetEmulator, OVRPassthroughLayer}
+    TrackingSpace  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      CenterEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {AudioListener, Camera}
+      RightEyeAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      TrackerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        LeftControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        LeftControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          LeftHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      RightHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        RightControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        RightControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          RightHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      LeftHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      RightHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Menu de practicas  pos(0, 2.3, 3) rot(0, 0, 0) esc(1, 1, 1)  {MenuPracticasRM}
+    Letrero  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+CamaraEvidencia #EditorOnly  pos(0.5, 2.6, -2.2) rot(22.463, 0, 0) esc(1, 1, 1)  {Camera, CamaraEvidencia}

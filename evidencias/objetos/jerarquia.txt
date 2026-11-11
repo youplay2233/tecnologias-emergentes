@@ -1,0 +1,37 @@
+Directional Light  pos(0, 0, 0) rot(52, 328, 0) esc(1, 1, 1)  {Light}
+Practica_1_GameObjects  pos(0, 0, 1.9) rot(0, 0, 0) esc(1, 1, 1)
+  Cube  pos(-0.8, 1.6, 0) rot(20, 45, 0) esc(0.3, 0.3, 0.3)  {MeshFilter, BoxCollider, MeshRenderer}
+  Etiqueta_Cube  pos(-0.8, 1.24, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Sphere  pos(0, 1.6, 0) rot(0, 0, 0) esc(0.36, 0.36, 0.36)  {MeshFilter, SphereCollider, MeshRenderer}
+  Etiqueta_Sphere  pos(0, 1.24, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Capsule  pos(0.8, 1.6, 0) rot(0, 0, 25) esc(0.22, 0.24, 0.22)  {MeshFilter, CapsuleCollider, MeshRenderer}
+  Etiqueta_Capsule  pos(0.8, 1.24, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Cylinder  pos(-0.8, 0.9, 0) rot(35, 0, 0) esc(0.28, 0.16, 0.28)  {MeshFilter, CapsuleCollider, MeshRenderer}
+  Etiqueta_Cylinder  pos(-0.8, 0.54, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Plane  pos(0, 0.9, 0) rot(305, 0, 0) esc(0.04, 1, 0.04)  {MeshFilter, MeshCollider, MeshRenderer}
+  Etiqueta_Plane  pos(0, 0.54, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Quad  pos(0.8, 0.9, 0) rot(0, 335, 0) esc(0.42, 0.3, 1)  {MeshFilter, MeshCollider, MeshRenderer}
+  Etiqueta_Quad  pos(0.8, 0.54, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Etiqueta  pos(0, 0.2, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+RM (Realidad Mixta)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ArranqueRM}
+  OVRCameraRig (inactivo)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {OVRCameraRig, OVRManager, OVRHeadsetEmulator, OVRPassthroughLayer}
+    TrackingSpace  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      CenterEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {AudioListener, Camera}
+      RightEyeAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      TrackerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        LeftControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        LeftControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          LeftHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      RightHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        RightControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        RightControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          RightHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      LeftHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      RightHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Menu de practicas  pos(0, 2.3, 3) rot(0, 0, 0) esc(1, 1, 1)  {MenuPracticasRM}
+    Letrero  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+CamaraEvidencia #EditorOnly  pos(0, 1.4, 0) rot(7.496, 0, 0) esc(1, 1, 1)  {Camera, CamaraEvidencia}

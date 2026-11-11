@@ -1,0 +1,260 @@
+Directional Light  pos(0, 0, 0) rot(52, 328, 0) esc(1, 1, 1)  {Light}
+Parque_diversiones  pos(0, 0, 2.2) rot(0, 0, 0) esc(1, 1, 1)
+  Terreno  pos(0, 0.01, 0) rot(0, 0, 0) esc(2.7, 0.01, 2.7)  {MeshFilter, MeshRenderer}
+  Camino  pos(0, 0.023, -0.72) rot(0, 0, 0) esc(0.32, 0.006, 1.1)  {MeshFilter, MeshRenderer}
+  Plaza  pos(0, 0.023, -0.05) rot(0, 0, 0) esc(0.75, 0.003, 0.75)  {MeshFilter, MeshRenderer}
+  Entrada  pos(0, 0, -1.22) rot(0, 0, 0) esc(1, 1, 1)
+    Poste_izquierdo  pos(-0.32, 0.24, 0) rot(0, 0, 0) esc(0.05, 0.24, 0.05)  {MeshFilter, MeshRenderer}
+    Poste_derecho  pos(0.32, 0.24, 0) rot(0, 0, 0) esc(0.05, 0.24, 0.05)  {MeshFilter, MeshRenderer}
+    Letrero  pos(0, 0.52, 0) rot(0, 0, 0) esc(0.78, 0.13, 0.03)  {MeshFilter, MeshRenderer}
+    Texto_letrero  pos(0, 0.52, -0.02) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+  Rueda_de_la_fortuna  pos(-0.72, 0, 0.45) rot(0, 0, 0) esc(1, 1, 1)
+    Base  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      Pata_frontal_izquierda  pos(-0.175, 0.35, -0.11) rot(0, 0, 333.4) esc(0.035, 0.79, 0.035)  {MeshFilter, MeshRenderer}
+      Pata_frontal_derecha  pos(0.175, 0.35, -0.11) rot(0, 0, 26.6) esc(0.035, 0.79, 0.035)  {MeshFilter, MeshRenderer}
+      Pata_trasera_izquierda  pos(-0.175, 0.35, 0.11) rot(0, 0, 333.4) esc(0.035, 0.79, 0.035)  {MeshFilter, MeshRenderer}
+      Pata_trasera_derecha  pos(0.175, 0.35, 0.11) rot(0, 0, 26.6) esc(0.035, 0.79, 0.035)  {MeshFilter, MeshRenderer}
+      Eje  pos(0, 0.7, 0) rot(90, 0, 0) esc(0.05, 0.14, 0.05)  {MeshFilter, MeshRenderer}
+    Rueda_giratoria  pos(0, 0.7, 0) rot(0, 0, 0) esc(1, 1, 1)  {Girar}
+      Aro_frontal  pos(0, 0, -0.075) rot(0, 0, 0) esc(1, 1, 1)
+        Tramo_01  pos(0.5, 0, 0) rot(0, 0, 90) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_02  pos(0.462, 0.191, 0) rot(0, 0, 112.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_03  pos(0.354, 0.354, 0) rot(0, 0, 135) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_04  pos(0.191, 0.462, 0) rot(0, 0, 157.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_05  pos(0, 0.5, 0) rot(0, 0, 180) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_06  pos(-0.191, 0.462, 0) rot(0, 0, 202.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_07  pos(-0.354, 0.354, 0) rot(0, 0, 225) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_08  pos(-0.462, 0.191, 0) rot(0, 0, 247.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_09  pos(-0.5, 0, 0) rot(0, 0, 270) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_10  pos(-0.462, -0.191, 0) rot(0, 0, 292.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_11  pos(-0.354, -0.354, 0) rot(0, 0, 315) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_12  pos(-0.191, -0.462, 0) rot(0, 0, 337.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_13  pos(0, -0.5, 0) rot(0, 0, 0) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_14  pos(0.191, -0.462, 0) rot(0, 0, 22.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_15  pos(0.354, -0.354, 0) rot(0, 0, 45) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_16  pos(0.462, -0.191, 0) rot(0, 0, 67.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Rayo_01  pos(0.25, 0, 0) rot(0, 0, 0) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_02  pos(0.177, 0.177, 0) rot(0, 0, 45) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_03  pos(0, 0.25, 0) rot(0, 0, 90) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_04  pos(-0.177, 0.177, 0) rot(0, 0, 135) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_05  pos(-0.25, 0, 0) rot(0, 0, 180) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_06  pos(-0.177, -0.177, 0) rot(0, 0, 225) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_07  pos(0, -0.25, 0) rot(0, 0, 270) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_08  pos(0.177, -0.177, 0) rot(0, 0, 315) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+      Aro_trasero  pos(0, 0, 0.075) rot(0, 0, 0) esc(1, 1, 1)
+        Tramo_01  pos(0.5, 0, 0) rot(0, 0, 90) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_02  pos(0.462, 0.191, 0) rot(0, 0, 112.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_03  pos(0.354, 0.354, 0) rot(0, 0, 135) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_04  pos(0.191, 0.462, 0) rot(0, 0, 157.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_05  pos(0, 0.5, 0) rot(0, 0, 180) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_06  pos(-0.191, 0.462, 0) rot(0, 0, 202.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_07  pos(-0.354, 0.354, 0) rot(0, 0, 225) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_08  pos(-0.462, 0.191, 0) rot(0, 0, 247.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_09  pos(-0.5, 0, 0) rot(0, 0, 270) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_10  pos(-0.462, -0.191, 0) rot(0, 0, 292.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_11  pos(-0.354, -0.354, 0) rot(0, 0, 315) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_12  pos(-0.191, -0.462, 0) rot(0, 0, 337.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_13  pos(0, -0.5, 0) rot(0, 0, 0) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_14  pos(0.191, -0.462, 0) rot(0, 0, 22.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_15  pos(0.354, -0.354, 0) rot(0, 0, 45) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Tramo_16  pos(0.462, -0.191, 0) rot(0, 0, 67.5) esc(0.204, 0.022, 0.02)  {MeshFilter, MeshRenderer}
+        Rayo_01  pos(0.25, 0, 0) rot(0, 0, 0) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_02  pos(0.177, 0.177, 0) rot(0, 0, 45) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_03  pos(0, 0.25, 0) rot(0, 0, 90) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_04  pos(-0.177, 0.177, 0) rot(0, 0, 135) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_05  pos(-0.25, 0, 0) rot(0, 0, 180) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_06  pos(-0.177, -0.177, 0) rot(0, 0, 225) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_07  pos(0, -0.25, 0) rot(0, 0, 270) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+        Rayo_08  pos(0.177, -0.177, 0) rot(0, 0, 315) esc(0.5, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+      Cabinas  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Cabina_01  pos(0.5, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_02  pos(0.354, 0.354, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_03  pos(0, 0.5, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_04  pos(-0.354, 0.354, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_05  pos(-0.5, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_06  pos(-0.354, -0.354, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_07  pos(0, -0.5, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+        Cabina_08  pos(0.354, -0.354, 0) rot(0, 0, 0) esc(1, 1, 1)  {MantenerVertical}
+          Colgante  pos(0, -0.035, 0) rot(0, 0, 0) esc(0.01, 0.035, 0.01)  {MeshFilter, MeshRenderer}
+          Techo  pos(0, -0.072, 0) rot(0, 0, 0) esc(0.13, 0.012, 0.105)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, -0.125, 0) rot(0, 0, 0) esc(0.115, 0.09, 0.09)  {MeshFilter, MeshRenderer}
+  Carrusel  pos(0.72, 0, 0.42) rot(0, 0, 0) esc(1, 1, 1)
+    Plataforma_fija  pos(0, 0.025, 0) rot(0, 0, 0) esc(0.82, 0.025, 0.82)  {MeshFilter, MeshRenderer}
+    Giratorio  pos(0, 0.05, 0) rot(0, 0, 0) esc(1, 1, 1)  {Girar}
+      Piso_giratorio  pos(0, 0.01, 0) rot(0, 0, 0) esc(0.74, 0.01, 0.74)  {MeshFilter, MeshRenderer}
+      Poste_central  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.07, 0.27, 0.07)  {MeshFilter, MeshRenderer}
+      Techo  pos(0, 0.55, 0) rot(0, 0, 0) esc(0.86, 0.02, 0.86)  {MeshFilter, MeshRenderer}
+      Cupula  pos(0, 0.57, 0) rot(0, 0, 0) esc(0.5, 0.18, 0.5)  {MeshFilter, MeshRenderer}
+      Caballos  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Caballo_01  pos(0.27, 0.02, 0) rot(0, 0, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+        Caballo_02  pos(0.135, 0.02, 0.234) rot(0, 300, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+        Caballo_03  pos(-0.135, 0.02, 0.234) rot(0, 240, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+        Caballo_04  pos(-0.27, 0.02, 0) rot(0, 180, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+        Caballo_05  pos(-0.135, 0.02, -0.234) rot(0, 120, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+        Caballo_06  pos(0.135, 0.02, -0.234) rot(0, 60, 0) esc(1, 1, 1)
+          Barra  pos(0, 0.25, 0) rot(0, 0, 0) esc(0.012, 0.25, 0.012)  {MeshFilter, MeshRenderer}
+          Cuerpo  pos(0, 0.16, 0) rot(90, 0, 0) esc(0.06, 0.07, 0.06)  {MeshFilter, MeshRenderer}
+          Cabeza  pos(0, 0.215, 0.075) rot(0, 0, 0) esc(0.05, 0.06, 0.06)  {MeshFilter, MeshRenderer}
+          Patas_delanteras  pos(0, 0.105, 0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+          Patas_traseras  pos(0, 0.105, -0.04) rot(0, 0, 0) esc(0.04, 0.07, 0.012)  {MeshFilter, MeshRenderer}
+  Sillas_voladoras  pos(0.05, 0, -0.42) rot(0, 0, 0) esc(1, 1, 1)
+    Base  pos(0, 0.02, 0) rot(0, 0, 0) esc(0.32, 0.02, 0.32)  {MeshFilter, MeshRenderer}
+    Torre  pos(0, 0.4, 0) rot(0, 0, 0) esc(0.07, 0.4, 0.07)  {MeshFilter, MeshRenderer}
+    Corona_giratoria  pos(0, 0.82, 0) rot(0, 0, 0) esc(1, 1, 1)  {Girar}
+      Disco  pos(0, 0, 0) rot(0, 0, 0) esc(0.56, 0.015, 0.56)  {MeshFilter, MeshRenderer}
+      Remate  pos(0, 0.04, 0) rot(0, 0, 0) esc(0.16, 0.1, 0.16)  {MeshFilter, MeshRenderer}
+      Silla_01  pos(0.25, 0, 0) rot(0, 0, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_02  pos(0.177, 0, 0.177) rot(0, 315, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_03  pos(0, 0, 0.25) rot(0, 270, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_04  pos(-0.177, 0, 0.177) rot(0, 225, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_05  pos(-0.25, 0, 0) rot(0, 180, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_06  pos(-0.177, 0, -0.177) rot(0, 135, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_07  pos(0, 0, -0.25) rot(0, 90, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+      Silla_08  pos(0.177, 0, -0.177) rot(0, 45, 24) esc(1, 1, 1)
+        Cadena  pos(0, -0.14, 0) rot(0, 0, 0) esc(0.006, 0.14, 0.006)  {MeshFilter, MeshRenderer}
+        Asiento  pos(0, -0.29, 0) rot(0, 0, 0) esc(0.065, 0.02, 0.065)  {MeshFilter, MeshRenderer}
+        Respaldo  pos(-0.03, -0.255, 0) rot(0, 0, 0) esc(0.01, 0.06, 0.065)  {MeshFilter, MeshRenderer}
+  Puestos  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+    Puesto_01  pos(-0.55, 0.02, -0.75) rot(0, 35, 0) esc(1, 1, 1)
+      Mostrador  pos(0, 0.08, 0) rot(0, 0, 0) esc(0.3, 0.16, 0.18)  {MeshFilter, MeshRenderer}
+      Poste_izquierdo  pos(-0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Poste_derecho  pos(0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Toldo  pos(0, 0.33, -0.03) rot(346, 0, 0) esc(0.36, 0.015, 0.3)  {MeshFilter, MeshRenderer}
+    Puesto_02  pos(0.62, 0.02, -0.72) rot(0, 325, 0) esc(1, 1, 1)
+      Mostrador  pos(0, 0.08, 0) rot(0, 0, 0) esc(0.3, 0.16, 0.18)  {MeshFilter, MeshRenderer}
+      Poste_izquierdo  pos(-0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Poste_derecho  pos(0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Toldo  pos(0, 0.33, -0.03) rot(346, 0, 0) esc(0.36, 0.015, 0.3)  {MeshFilter, MeshRenderer}
+    Puesto_03  pos(0, 0.02, 1.05) rot(0, 180, 0) esc(1, 1, 1)
+      Mostrador  pos(0, 0.08, 0) rot(0, 0, 0) esc(0.3, 0.16, 0.18)  {MeshFilter, MeshRenderer}
+      Poste_izquierdo  pos(-0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Poste_derecho  pos(0.14, 0.16, -0.08) rot(0, 0, 0) esc(0.012, 0.16, 0.012)  {MeshFilter, MeshRenderer}
+      Toldo  pos(0, 0.33, -0.03) rot(346, 0, 0) esc(0.36, 0.015, 0.3)  {MeshFilter, MeshRenderer}
+  Arboles  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+    Arbol_01  pos(1.128, 0.02, 0.41) rot(0, 0, 0) esc(0.85, 0.85, 0.85)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_02  pos(0.563, 0.02, 1.06) rot(0, 40, 0) esc(0.95, 0.95, 0.95)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_03  pos(-0.563, 0.02, 1.06) rot(0, 80, 0) esc(1.05, 1.05, 1.05)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_04  pos(-1.128, 0.02, 0.41) rot(0, 120, 0) esc(0.85, 0.85, 0.85)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_05  pos(-1.088, 0.02, -0.507) rot(0, 160, 0) esc(0.95, 0.95, 0.95)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_06  pos(-0.636, 0.02, -1.018) rot(0, 200, 0) esc(1.05, 1.05, 1.05)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_07  pos(0.636, 0.02, -1.018) rot(0, 240, 0) esc(0.85, 0.85, 0.85)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+    Arbol_08  pos(1.088, 0.02, -0.507) rot(0, 280, 0) esc(0.95, 0.95, 0.95)
+      Tronco  pos(0, 0.09, 0) rot(0, 0, 0) esc(0.04, 0.09, 0.04)  {MeshFilter, MeshRenderer}
+      Copa  pos(0, 0.27, 0) rot(0, 0, 0) esc(0.24, 0.26, 0.24)  {MeshFilter, MeshRenderer}
+  Faroles  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+    Farol_01  pos(-0.24, 0.02, -0.95) rot(0, 0, 0) esc(1, 1, 1)
+      Poste  pos(0, 0.15, 0) rot(0, 0, 0) esc(0.012, 0.15, 0.012)  {MeshFilter, MeshRenderer}
+      Lampara  pos(0, 0.32, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+    Farol_02  pos(0.24, 0.02, -0.95) rot(0, 0, 0) esc(1, 1, 1)
+      Poste  pos(0, 0.15, 0) rot(0, 0, 0) esc(0.012, 0.15, 0.012)  {MeshFilter, MeshRenderer}
+      Lampara  pos(0, 0.32, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+    Farol_03  pos(-0.42, 0.02, -0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Poste  pos(0, 0.15, 0) rot(0, 0, 0) esc(0.012, 0.15, 0.012)  {MeshFilter, MeshRenderer}
+      Lampara  pos(0, 0.32, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+    Farol_04  pos(0.42, 0.02, -0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Poste  pos(0, 0.15, 0) rot(0, 0, 0) esc(0.012, 0.15, 0.012)  {MeshFilter, MeshRenderer}
+      Lampara  pos(0, 0.32, 0) rot(0, 0, 0) esc(0.05, 0.05, 0.05)  {MeshFilter, MeshRenderer}
+  Etiqueta  pos(0, 1.35, 0.9) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+RM (Realidad Mixta)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ArranqueRM}
+  OVRCameraRig (inactivo)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {OVRCameraRig, OVRManager, OVRHeadsetEmulator, OVRPassthroughLayer}
+    TrackingSpace  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      CenterEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {AudioListener, Camera}
+      RightEyeAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      TrackerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        LeftControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        LeftControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          LeftHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      RightHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM}
+        RightControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        RightControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          RightHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+      LeftHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      RightHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Menu de practicas  pos(0, 2.3, 3) rot(0, 0, 0) esc(1, 1, 1)  {MenuPracticasRM}
+    Letrero  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+CamaraEvidencia #EditorOnly  pos(0, 1.9, -0.4) rot(29.65, 0, 0) esc(1, 1, 1)  {Camera, CamaraEvidencia}
