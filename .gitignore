@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store
+
+# Notas de trabajo de Claude y material de clase que no se publica
+CLAUDE.md
+_relevo/
+
+# Configuración local de Claude Code
+.claude/
