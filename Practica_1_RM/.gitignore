@@ -1,0 +1,40 @@
+# Unity: carpetas generadas (no se suben)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+*.csproj
+*.sln
+*.unityproj
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.apk
+*.aab
+*.unitypackage
+sysinfo.txt
+crashlytics-build.properties
+.vscode/
+.vs/
+.DS_Store
+
+# Puente Jarvis: archivos de trabajo entre Claude y Unity (órdenes, capturas, videos crudos)
+/PuenteJarvis/
+
+# Meta XR Core SDK incrustado y parchado para el editor de Linux (222 MB). Lo genera
+# herramientas/parche_meta_linux.py; en Windows y macOS Unity lo descarga del registro.
+/[Pp]ackages/com.meta.xr.sdk.core/
+# Con el SDK incrustado el lock apunta a esa copia local; Unity lo regenera (las versiones están fijas en manifest.json)
+/[Pp]ackages/packages-lock.json
