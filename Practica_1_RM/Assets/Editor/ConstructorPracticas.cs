@@ -545,7 +545,7 @@ namespace TecEmergentes
             // Piso invisible a la altura del piso real: los objetos que crea Jarvis caen sobre él
             GameObject piso = TE.Vacio("Piso_invisible", raiz.transform, new Vector3(0f, -0.05f, 0f));
             BoxCollider caja = piso.AddComponent<BoxCollider>();
-            caja.size = new Vector3(14f, 0.1f, 14f);
+            caja.size = new Vector3(400f, 0.1f, 400f);   // grande: lo lanzado no se sale del borde
 
             GameObject zona = TE.Vacio("Zona_de_objetos", raiz.transform, new Vector3(0f, 1.3f, -1.5f));
 

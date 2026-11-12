@@ -149,6 +149,7 @@ public class JarvisRM : MonoBehaviour
         if (Time.unscaledTime >= proximoRefresco)
         {
             proximoRefresco = Time.unscaledTime + 0.25f;
+            BorrarPerdidos();
             PintarEstado();
             if (enlace.Conectado && string.IsNullOrEmpty(direccion) && direccionGuardada != enlace.Servidor)
             {
@@ -283,6 +284,26 @@ public class JarvisRM : MonoBehaviour
         return n + " objetos borrados.";
     }
 
+    // Red de seguridad, como el Destroy de la bala: lo que se sale del piso (cae bajo él o se
+    // aleja demasiado) se borra en lugar de caer para siempre gastando física.
+    private const float AlturaMinima = -3f;
+    private const float DistanciaMaxima = 150f;
+
+    private void BorrarPerdidos()
+    {
+        for (int i = creados.Count - 1; i >= 0; i--)
+        {
+            GameObject go = creados[i];
+            if (go == null) { creados.RemoveAt(i); continue; }
+            Vector3 p = go.transform.position;
+            if (p.y < AlturaMinima || new Vector2(p.x, p.z).magnitude > DistanciaMaxima)
+            {
+                Destroy(go);
+                creados.RemoveAt(i);
+            }
+        }
+    }
+
     private GameObject Nuevo(string forma, string color, float tamano, Vector3 pos)
     {
         PrimitiveType tipo;
@@ -307,7 +328,9 @@ public class JarvisRM : MonoBehaviour
         {
             go.GetComponent<MeshRenderer>().sharedMaterial = materiales[indice];
         }
-        go.AddComponent<Rigidbody>();
+        Rigidbody cuerpo = go.AddComponent<Rigidbody>();
+        // PhysX no simula la resistencia a rodar: sin esto una esfera rueda por el piso casi sin frenarse
+        if (tipo == PrimitiveType.Sphere || tipo == PrimitiveType.Cylinder || tipo == PrimitiveType.Capsule) cuerpo.angularDrag = 1.5f;
         creados.Add(go);
 
         // Límite para no llenar la memoria (como el Destroy de la bala)
