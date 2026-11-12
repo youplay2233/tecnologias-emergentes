@@ -1,0 +1,20 @@
+Medición real del enlace laptop ↔ Meta Quest 3 por Wi-Fi
+11 de noviembre de 2026, 18:01 a 18:04
+
+Condiciones
+  Laptop: HP Victus con Ubuntu 24.04 corriendo `uv run jarvis-rm --demo`.
+  Visor: Meta Quest 3 con la app Practica_1_RM en la escena Jarvis_RM, sin cable USB.
+  Red: los dos en la misma red Wi-Fi, pero en subredes distintas; el visor encontró la laptop solo.
+  Prueba: secuencia fija de 6 órdenes (crear, lanzar, panel, gravedad); no usa el micrófono ni a Claude.
+  Se hicieron 3 corridas seguidas.
+
+Red: ida y vuelta (RTT) medida por el visor con ping/pong sobre el WebSocket (promedio de cada corrida)
+  Corrida 1: RTT 126 ms, variación (jitter) 32 ms
+  Corrida 2: RTT  84 ms, variación (jitter) 29 ms
+  Corrida 3: RTT  82 ms, variación (jitter) 55 ms
+
+Orden con acuse: de que la laptop manda la orden a que recibe el acuse del visor
+(incluye el cuadro en que el visor la ejecuta), 18 órdenes
+  Mediana 134 ms · promedio 157 ms · mínimo 16 ms · máximo 569 ms
+
+Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.

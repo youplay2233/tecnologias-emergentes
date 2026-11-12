@@ -175,7 +175,7 @@ PROYECTO = {
         ("Cerebro", "La laptop. El orquestador en Python le manda cada petición a Claude, que decide qué herramienta usar: buscar un documento, mandarlo por correo o actuar en la escena de Unity."),
         ("Oído y voz", "También en la laptop: la palabra clave «Hey Jarvis», voz a texto con faster-whisper en la GPU y texto a voz con Piper."),
         ("Visión", "La escena Jarvis_RM de Unity en el Meta Quest 3. Recibe órdenes y las ejecuta sobre el passthrough: estado del núcleo, panel de respuesta y objetos con física."),
-        ("Enlace", "Wi-Fi de la red local. El visor encuentra la laptop preguntando por UDP y mantiene un WebSocket abierto para las órdenes."),
+        ("Enlace", "Wi-Fi de la red local. El visor encuentra la laptop preguntando por UDP y mantiene un WebSocket abierto para las órdenes. Si la red no deja pasar el descubrimiento, el visor se conecta por el cable USB (adb reverse) o a una dirección fija guardada en direccion.txt."),
     ],
     "protocolo": [
         ("Descubrimiento", "UDP, broadcast al puerto 8766", "El visor pregunta por toda la red quién es Jarvis y la laptop le contesta. Si un paquete se pierde no importa: se vuelve a preguntar cada segundo."),
@@ -197,7 +197,7 @@ PROYECTO = {
         ("unity_estado", "Dice si el visor está conectado, la latencia medida y cuántos objetos hay."),
     ],
     "pendiente": [
-        "Probar el enlace con el Quest 3 en la red de la casa y registrar aquí las latencias reales.",
+        "Medir el ciclo completo por voz con Claude (escucha, cerebro y voz) con el visor puesto; el enlace por Wi-Fi ya está medido arriba.",
         "Mandar el audio desde el micrófono del visor, para no depender del micrófono de la laptop.",
         "Práctica de la ESP32: que Jarvis lea sensores y mueva actuadores por MQTT.",
     ],

@@ -313,7 +313,7 @@ footer p { max-width: 68ch; margin: 0; }
   <g class="flecha x"><line x1="292" y1="242" x2="508" y2="242" marker-start="url(#f)" marker-end="url(#f)"/><text x="400" y="232" text-anchor="middle">ping y pong: latencia</text></g>
   <text x="400" y="290" text-anchor="middle" class="t4">Wi-Fi de la red local</text>
 </svg>
-    <dl class="partes"><div><dt>Cerebro</dt><dd>La laptop. El orquestador en Python le manda cada petición a Claude, que decide qué herramienta usar: buscar un documento, mandarlo por correo o actuar en la escena de Unity.</dd></div><div><dt>Oído y voz</dt><dd>También en la laptop: la palabra clave «Hey Jarvis», voz a texto con faster-whisper en la GPU y texto a voz con Piper.</dd></div><div><dt>Visión</dt><dd>La escena Jarvis_RM de Unity en el Meta Quest 3. Recibe órdenes y las ejecuta sobre el passthrough: estado del núcleo, panel de respuesta y objetos con física.</dd></div><div><dt>Enlace</dt><dd>Wi-Fi de la red local. El visor encuentra la laptop preguntando por UDP y mantiene un WebSocket abierto para las órdenes.</dd></div></dl>
+    <dl class="partes"><div><dt>Cerebro</dt><dd>La laptop. El orquestador en Python le manda cada petición a Claude, que decide qué herramienta usar: buscar un documento, mandarlo por correo o actuar en la escena de Unity.</dd></div><div><dt>Oído y voz</dt><dd>También en la laptop: la palabra clave «Hey Jarvis», voz a texto con faster-whisper en la GPU y texto a voz con Piper.</dd></div><div><dt>Visión</dt><dd>La escena Jarvis_RM de Unity en el Meta Quest 3. Recibe órdenes y las ejecuta sobre el passthrough: estado del núcleo, panel de respuesta y objetos con física.</dd></div><div><dt>Enlace</dt><dd>Wi-Fi de la red local. El visor encuentra la laptop preguntando por UDP y mantiene un WebSocket abierto para las órdenes. Si la red no deja pasar el descubrimiento, el visor se conecta por el cable USB (adb reverse) o a una dirección fija guardada en direccion.txt.</dd></div></dl>
 
     <h4>Protocolos del enlace</h4>
     <div class="tabla"><table>
@@ -327,7 +327,26 @@ footer p { max-width: 68ch; margin: 0; }
       <thead><tr><th scope="col">Componente</th><th scope="col">En Jarvis</th><th scope="col">Cómo se mide</th></tr></thead>
       <tbody><tr><th scope='row'>Sensado</th><td>Escuchar la orden y pasarla a texto</td><td>escucha_ms, lo mide la laptop</td></tr><tr><th scope='row'>Red</th><td>Ida y vuelta entre el visor y la laptop</td><td>RTT y jitter, los mide el visor</td></tr><tr><th scope='row'>Cómputo</th><td>Claude decide y responde</td><td>cerebro_ms, lo mide la laptop</td></tr><tr><th scope='row'>Actuación</th><td>Decir la respuesta y dibujarla en el visor</td><td>voz_ms, lo mide la laptop</td></tr></tbody>
     </table></div>
-    <div class="vacio"><strong>Mediciones pendientes.</strong> Se llenan al correr <code>uv run jarvis-rm --demo</code> con el visor conectado a la red de la casa.</div>
+    <pre class="medicion">Medición real del enlace laptop ↔ Meta Quest 3 por Wi-Fi
+11 de noviembre de 2026, 18:01 a 18:04
+
+Condiciones
+  Laptop: HP Victus con Ubuntu 24.04 corriendo `uv run jarvis-rm --demo`.
+  Visor: Meta Quest 3 con la app Practica_1_RM en la escena Jarvis_RM, sin cable USB.
+  Red: los dos en la misma red Wi-Fi, pero en subredes distintas; el visor encontró la laptop solo.
+  Prueba: secuencia fija de 6 órdenes (crear, lanzar, panel, gravedad); no usa el micrófono ni a Claude.
+  Se hicieron 3 corridas seguidas.
+
+Red: ida y vuelta (RTT) medida por el visor con ping/pong sobre el WebSocket (promedio de cada corrida)
+  Corrida 1: RTT 126 ms, variación (jitter) 32 ms
+  Corrida 2: RTT  84 ms, variación (jitter) 29 ms
+  Corrida 3: RTT  82 ms, variación (jitter) 55 ms
+
+Orden con acuse: de que la laptop manda la orden a que recibe el acuse del visor
+(incluye el cuadro en que el visor la ejecuta), 18 órdenes
+  Mediana 134 ms · promedio 157 ms · mínimo 16 ms · máximo 569 ms
+
+Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.</pre>
 
     <h4>Lo que Claude puede hacer en la escena</h4>
     <div class="tabla"><table>
@@ -461,7 +480,7 @@ footer p { max-width: 68ch; margin: 0; }
 <div class="fila" style="--n:0"><span class="obj">CamaraEvidencia #EditorOnly</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">1.5</i><i class="z">-1.2</i></span><span class="terna"><b>R</b><i class="x">12.225</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">Camera</span> <span class="comp">CamaraEvidencia</span></div></div></details>
 
     <h4>Lo que sigue</h4>
-    <ul class="observado"><li>Probar el enlace con el Quest 3 en la red de la casa y registrar aquí las latencias reales.</li><li>Mandar el audio desde el micrófono del visor, para no depender del micrófono de la laptop.</li><li>Práctica de la ESP32: que Jarvis lea sensores y mueva actuadores por MQTT.</li></ul>
+    <ul class="observado"><li>Medir el ciclo completo por voz con Claude (escucha, cerebro y voz) con el visor puesto; el enlace por Wi-Fi ya está medido arriba.</li><li>Mandar el audio desde el micrófono del visor, para no depender del micrófono de la laptop.</li><li>Práctica de la ESP32: que Jarvis lea sensores y mueva actuadores por MQTT.</li></ul>
   </article>
 </section>
 
