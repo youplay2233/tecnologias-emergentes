@@ -25,6 +25,8 @@ using System.Threading.Tasks;
 public sealed class JarvisEnlace : IDisposable
 {
     public const string PrefijoBaliza = "JARVIS-RM";
+    // Puerto del WebSocket de la laptop cuando nadie contesta el descubrimiento (por ejemplo, por cable con adb reverse)
+    public const int PuertoWsPorDefecto = 8765;
 
     private readonly ConcurrentQueue<string> entrantes = new ConcurrentQueue<string>();
     private readonly ConcurrentQueue<string> salientes = new ConcurrentQueue<string>();
@@ -91,7 +93,11 @@ public sealed class JarvisEnlace : IDisposable
                 if (string.IsNullOrEmpty(url))
                 {
                     estado = "buscando";
-                    url = await Descubrir(puertoBaliza, ct).ConfigureAwait(false);
+                    // Primero por la red. Si nadie contesta en 4 s se intenta por el cable USB: con
+                    // `adb reverse tcp:8765 tcp:8765` el localhost del visor llega a la laptop (sirve aunque
+                    // la laptop y el visor estén en subredes distintas o el firewall bloquee la red).
+                    url = await Descubrir(puertoBaliza, ct, 4).ConfigureAwait(false)
+                          ?? "ws://127.0.0.1:" + PuertoWsPorDefecto.ToString(CultureInfo.InvariantCulture);
                 }
 
                 estado = "conectando";
@@ -132,7 +138,8 @@ public sealed class JarvisEnlace : IDisposable
     }
 
     // El visor pregunta "JARVIS-RM?" por broadcast y la laptop le contesta directo con el puerto del WebSocket.
-    private static async Task<string> Descubrir(int puerto, CancellationToken ct)
+    // Devuelve null si nadie contesta en `segundos`.
+    private static async Task<string> Descubrir(int puerto, CancellationToken ct, int segundos)
     {
         using (UdpClient udp = new UdpClient(new IPEndPoint(IPAddress.Any, 0)))
         {
@@ -148,7 +155,7 @@ public sealed class JarvisEnlace : IDisposable
             using (ct.Register(() => { try { udp.Close(); } catch (Exception) { } }))
             {
                 Task<UdpReceiveResult> respuesta = udp.ReceiveAsync();
-                while (true)
+                for (int intento = 0; intento < segundos; intento++)
                 {
                     foreach (IPEndPoint destino in destinos)
                     {
@@ -168,6 +175,7 @@ public sealed class JarvisEnlace : IDisposable
                     if (!ExtraerNumero(texto, "puerto", out puertoWs)) continue;
                     return "ws://" + r.RemoteEndPoint.Address + ":" + ((int)puertoWs).ToString(CultureInfo.InvariantCulture);
                 }
+                return null;
             }
         }
     }

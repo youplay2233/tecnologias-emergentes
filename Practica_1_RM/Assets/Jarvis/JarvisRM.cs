@@ -89,6 +89,11 @@ public class JarvisRM : MonoBehaviour
         if (nucleo != null) escalaNucleo = nucleo.localScale;
         if (nucleoRenderer != null) materialNucleo = nucleoRenderer.material;   // copia propia para cambiarle el color
 
+        // Dirección fija sin recompilar (cuando el descubrimiento por la red no llega, p. ej. subredes distintas):
+        //   adb push direccion.txt /sdcard/Android/data/com.arielramos.practica1rm/files/direccion.txt
+        string archivo = System.IO.Path.Combine(Application.persistentDataPath, "direccion.txt");
+        if (string.IsNullOrEmpty(direccion) && System.IO.File.Exists(archivo)) direccion = System.IO.File.ReadAllText(archivo).Trim();
+
         string guardada = PlayerPrefs.GetString("jarvis.direccion", "");
         direccionGuardada = guardada;
         SaludoJarvis saludo = new SaludoJarvis
