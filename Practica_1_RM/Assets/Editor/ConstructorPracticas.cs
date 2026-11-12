@@ -589,10 +589,15 @@ namespace TecEmergentes
             GameObject prefabBala = TE.GuardarComoPrefab(esfera, "Bala");
 
             GameObject raiz = TE.Vacio("Practica_3_Canon", null, Vector3.zero);
-            TE.Prim(PrimitiveType.Plane, "Piso", raiz.transform, new Vector3(0f, 0f, 4.2f), Vector3.zero, new Vector3(0.4f, 1f, 0.95f), piso);
+            // Maqueta a escala 0.4: con escala 1 el cilindro mide 1 m de diámetro y en el visor tapaba todo.
+            // El cañón, la cureña, el piso y los blancos son hijos de este objeto, así que se encogen juntos
+            // y el cilindro conserva el Transform de la presentación.
+            GameObject maqueta = TE.Vacio("Maqueta_Canon", raiz.transform, new Vector3(0f, 0f, 0.4f));
+            maqueta.transform.localScale = Vector3.one * 0.4f;
+            TE.Prim(PrimitiveType.Plane, "Piso", maqueta.transform, new Vector3(0f, 0f, 4.2f), Vector3.zero, new Vector3(0.4f, 1f, 0.95f), piso);
 
             // Montaje: objeto vacío en la culata; al girarlo (ApuntarRM) se mueven el cañón y su PuntoDisparo
-            GameObject montaje = TE.Vacio("Montaje_Canon", raiz.transform, new Vector3(0f, 0.78f, 0.6f));
+            GameObject montaje = TE.Vacio("Montaje_Canon", maqueta.transform, new Vector3(0f, 0.78f, 0.6f));
             montaje.AddComponent<ApuntarRM>();
 
             // ---- Paso 3: Crear el Cañón
@@ -621,12 +626,14 @@ namespace TecEmergentes
             gatillo.mensaje = "Disparar";
 
             // Cureña (adorno) y blancos para ver el efecto físico de las balas
-            GameObject curena = TE.Vacio("Curena", raiz.transform, new Vector3(0f, 0f, 1.35f));
+            GameObject curena = TE.Vacio("Curena", maqueta.transform, new Vector3(0f, 0f, 1.35f));
             TE.Adorno(PrimitiveType.Cube, "Soporte", curena.transform, new Vector3(0f, 0.13f, 0f), Vector3.zero, new Vector3(1.25f, 0.26f, 1.5f), madera);
             TE.Adorno(PrimitiveType.Cylinder, "Rueda_izquierda", curena.transform, new Vector3(-0.68f, 0.42f, -0.1f), new Vector3(0f, 0f, 90f), new Vector3(0.84f, 0.05f, 0.84f), madera);
             TE.Adorno(PrimitiveType.Cylinder, "Rueda_derecha", curena.transform, new Vector3(0.68f, 0.42f, -0.1f), new Vector3(0f, 0f, 90f), new Vector3(0.84f, 0.05f, 0.84f), madera);
 
-            GameObject blancos = TE.Vacio("Blancos", raiz.transform, new Vector3(0f, 0f, 6.6f));
+            // Los blancos van fuera de la maqueta: a escala 0.4 medirían 16 cm y la bala (20 m/s, 0.4 m por paso de
+            // física) a veces los atravesaba sin tocarlos (tunneling, como en Físicas S2). Con 25 cm siempre chocan.
+            GameObject blancos = TE.Vacio("Blancos", raiz.transform, new Vector3(0f, 0f, 3.0f));
             Material[] colores = { TE.Mat("Azul", Azul), TE.Mat("Amarillo", Amarillo), TE.Mat("Verde", Verde) };
             int numero = 0;
             for (int fila = 0; fila < 3; fila++)
@@ -635,16 +642,16 @@ namespace TecEmergentes
                 for (int i = 0; i < enFila; i++)
                 {
                     numero++;
-                    float x = (i - (enFila - 1) / 2f) * 0.42f;
-                    GameObject caja = TE.Prim(PrimitiveType.Cube, "Blanco_" + numero.ToString("00"), blancos.transform, new Vector3(x, 0.2f + fila * 0.4f, 0f), Vector3.zero, Vector3.one * 0.4f, colores[fila]);
+                    float x = (i - (enFila - 1) / 2f) * 0.27f;
+                    GameObject caja = TE.Prim(PrimitiveType.Cube, "Blanco_" + numero.ToString("00"), blancos.transform, new Vector3(x, 0.125f + fila * 0.25f, 0f), Vector3.zero, Vector3.one * 0.25f, colores[fila]);
                     caja.AddComponent<Rigidbody>().mass = 0.5f;
                 }
             }
 
-            TE.Etiqueta("Gatillo derecho (o clic) = Disparar()\nInstantiate crea la bala · AddForce la empuja · Destroy la borra a los 3 s\nPalanca derecha (o flechas) = apuntar", raiz.transform, new Vector3(0f, 1.9f, 3.2f), 0.065f, TextoSuave);
+            TE.Etiqueta("Gatillo derecho (o clic) = Disparar()\nInstantiate crea la bala · AddForce la empuja · Destroy la borra a los 3 s\nPalanca derecha (o flechas) = apuntar", raiz.transform, new Vector3(0f, 1.2f, 2.2f), 0.05f, TextoSuave);
 
             // Cámara de evidencia alta y en 3/4 desde atrás a la izquierda: desde atrás el tubo tapaba la trayectoria y los blancos
-            TE.InfraestructuraRM(3, new Vector3(0f, 0.8f, 3.8f), 6.2f, 3.4f, 25f, 205f);
+            TE.InfraestructuraRM(3, new Vector3(0f, 0.35f, 1.7f), 3.0f, 1.6f, 25f, 205f);
             TE.GuardarEscena(escena, "Canon_Autonomo");
         }
 

@@ -456,6 +456,19 @@ namespace TecEmergentes
 
             Material mat = MatEmisivo("Mano_RM", new Color(0.2f, 0.9f, 1f), new Color(0.1f, 0.7f, 0.9f));
             Adorno(PrimitiveType.Sphere, derecha ? "Puntero_derecho" : "Puntero_izquierdo", ancla, Vector3.zero, Vector3.zero, Vector3.one * 0.03f, mat);
+
+            // Rayo del agarre a distancia (ManoRM lo enciende solo cuando apunta a algo que se puede agarrar)
+            GameObject rayoGo = new GameObject(derecha ? "Rayo_derecho" : "Rayo_izquierdo");
+            rayoGo.transform.SetParent(ancla, false);
+            LineRenderer linea = rayoGo.AddComponent<LineRenderer>();
+            linea.sharedMaterial = MatEstela("Rayo_RM", new Color(0.3f, 0.9f, 1f, 0.7f));
+            linea.positionCount = 2;
+            linea.useWorldSpace = true;
+            linea.widthMultiplier = 0.006f;
+            linea.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            linea.receiveShadows = false;
+            linea.enabled = false;
+            mano.rayo = linea;
         }
 
         public static string V(Vector3 v)
