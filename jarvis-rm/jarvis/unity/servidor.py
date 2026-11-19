@@ -3,8 +3,12 @@
 El visor (Unity en el Meta Quest 3) se conecta por WebSocket a esta laptop y queda a la espera
 de órdenes. Los mensajes son objetos JSON planos con un campo `tipo`:
 
-  Laptop -> visor   estado, oido, decir, panel, crear, lanzar, gravedad, limpiar, metricas, pong
-  Visor  -> laptop  hola, ping, ack, boton, latencia, evento
+  Laptop -> visor   estado, oido, decir, panel, crear, lanzar, gravedad, limpiar, metricas, pong,
+                    catalogo, tableta, modelo (accion: cargar, despiezar, girar, aislar, ocultar,
+                    mostrar, resaltar, mostrar_todo, escala, cerrar), captura y salir (solo sin visor)
+  Visor  -> laptop  hola, ping, ack, boton, latencia, evento (nombre "pedido": lo pulsado en la tableta),
+                    voz_fin, y audio binario del micrófono (ver audio_visor.py)
+  Laptop -> visor   también pitido (va a escuchar) y la voz de Jarvis como binario
 
 Además contesta por UDP las preguntas de descubrimiento ("JARVIS-RM?") para que el visor encuentre
 la laptop sin escribir la IP.
@@ -51,9 +55,11 @@ class ServidorUnity:
         puerto_baliza: int = 8766,
         token: str = "",
         al_evento: Callable[[dict], None] | None = None,
+        al_binario: Callable[[bytes], None] | None = None,
     ):
         self.host, self.puerto, self.puerto_baliza, self.token = host, puerto, puerto_baliza, token
         self._al_evento = al_evento
+        self.al_binario = al_binario   # audio del micrófono del visor (ver audio_visor.py)
         self._visores: list[Visor] = []
         self._pendientes: dict[int, asyncio.Future] = {}
         self._siguiente_id = 0
@@ -133,6 +139,13 @@ class ServidorUnity:
         try:
             await conexion.send(json.dumps({"tipo": "bienvenida", "version": VERSION_PROTOCOLO}))
             async for crudo in conexion:
+                if isinstance(crudo, bytes):
+                    if visor.autenticado and self.al_binario is not None:
+                        try:
+                            self.al_binario(crudo)
+                        except Exception as e:  # noqa: BLE001 - un error de audio no debe tirar la conexión
+                            print(f"[unity] error con el audio del visor: {e!r}")
+                    continue
                 try:
                     mensaje = json.loads(crudo)
                     tipo = mensaje.get("tipo", "")
@@ -172,7 +185,7 @@ class ServidorUnity:
         elif tipo == "latencia":
             visor.rtt_ms = float(m.get("rtt_ms", 0.0))
             visor.jitter_ms = float(m.get("jitter_ms", 0.0))
-        elif tipo in ("boton", "evento"):
+        elif tipo in ("boton", "evento", "voz_fin"):
             self._emitir(m)
 
     def _emitir(self, evento: dict) -> None:
@@ -200,10 +213,17 @@ class ServidorUnity:
         asyncio.run_coroutine_threadsafe(self._difundir(json.dumps(mensaje, ensure_ascii=False)), self._loop)
         return True
 
+    def enviar_binario(self, datos: bytes) -> bool:
+        """Manda datos binarios (la voz de Jarvis) a todos los visores sin esperar respuesta."""
+        if self._loop is None or not self.conectado:
+            return False
+        asyncio.run_coroutine_threadsafe(self._difundir(datos), self._loop)
+        return True
+
     def orden(self, mensaje: dict, espera: float = 3.0) -> str:
         """Manda una orden y espera el acuse (`ack`) del visor. Devuelve un texto para el modelo."""
         if self._loop is None or not self.conectado:
-            return "El visor no está conectado: abre la escena Jarvis_RM en el Quest 3."
+            return "El visor no está conectado: abre la app Jarvis RM en el Quest 3."
         try:
             ack = asyncio.run_coroutine_threadsafe(self._ordenar(mensaje, espera), self._loop).result(espera + 1)
         except (FutureTimeout, asyncio.TimeoutError):
@@ -223,7 +243,7 @@ class ServidorUnity:
         finally:
             self._pendientes.pop(ident, None)
 
-    async def _difundir(self, texto: str) -> None:
+    async def _difundir(self, texto: str | bytes) -> None:
         for visor in self.visores:
             try:
                 await visor.conexion.send(texto)
