@@ -186,27 +186,27 @@ def seccion_practica(p: dict) -> str:
 DIAGRAMA = """
 <svg class="diagrama" viewBox="0 0 880 330" role="img" aria-labelledby="dt dd">
   <title id="dt">Arquitectura de Jarvis en realidad mixta</title>
-  <desc id="dd">El Meta Quest 3 con la escena de Unity se comunica por Wi-Fi con la laptop: una pregunta UDP para encontrarla y un WebSocket para las órdenes. La laptop consulta a Claude por internet.</desc>
+  <desc id="dd">El Meta Quest 3 con la app Jarvis RM se comunica por Wi-Fi con la laptop: una pregunta UDP para encontrarla, un WebSocket para las órdenes, los acuses y el audio del micrófono, y HTTP para descargar los robots. La laptop pasa la voz a texto, consulta a Claude por internet y contesta con voz.</desc>
   <defs>
     <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
   </defs>
   <g class="caja"><rect x="10" y="30" width="270" height="270" rx="6"/>
     <text x="28" y="62" class="t1">Meta Quest 3</text>
-    <text x="28" y="84" class="t2">Unity, escena Jarvis_RM</text>
-    <rect class="sub" x="28" y="104" width="234" height="52" rx="4"/><text x="40" y="126" class="t3">JarvisRM</text><text x="40" y="145" class="t4">ejecuta las órdenes en la escena</text>
-    <rect class="sub" x="28" y="166" width="234" height="52" rx="4"/><text x="40" y="188" class="t3">JarvisEnlace</text><text x="40" y="207" class="t4">red, acuses y medición de latencia</text>
-    <rect class="sub" x="28" y="228" width="234" height="52" rx="4"/><text x="40" y="250" class="t3">OVRCameraRig + passthrough</text><text x="40" y="269" class="t4">Meta XR Core SDK</text>
+    <text x="28" y="84" class="t2">Unity, app Jarvis RM</text>
+    <rect class="sub" x="28" y="104" width="234" height="52" rx="4"/><text x="40" y="126" class="t3">HUD</text><text x="40" y="145" class="t4">reactor, panel y tableta de modelos</text>
+    <rect class="sub" x="28" y="166" width="234" height="52" rx="4"/><text x="40" y="188" class="t3">Robots (GLB)</text><text x="40" y="207" class="t4">piezas, articulaciones, mano espejo</text>
+    <rect class="sub" x="28" y="228" width="234" height="52" rx="4"/><text x="40" y="250" class="t3">Micrófono, bocinas, passthrough</text><text x="40" y="269" class="t4">Meta XR Core SDK</text>
   </g>
   <g class="caja"><rect x="520" y="30" width="350" height="270" rx="6"/>
     <text x="538" y="62" class="t1">Laptop (Ubuntu)</text>
     <text x="538" y="84" class="t2">Jarvis en Python: uv run jarvis-rm</text>
-    <rect class="sub" x="538" y="104" width="314" height="52" rx="4"/><text x="550" y="126" class="t3">Servidor del enlace</text><text x="550" y="145" class="t4">WebSocket 8765 y descubrimiento UDP 8766</text>
-    <rect class="sub" x="538" y="166" width="314" height="52" rx="4"/><text x="550" y="188" class="t3">Orquestador + herramientas unity_*</text><text x="550" y="207" class="t4">le pregunta a Claude qué hacer</text>
-    <rect class="sub" x="538" y="228" width="314" height="52" rx="4"/><text x="550" y="250" class="t3">Oído y voz</text><text x="550" y="269" class="t4">«Hey Jarvis», faster-whisper y Piper</text>
+    <rect class="sub" x="538" y="104" width="314" height="52" rx="4"/><text x="550" y="126" class="t3">Enlace y modelos</text><text x="550" y="145" class="t4">WebSocket 8765, UDP 8766, HTTP 8767</text>
+    <rect class="sub" x="538" y="166" width="314" height="52" rx="4"/><text x="550" y="188" class="t3">Orquestador + Claude</text><text x="550" y="207" class="t4">herramientas unity_*, música y archivos</text>
+    <rect class="sub" x="538" y="228" width="314" height="52" rx="4"/><text x="550" y="250" class="t3">Oído y voz</text><text x="550" y="269" class="t4">«Oye Jarvis», faster-whisper y Piper</text>
   </g>
   <g class="flecha z"><line x1="292" y1="118" x2="508" y2="118" marker-start="url(#f)" marker-end="url(#f)"/><text x="400" y="108" text-anchor="middle">descubrimiento UDP, puerto 8766</text></g>
-  <g class="flecha y"><line x1="292" y1="180" x2="508" y2="180" marker-start="url(#f)" marker-end="url(#f)"/><text x="400" y="170" text-anchor="middle">órdenes y acuses (WebSocket)</text></g>
-  <g class="flecha x"><line x1="292" y1="242" x2="508" y2="242" marker-start="url(#f)" marker-end="url(#f)"/><text x="400" y="232" text-anchor="middle">ping y pong: latencia</text></g>
+  <g class="flecha y"><line x1="292" y1="180" x2="508" y2="180" marker-start="url(#f)" marker-end="url(#f)"/><text x="400" y="170" text-anchor="middle">órdenes, acuses y audio (WebSocket)</text></g>
+  <g class="flecha x"><line x1="508" y1="242" x2="292" y2="242" marker-end="url(#f)"/><text x="400" y="232" text-anchor="middle">robots en GLB (HTTP 8767)</text></g>
   <text x="400" y="290" text-anchor="middle" class="t4">Wi-Fi de la red local</text>
 </svg>"""
 
@@ -230,9 +230,16 @@ def seccion_proyecto() -> str:
                   "con el visor conectado a la red de la casa.</div>")
     jerarquia = ""
     if ev["jerarquia"]:
-        jerarquia = ('<details class="jerarquia"><summary>Jerarquía de la escena Jarvis_RM en Unity</summary>'
+        jerarquia = ('<details class="jerarquia"><summary>Jerarquía de la escena Jarvis_RM (primera versión) en Unity</summary>'
                      f'<div class="arbol">{arbol_de_escena(ev["jerarquia"])}</div></details>')
     video = bloque_evidencia({"escena": PROYECTO["escena"], "pie_video": PROYECTO.get("pie_video")}, ev)
+    capacidades = "".join(f"<li>{e(t)}</li>" for t in PROYECTO.get("capacidades", []))
+    capturas = ""
+    if PROYECTO.get("capturas"):
+        capturas = '<div class="fotos">' + "".join(
+            f'<figure><a href="{e(r)}"><img src="{e(r)}" alt="{e(t)}" loading="lazy"></a><figcaption>{e(t)}</figcaption></figure>'
+            for r, t in PROYECTO["capturas"] if (RAIZ / r).is_file()) + "</div>"
+        capturas += f'<p class="nota">{e(PROYECTO.get("nota_capturas", ""))}</p>' if PROYECTO.get("nota_capturas") else ""
     return f"""
 <section id="proyecto">
   <h2>Proyecto final</h2>
@@ -241,6 +248,12 @@ def seccion_proyecto() -> str:
       <h3>{e(PROYECTO['titulo'])}</h3>
       <p class="objetivo">{e(PROYECTO['resumen'])}</p>
     </header>
+    <h4>Lo que hace</h4>
+    <ul class="observado">{capacidades}</ul>
+    {capturas}
+
+    <h4>Primera versión</h4>
+    <p>Antes de la app actual, Jarvis vivía en la escena <code>Jarvis_RM</code> del proyecto de las prácticas. Este video es de esa versión.</p>
     {video}
     <h4>Cómo está armado</h4>
     {DIAGRAMA}
@@ -275,7 +288,8 @@ def seccion_proyecto() -> str:
     </table></div>
 
     <h4>Cómo se construyó</h4>
-    <p>Las escenas las arma un script de editor (<code>Assets/Editor/ConstructorPracticas.cs</code>) que sigue el paso a paso de las presentaciones. Claude lo opera desde fuera de Unity con el Puente Jarvis (<code>Assets/PuenteJarvis</code>): deja órdenes como archivos JSON en una carpeta y el editor las ejecuta, reporta errores de compilación, saca capturas y graba los videos de esta página.</p>
+    <p>La app actual es un proyecto de Unity aparte (mismas versiones que la clase: Unity 2022.3.58f1 y Meta XR Core SDK 85, más glTFast para los robots). Su escena la arma <code>ConstructorJarvisRM.cs</code> y casi todo el HUD se crea al iniciar; los robots se convierten de MuJoCo Menagerie a GLB con sus piezas y articulaciones (<code>jarvis-rm/jarvis/modelos</code>). El código está en la carpeta <a href="jarvis-rm/">jarvis-rm</a> de este repositorio.</p>
+    <p>Las escenas de las prácticas las arma un script de editor (<code>Assets/Editor/ConstructorPracticas.cs</code>) que sigue el paso a paso de las presentaciones. Claude lo opera desde fuera de Unity con el Puente Jarvis (<code>Assets/PuenteJarvis</code>): deja órdenes como archivos JSON en una carpeta y el editor las ejecuta, reporta errores de compilación, saca capturas y graba los videos de esta página.</p>
     {jerarquia}
 
     <h4>Lo que sigue</h4>
