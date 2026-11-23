@@ -36,7 +36,7 @@ PUENTE = PROYECTO / "PuenteJarvis"
 EVIDENCIAS = RAIZ / "evidencias"
 
 ESCENAS = ["objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM",
-           "Inicio", "Actividad1", "Actividad2", "MQTT_Figuras"]
+           "Inicio", "Actividad1", "Actividad2", "MQTT_Figuras", "MQTT_Carro"]
 
 # Objetos cuyo Inspector se captura como evidencia de cada práctica
 INSPECTOR = {
@@ -49,6 +49,7 @@ INSPECTOR = {
     "Jarvis_RM": ["Jarvis_RM"],
     "Inicio": ["Navegador", "Boton_Actividad1"],
     "MQTT_Figuras": ["MQTT_Manager", "Boton_Publicar", "Figura_Robot"],
+    "MQTT_Carro": ["MQTT_Manager", "Carro_Omnidireccional", "Boton_adelante"],
 }
 
 
@@ -78,6 +79,13 @@ ACCIONES = {
         {"t": 16.0, "objetivo": "Figura_Cubo", "mensaje": "Tocar"},
         {"t": 18.0, "objetivo": "Boton_Publicar", "mensaje": "Pulsar"},
     ],
+    # Carro MQTT: se pulsan los botones del control virtual, que publican lo mismo que la ESP32; el carro solo se
+    # mueve cuando el mensaje regresa del broker. No hay placa: es simulado y la página lo dice.
+    "MQTT_Carro": [{"t": t, "objetivo": "Boton_" + b, "mensaje": "Pulsar"} for t, b in [
+        (2.5, "luces"), (3.5, "adelante"), (5.0, "derecha"), (6.5, "adelante_izquierda"), (8.0, "girar_izquierda"),
+        (9.5, "direccional_izquierda"), (10.0, "izquierda"), (11.5, "alto"), (12.0, "direccional_derecha"),
+        (12.5, "atras_derecha"), (14.0, "girar_derecha"), (15.5, "alto"), (16.0, "direccional_derecha"),
+        (17.0, "atras"), (18.3, "alto"), (19.0, "luces")]],
     # El cañón dispara cada 1.2 s (lo mismo que hace el clic o el gatillo derecho)
     "Canon_Autonomo": [{"t": round(1.0 + 1.2 * i, 1), "objetivo": "Cañon", "mensaje": "Disparar"} for i in range(15)],
     # Mismo empuje a los cubos de masa 1, 10 y 100; después se repite la caída

@@ -58,7 +58,8 @@ namespace TecEmergentes
                 new KeyValuePair<string, Action>("Inicio", EscenaInicio),
                 new KeyValuePair<string, Action>("Actividad1", EscenaActividad1),
                 new KeyValuePair<string, Action>("Actividad2", EscenaActividad2),
-                new KeyValuePair<string, Action>("MQTT_Figuras", EscenaMQTT)
+                new KeyValuePair<string, Action>("MQTT_Figuras", EscenaMQTT),
+                new KeyValuePair<string, Action>("MQTT_Carro", EscenaCarro)
             };
 
             string resumen = "";
@@ -105,6 +106,7 @@ namespace TecEmergentes
                 case "Actividad1": EscenaActividad1(); break;
                 case "Actividad2": EscenaActividad2(); break;
                 case "MQTT_Figuras": EscenaMQTT(); break;
+                case "MQTT_Carro": EscenaCarro(); break;
                 default: return "No existe la práctica " + nombre;
             }
             AssetDatabase.SaveAssets();
@@ -327,6 +329,174 @@ namespace TecEmergentes
             GameObject rm = TE.InfraestructuraRM(Array.IndexOf(TE.Escenas, "MQTT_Figuras"), new Vector3(0.3f, 1.28f, 0.7f), 1.35f, 1.6f, 10f);
             TE.AgregarTocador(rm);
             TE.GuardarEscena(escena, "MQTT_Figuras");
+        }
+
+        // ================================================================== Conectividad IoT: MQTT, ejercicio 2
+        // Mqtt.pptx:
+        //   Diapositivas 4 y 5: instalar el broker Mosquitto en la computadora (listener 1883 0.0.0.0, allow_anonymous true).
+        //   Diapositiva 9, ejercicio 2: "Crear un carro omnidireccional en realidad mixta que reciba los movimientos desde una
+        //                  placa de desarrollo ESP32 por MQTT con botones, así como poder encender luces y marcar direccionales."
+        // La presentación no trae código para este ejercicio: CarroMQTT sigue el esquema de MQTTBasico y el programa de la
+        // ESP32 está en esp32/carro_mqtt del repositorio. ControlVirtualESP32 publica lo mismo que la placa, para probar sin ella.
+
+        private static void EscenaCarro()
+        {
+            TE.AsegurarTMP();
+            Scene escena = TE.NuevaEscena();
+            GameObject raiz = TE.Vacio("Practica_MQTT_Carro", null, Vector3.zero);
+            Vector3 centroPista = new Vector3(0f, 0f, 1.7f);
+
+            // Pista: un tapete transparente sobre el piso real, con cuadrícula de 40 cm y orilla
+            GameObject pista = TE.Vacio("Pista", raiz.transform, centroPista);
+            TE.Adorno(PrimitiveType.Quad, "Tapete", pista.transform, new Vector3(0f, 0.002f, 0f), new Vector3(90f, 0f, 0f), new Vector3(2.4f, 2.4f, 1f),
+                TE.MatTransparente("Pista_Carro", new Color(0.25f, 0.45f, 0.7f, 0.22f)));
+            Material raya = TE.MatTransparente("Raya_Pista", new Color(0.3f, 0.85f, 1f, 0.35f)), orilla = TE.Mat("Cian", Cian);
+            for (int i = -3; i <= 3; i++)
+            {
+                bool esOrilla = Mathf.Abs(i) == 3;
+                float d = i * 0.4f, grosor = esOrilla ? 0.02f : 0.006f;
+                TE.Adorno(PrimitiveType.Cube, "Raya_x" + (i + 3), pista.transform, new Vector3(d, 0.004f, 0f), Vector3.zero, new Vector3(grosor, 0.002f, 2.4f), esOrilla ? orilla : raya);
+                TE.Adorno(PrimitiveType.Cube, "Raya_z" + (i + 3), pista.transform, new Vector3(0f, 0.004f, d), Vector3.zero, new Vector3(2.4f, 0.002f, grosor), esOrilla ? orilla : raya);
+            }
+
+            // Carro omnidireccional de juguete (45 cm) armado con primitivas: chasis, cubierta, defensas y cuatro ruedas mecanum
+            GameObject carroGo = TE.Vacio("Carro_Omnidireccional", raiz.transform, new Vector3(0f, 0f, 1.4f));
+            carroGo.transform.localScale = Vector3.one * 1.5f;
+            Transform c = carroGo.transform;
+            Material oscuro = TE.Mat("Gris_Oscuro", GrisOscuro), negro = TE.Mat("Negro", new Color(0.06f, 0.06f, 0.07f)), gris = TE.Mat("Gris", Gris);
+            TE.Adorno(PrimitiveType.Cube, "Chasis", c, new Vector3(0f, 0.07f, 0f), Vector3.zero, new Vector3(0.19f, 0.05f, 0.3f), TE.Mat("Carro_Cuerpo", new Color(0.15f, 0.55f, 0.95f), 0.6f));
+            TE.Adorno(PrimitiveType.Cube, "Cubierta", c, new Vector3(0f, 0.11f, -0.02f), Vector3.zero, new Vector3(0.15f, 0.03f, 0.16f), oscuro);
+            TE.Adorno(PrimitiveType.Cube, "Defensa_delantera", c, new Vector3(0f, 0.06f, 0.16f), Vector3.zero, new Vector3(0.17f, 0.025f, 0.02f), oscuro);
+            TE.Adorno(PrimitiveType.Cube, "Defensa_trasera", c, new Vector3(0f, 0.06f, -0.16f), Vector3.zero, new Vector3(0.17f, 0.025f, 0.02f), oscuro);
+            TE.Adorno(PrimitiveType.Cylinder, "Antena", c, new Vector3(0.05f, 0.16f, -0.08f), Vector3.zero, new Vector3(0.004f, 0.035f, 0.004f), oscuro);
+            TE.Adorno(PrimitiveType.Sphere, "Punta_antena", c, new Vector3(0.05f, 0.197f, -0.08f), Vector3.zero, Vector3.one * 0.012f, orilla);
+            // Los rodillos de las ruedas forman una X vistos desde arriba: eso deja que el carro vaya de lado
+            Transform ruedaDI = RuedaMecanum("Rueda_delantera_izquierda", c, new Vector3(-0.125f, 0.045f, 0.1f), 1f, negro, gris);
+            Transform ruedaDD = RuedaMecanum("Rueda_delantera_derecha", c, new Vector3(0.125f, 0.045f, 0.1f), -1f, negro, gris);
+            Transform ruedaTI = RuedaMecanum("Rueda_trasera_izquierda", c, new Vector3(-0.125f, 0.045f, -0.1f), -1f, negro, gris);
+            Transform ruedaTD = RuedaMecanum("Rueda_trasera_derecha", c, new Vector3(0.125f, 0.045f, -0.1f), 1f, negro, gris);
+
+            // Luces: faros y calaveras, más una luz de foco que ilumina la pista; direccionales en las cuatro esquinas
+            Material faroApagado = TE.Mat("Faro_Apagado", new Color(0.55f, 0.55f, 0.5f));
+            Material faroEncendido = TE.MatEmisivo("Faro_Encendido", new Color(1f, 0.97f, 0.85f), new Color(1.6f, 1.5f, 1.2f));
+            Material calaveraBaja = TE.MatEmisivo("Calavera_Baja", new Color(0.45f, 0.06f, 0.06f), new Color(0.25f, 0.02f, 0.02f));
+            Material calaveraAlta = TE.MatEmisivo("Calavera_Alta", new Color(1f, 0.15f, 0.12f), new Color(1.5f, 0.1f, 0.08f));
+            Material direccionalApagada = TE.Mat("Direccional_Apagada", new Color(0.45f, 0.3f, 0.08f));
+            Material direccionalEncendida = TE.MatEmisivo("Direccional_Encendida", new Color(1f, 0.65f, 0.1f), new Color(2f, 1.1f, 0.1f));
+            Renderer Pieza(PrimitiveType tipo, string nombre, Vector3 pos, Vector3 escala, Material mat) =>
+                TE.Adorno(tipo, nombre, c, pos, Vector3.zero, escala, mat).GetComponent<Renderer>();
+            Vector3 faro = Vector3.one * 0.026f, calavera = new Vector3(0.045f, 0.016f, 0.006f), direccional = Vector3.one * 0.02f;
+
+            CarroOmnidireccional carro = carroGo.AddComponent<CarroOmnidireccional>();
+            carro.faros = new[] { Pieza(PrimitiveType.Sphere, "Faro_izquierdo", new Vector3(-0.055f, 0.09f, 0.15f), faro, faroApagado),
+                                  Pieza(PrimitiveType.Sphere, "Faro_derecho", new Vector3(0.055f, 0.09f, 0.15f), faro, faroApagado) };
+            carro.calaveras = new[] { Pieza(PrimitiveType.Cube, "Calavera_izquierda", new Vector3(-0.055f, 0.085f, -0.151f), calavera, calaveraBaja),
+                                      Pieza(PrimitiveType.Cube, "Calavera_derecha", new Vector3(0.055f, 0.085f, -0.151f), calavera, calaveraBaja) };
+            carro.direccionalesIzquierdas = new[] { Pieza(PrimitiveType.Cube, "Direccional_delantera_izquierda", new Vector3(-0.088f, 0.098f, 0.14f), direccional, direccionalApagada),
+                                                    Pieza(PrimitiveType.Cube, "Direccional_trasera_izquierda", new Vector3(-0.088f, 0.098f, -0.14f), direccional, direccionalApagada) };
+            carro.direccionalesDerechas = new[] { Pieza(PrimitiveType.Cube, "Direccional_delantera_derecha", new Vector3(0.088f, 0.098f, 0.14f), direccional, direccionalApagada),
+                                                  Pieza(PrimitiveType.Cube, "Direccional_trasera_derecha", new Vector3(0.088f, 0.098f, -0.14f), direccional, direccionalApagada) };
+            Light luz = TE.Vacio("Luz_faros", c, new Vector3(0f, 0.09f, 0.17f), new Vector3(28f, 0f, 0f)).AddComponent<Light>();
+            luz.type = LightType.Spot;
+            luz.range = 1.6f;
+            luz.spotAngle = 70f;
+            luz.intensity = 3f;
+            luz.color = new Color(1f, 0.95f, 0.8f);
+            luz.shadows = LightShadows.None;
+            luz.enabled = false;
+            carro.luzFaros = luz;
+            carro.faroApagado = faroApagado;
+            carro.faroEncendido = faroEncendido;
+            carro.calaveraBaja = calaveraBaja;
+            carro.calaveraAlta = calaveraAlta;
+            carro.direccionalApagada = direccionalApagada;
+            carro.direccionalEncendida = direccionalEncendida;
+            carro.ruedaDelanteraIzquierda = ruedaDI;
+            carro.ruedaDelanteraDerecha = ruedaDD;
+            carro.ruedaTraseraIzquierda = ruedaTI;
+            carro.ruedaTraseraDerecha = ruedaTD;
+            carro.radioRueda = 0.045f * 1.5f;
+            carro.mitadEjes = (0.125f + 0.1f) * 1.5f;
+            carro.centroPista = centroPista;
+            carro.mitadPista = new Vector2(0.95f, 0.95f);
+
+            // Como en el ejercicio 1: un objeto vacío MQTT_Manager con el cliente MQTT
+            CarroMQTT mqtt = TE.Vacio("MQTT_Manager", raiz.transform, Vector3.zero).AddComponent<CarroMQTT>();
+            mqtt.carro = carro;
+
+            // Tablero de estado detrás de la pista
+            Canvas tablero = TE.CanvasMundo("Tablero", raiz.transform, new Vector3(0f, 1.12f, 3.05f), new Vector2(980f, 300f), new Color(0.06f, 0.08f, 0.11f, 0.85f));
+            tablero.transform.localScale = Vector3.one * 0.0016f;
+            TE.TextoUI("Carro omnidireccional · MQTT", tablero.transform, new Vector2(0f, 105f), new Vector2(940f, 70f), 54, Cian, "Titulo");
+            TE.TextoUI("Topics " + mqtt.topicBase + "/mover, /luces, /direccional y /estado", tablero.transform, new Vector2(0f, 52f), new Vector2(940f, 40f), 26, TextoSuave, "Topics");
+            mqtt.textoEstado = TE.TextoUI("Conectando...", tablero.transform, new Vector2(0f, -55f), new Vector2(940f, 150f), 34, Texto, "Texto_Estado");
+
+            // Control virtual con los mismos botones y mensajes que la ESP32, para probar sin la placa
+            Canvas panel = TE.CanvasMundo("Control_ESP32_virtual", raiz.transform, new Vector3(-0.5f, 1.0f, 0.4f), new Vector2(640f, 560f), new Color(0.05f, 0.07f, 0.1f, 0.88f));
+            panel.transform.localEulerAngles = new Vector3(30f, -40f, 0f);
+            panel.transform.localScale = Vector3.one * 0.0008f;   // 51 x 45 cm, a la mano izquierda
+            ControlVirtualESP32 control = panel.gameObject.AddComponent<ControlVirtualESP32>();
+            control.mqtt = mqtt;
+            TE.TextoUI("Control virtual · simula los botones de la ESP32", panel.transform, new Vector2(0f, 245f), new Vector2(600f, 44f), 26, TextoSuave, "Titulo");
+            Vector2 chico = new Vector2(180f, 76f), ancho = new Vector2(280f, 76f);
+            Color luces = new Color(0.8f, 0.6f, 0.08f);
+            var botones = new (string texto, string orden, Vector2 pos, Vector2 tam, Color color)[]
+            {
+                ("Adel. izq", "adelante_izquierda", new Vector2(-195f, 165f), chico, Azul),
+                ("Adelante", "adelante", new Vector2(0f, 165f), chico, Azul),
+                ("Adel. der", "adelante_derecha", new Vector2(195f, 165f), chico, Azul),
+                ("Izquierda", "izquierda", new Vector2(-195f, 80f), chico, Azul),
+                ("Alto", "alto", new Vector2(0f, 80f), chico, Rojo),
+                ("Derecha", "derecha", new Vector2(195f, 80f), chico, Azul),
+                ("Atrás izq", "atras_izquierda", new Vector2(-195f, -5f), chico, Azul),
+                ("Atrás", "atras", new Vector2(0f, -5f), chico, Azul),
+                ("Atrás der", "atras_derecha", new Vector2(195f, -5f), chico, Azul),
+                ("Girar izquierda", "girar_izquierda", new Vector2(-147f, -95f), ancho, Morado),
+                ("Girar derecha", "girar_derecha", new Vector2(147f, -95f), ancho, Morado),
+                ("Luces", "luces", new Vector2(-195f, -185f), chico, luces),
+                ("Direc. izq", "direccional_izquierda", new Vector2(0f, -185f), chico, Naranja),
+                ("Direc. der", "direccional_derecha", new Vector2(195f, -185f), chico, Naranja),
+            };
+            foreach (var b in botones)
+            {
+                Button boton = TE.BotonUI(b.texto, panel.transform, b.pos, b.tam, b.color, "Boton_" + b.orden);
+                TextMeshProUGUI etiqueta = boton.GetComponentInChildren<TextMeshProUGUI>();
+                etiqueta.enableAutoSizing = true;
+                etiqueta.fontSizeMin = 18f;
+                etiqueta.fontSizeMax = 32f;
+                UnityEventTools.AddStringPersistentListener(boton.onClick, control.Pulsar, b.orden);
+            }
+
+            // Consola flotante: la conexión, cada botón y cada mensaje que llega
+            GameObject consola = TE.Vacio("Consola_RM", raiz.transform, new Vector3(-0.95f, 1.55f, 0.95f), new Vector3(0f, -45f, 0f));
+            TE.Adorno(PrimitiveType.Quad, "Fondo", consola.transform, new Vector3(0.31f, -0.1f, 0.01f), Vector3.zero, new Vector3(0.66f, 0.25f, 1f), TE.MatTransparente("Consola_Fondo", new Color(0.05f, 0.07f, 0.1f, 0.6f)));
+            ConsolaRM cr = consola.AddComponent<ConsolaRM>();
+            cr.titulo = "Consola (Debug.Log)";
+            cr.maximoDeLineas = 7;
+            cr.mostrarErrores = true;
+            cr.texto = TE.Etiqueta("Consola (Debug.Log)", consola.transform, Vector3.zero, 0.024f, new Color(0.75f, 1f, 0.8f), TextAnchor.UpperLeft, "Texto");
+
+            TE.SistemaDeEventos();
+            GameObject rm = TE.InfraestructuraRM(Array.IndexOf(TE.Escenas, "MQTT_Carro"), new Vector3(0.12f, 0.42f, 1.6f), 2.15f, 1.9f, 6f, 160f);
+            TE.AgregarTocador(rm);
+            TE.GuardarEscena(escena, "MQTT_Carro");
+        }
+
+        // Rueda mecanum: el pivote gira sobre su X local (el eje). Los rodillos van a 45° del eje; "sentido" decide
+        // hacia qué lado, para que entre las cuatro ruedas formen una X vistas desde arriba.
+        private static Transform RuedaMecanum(string nombre, Transform padre, Vector3 pos, float sentido, Material llanta, Material rodillo)
+        {
+            Transform pivote = TE.Vacio(nombre, padre, pos).transform;
+            TE.Adorno(PrimitiveType.Cylinder, "Llanta", pivote, Vector3.zero, new Vector3(0f, 0f, 90f), new Vector3(0.07f, 0.0175f, 0.07f), llanta);
+            for (int i = 0; i < 8; i++)
+            {
+                float a = i * 45f * Mathf.Deg2Rad;
+                Vector3 radial = new Vector3(0f, Mathf.Sin(a), Mathf.Cos(a));
+                Vector3 tangente = new Vector3(0f, Mathf.Cos(a), -Mathf.Sin(a));
+                GameObject r = TE.Adorno(PrimitiveType.Capsule, "Rodillo_" + i, pivote, radial * 0.038f, Vector3.zero, new Vector3(0.011f, 0.016f, 0.011f), rodillo);
+                r.transform.localRotation = Quaternion.FromToRotation(Vector3.up, (Vector3.right + sentido * tangente).normalized);
+            }
+            return pivote;
         }
 
         // ================================================================== Práctica 1: Game Object

@@ -147,6 +147,9 @@ namespace TecEmergentes
         [MenuItem("Tecnologías Emergentes/Abrir práctica/Conectividad IoT · MQTT", priority = 27)]
         private static void Abrir10() { Abrir(10); }
 
+        [MenuItem("Tecnologías Emergentes/Abrir práctica/Conectividad IoT · Carro MQTT", priority = 28)]
+        private static void Abrir11() { Abrir(11); }
+
         [MenuItem("Tecnologías Emergentes/Abrir práctica/Proyecto final · Jarvis en realidad mixta", priority = 40)]
         private static void Abrir6() { Abrir(6); }
 
