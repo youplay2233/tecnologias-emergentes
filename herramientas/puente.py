@@ -35,7 +35,8 @@ PROYECTO = RAIZ / "Practica_1_RM"
 PUENTE = PROYECTO / "PuenteJarvis"
 EVIDENCIAS = RAIZ / "evidencias"
 
-ESCENAS = ["objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM"]
+ESCENAS = ["objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM",
+           "Inicio", "Actividad1", "Actividad2"]
 
 # Objetos cuyo Inspector se captura como evidencia de cada práctica
 INSPECTOR = {
@@ -46,6 +47,7 @@ INSPECTOR = {
     "Fisica_Sesion1": ["Cubo_masa_100", "Objeto_A_Esfera", "Objeto_B_Cubo", "Objeto_C_Capsula"],
     "Fisica_Sesion2": ["Pelota", "Pelota_Continuous", "Obstaculo_2_MeshCollider"],
     "Jarvis_RM": ["Jarvis_RM"],
+    "Inicio": ["Navegador", "Boton_Actividad1"],
 }
 
 
@@ -56,6 +58,13 @@ def _simular(t: float, **mensaje) -> dict:
 
 # Lo que pasa durante los 20 s de cada video. El puente llama objetivo.SendMessage(mensaje[, arg]) en el segundo t.
 ACCIONES = {
+    # Conexión de escenas: se pulsan los botones (su On Click llama a NavegacionEscenas) y la grabación sigue en cada escena
+    "Inicio": [
+        {"t": 4.0, "objetivo": "Boton_Actividad1", "mensaje": "Pulsar"},
+        {"t": 9.0, "objetivo": "Boton_Actividad2", "mensaje": "Pulsar"},
+        {"t": 14.0, "objetivo": "Boton_Inicio", "mensaje": "Pulsar"},
+        {"t": 18.0, "objetivo": "Boton_Actividad2", "mensaje": "Pulsar"},
+    ],
     # El cañón dispara cada 1.2 s (lo mismo que hace el clic o el gatillo derecho)
     "Canon_Autonomo": [{"t": round(1.0 + 1.2 * i, 1), "objetivo": "Cañon", "mensaje": "Disparar"} for i in range(15)],
     # Mismo empuje a los cubos de masa 1, 10 y 100; después se repite la caída
@@ -178,7 +187,8 @@ def enviar(orden: dict, espera: float = 120.0, callado: bool = False) -> dict:
     if not (PUENTE / "entrada").is_dir():
         raise ErrorDePuente("No existe %s: abre el proyecto en Unity primero.\n%s" % (PUENTE / "entrada", describir_estado()))
     _contador += 1
-    ident = "%s_%02d_%s" % (time.strftime("%H%M%S"), _contador, orden.get("cmd", "orden"))
+    # Hora, proceso y contador: dos llamadas a este script en el mismo segundo no pueden chocar
+    ident = "%s_%05d_%02d_%s" % (time.strftime("%H%M%S"), os.getpid() % 100000, _contador, orden.get("cmd", "orden"))
     orden = dict(orden, id=ident)
 
     # Se escribe con otro nombre y se renombra: el puente nunca ve un archivo a medias

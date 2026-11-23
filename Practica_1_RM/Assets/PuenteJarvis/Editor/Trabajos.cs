@@ -353,13 +353,15 @@ namespace PuenteJarvis
                     ventanaTemporal.position = new Rect(80f, 40f, tipo.Name == "ConsoleWindow" ? 900f : 480f, 1000f);
                     v = ventanaTemporal;
                 }
-                // En el Inspector se pliegan Mesh Filter y Mesh Renderer (no dicen nada de la práctica) para que quepa
-                // todo el Rigidbody; se vuelven a desplegar al terminar.
+                // En el Inspector se pliegan Mesh Filter, Mesh Renderer y, en la UI, Rect Transform, Canvas Renderer e Image
+                // (no dicen nada de la práctica) para que quepa lo importante (Rigidbody, On Click); se despliegan al terminar.
                 if (tipo.Name == "InspectorWindow" && Selection.activeGameObject != null)
                 {
                     foreach (Component c in Selection.activeGameObject.GetComponents<Component>())
                     {
-                        if ((c is MeshFilter || c is MeshRenderer) && UnityEditorInternal.InternalEditorUtility.GetIsInspectorExpanded(c))
+                        string tipoC = c != null ? c.GetType().Name : "";
+                        bool plegar = tipoC == "MeshFilter" || tipoC == "MeshRenderer" || tipoC == "CanvasRenderer" || tipoC == "Image" || tipoC == "RectTransform";
+                        if (plegar && UnityEditorInternal.InternalEditorUtility.GetIsInspectorExpanded(c))
                         {
                             UnityEditorInternal.InternalEditorUtility.SetIsInspectorExpanded(c, false);
                             plegados.Add(c);
@@ -481,8 +483,14 @@ namespace PuenteJarvis
 
             if (camara == null)
             {
-                Fallar("la cámara de la grabación desapareció");
-                return;
+                // La práctica pudo cambiar de escena (Conexión de escenas): se sigue con la cámara de evidencia de la nueva
+                GameObject nueva = Inspeccion.Buscar(string.IsNullOrEmpty(o.nombre) ? "CamaraEvidencia" : o.nombre);
+                camara = nueva != null ? nueva.GetComponent<Camera>() : null;
+                if (camara == null)
+                {
+                    Fallar("la cámara de la grabación desapareció");
+                    return;
+                }
             }
 
             Capturas.LeerCamara(camara, rt, tex);
