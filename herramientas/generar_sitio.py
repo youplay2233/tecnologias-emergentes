@@ -9,6 +9,7 @@ Cada práctica busca sus evidencias en evidencias/<id>/:
   escena.png               captura de la escena
   inspector_*.png          capturas del Inspector
   consola.png              captura de la consola
+  mensajes.txt etc.        registro de texto que la práctica declare en "registro" (por ejemplo, los mensajes MQTT)
   jerarquia.txt            árbol de la escena tal como está en Unity
 """
 
@@ -131,6 +132,10 @@ def bloque_evidencia(p: dict, ev: dict) -> str:
         partes.append('<div class="fotos">' + "".join(
             f'<figure><a href="{e(r)}"><img src="{e(r)}" alt="{e(t)}" loading="lazy"></a><figcaption>{e(t)}</figcaption></figure>' for r, t in fotos
         ) + "</div>")
+    registro = p.get("registro")
+    if registro and (RAIZ / "evidencias" / p["id"] / registro["archivo"]).is_file():
+        texto = (RAIZ / "evidencias" / p["id"] / registro["archivo"]).read_text(encoding="utf-8").rstrip()
+        partes.append(f'<figure class="codigo"><figcaption>{e(registro["titulo"])}</figcaption><pre><code>{e(texto)}</code></pre></figure>')
     return "\n".join(partes)
 
 

@@ -258,7 +258,7 @@ footer p { max-width: 68ch; margin: 0; }
       <li><details open><summary><a href="#proyecto">Proyecto final</a></summary>
         <ul><li><a href="#Jarvis_RM">Jarvis en realidad mixta</a></li></ul></details></li>
       <li><details open><summary><a href="#practicas">Prácticas</a></summary>
-        <ul><li><a href="#objetos">Práctica 1: Game Objects</a></li><li><a href="#Parque_diversiones">Práctica 1: Parque de diversiones</a></li><li><a href="#Proyecto_final">Práctica 1: Propuesta de proyecto final</a></li><li><a href="#Canon_Autonomo">Práctica 3: El Cañón Autónomo</a></li><li><a href="#Fisica_Sesion1">Físicas, sesión 1: Rigidbody y gravedad</a></li><li><a href="#Fisica_Sesion2">Físicas, sesión 2: Colliders y colisiones</a></li><li><a href="#Inicio">Conexión de escenas</a></li></ul></details></li>
+        <ul><li><a href="#objetos">Práctica 1: Game Objects</a></li><li><a href="#Parque_diversiones">Práctica 1: Parque de diversiones</a></li><li><a href="#Proyecto_final">Práctica 1: Propuesta de proyecto final</a></li><li><a href="#Canon_Autonomo">Práctica 3: El Cañón Autónomo</a></li><li><a href="#Fisica_Sesion1">Físicas, sesión 1: Rigidbody y gravedad</a></li><li><a href="#Fisica_Sesion2">Físicas, sesión 2: Colliders y colisiones</a></li><li><a href="#Inicio">Conexión de escenas</a></li><li><a href="#MQTT_Figuras">Conectividad IoT: MQTT (ejercicio 1)</a></li></ul></details></li>
       <li><a href="#abrir">Abrir el proyecto</a></li>
     </ul>
   </details>
@@ -364,7 +364,7 @@ Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.<
     <h4>De las prácticas al proyecto</h4>
     <div class="tabla"><table>
       <thead><tr><th scope="col">Práctica</th><th scope="col">Qué se reutiliza</th></tr></thead>
-      <tbody><tr><th scope='row'><a href='#objetos'>Práctica 1: Game Objects</a></th><td>El núcleo de Jarvis y todo lo que crea a petición (cubos, esferas, cápsulas y cilindros) son estas mismas figuras con su Transform puesto por código.</td></tr><tr><th scope='row'><a href='#Parque_diversiones'>Práctica 1: Parque de diversiones</a></th><td>Jarvis está armado igual: un padre (el núcleo) con anillos y satélites como hijos que giran con él, y paneles que son instancias de un prefab.</td></tr><tr><th scope='row'><a href='#Proyecto_final'>Práctica 1: Propuesta de proyecto final</a></th><td>Esta escena es el boceto. La escena Jarvis_RM usa el mismo núcleo y el mismo prefab de panel, ya conectados al cerebro.</td></tr><tr><th scope='row'><a href='#Canon_Autonomo'>Práctica 3: El Cañón Autónomo</a></th><td>Cuando se le pide a Jarvis que lance algo, hace lo mismo que el cañón: crea el objeto y le da un empujón hacia el frente. También limita cuántos objetos existen para no llenar la memoria.</td></tr><tr><th scope='row'><a href='#Fisica_Sesion1'>Físicas, sesión 1: Rigidbody y gravedad</a></th><td>Todo lo que Jarvis crea lleva Rigidbody y cae sobre el piso real. La orden &quot;apaga la gravedad&quot; cambia Physics.gravity y los objetos quedan flotando.</td></tr><tr><th scope='row'><a href='#Fisica_Sesion2'>Físicas, sesión 2: Colliders y colisiones</a></th><td>Los objetos de Jarvis chocan entre sí y con un piso invisible puesto a la altura del piso real. Se pueden agarrar con el control, también a distancia (apuntando con el rayo), y lanzar: usan el mismo Rigidbody que la pelota.</td></tr><tr><th scope='row'><a href='#Inicio'>Conexión de escenas</a></th><td>Jarvis cambia lo que se ve sin cargar otra escena: todo vive en una sola escena y el HUD aparece o desaparece por órdenes. El menú de prácticas de esta app sí usa SceneManager.LoadScene, igual que NavegacionEscenas.</td></tr>
+      <tbody><tr><th scope='row'><a href='#objetos'>Práctica 1: Game Objects</a></th><td>El núcleo de Jarvis y todo lo que crea a petición (cubos, esferas, cápsulas y cilindros) son estas mismas figuras con su Transform puesto por código.</td></tr><tr><th scope='row'><a href='#Parque_diversiones'>Práctica 1: Parque de diversiones</a></th><td>Jarvis está armado igual: un padre (el núcleo) con anillos y satélites como hijos que giran con él, y paneles que son instancias de un prefab.</td></tr><tr><th scope='row'><a href='#Proyecto_final'>Práctica 1: Propuesta de proyecto final</a></th><td>Esta escena es el boceto. La escena Jarvis_RM usa el mismo núcleo y el mismo prefab de panel, ya conectados al cerebro.</td></tr><tr><th scope='row'><a href='#Canon_Autonomo'>Práctica 3: El Cañón Autónomo</a></th><td>Cuando se le pide a Jarvis que lance algo, hace lo mismo que el cañón: crea el objeto y le da un empujón hacia el frente. También limita cuántos objetos existen para no llenar la memoria.</td></tr><tr><th scope='row'><a href='#Fisica_Sesion1'>Físicas, sesión 1: Rigidbody y gravedad</a></th><td>Todo lo que Jarvis crea lleva Rigidbody y cae sobre el piso real. La orden &quot;apaga la gravedad&quot; cambia Physics.gravity y los objetos quedan flotando.</td></tr><tr><th scope='row'><a href='#Fisica_Sesion2'>Físicas, sesión 2: Colliders y colisiones</a></th><td>Los objetos de Jarvis chocan entre sí y con un piso invisible puesto a la altura del piso real. Se pueden agarrar con el control, también a distancia (apuntando con el rayo), y lanzar: usan el mismo Rigidbody que la pelota.</td></tr><tr><th scope='row'><a href='#Inicio'>Conexión de escenas</a></th><td>Jarvis cambia lo que se ve sin cargar otra escena: todo vive en una sola escena y el HUD aparece o desaparece por órdenes. El menú de prácticas de esta app sí usa SceneManager.LoadScene, igual que NavegacionEscenas.</td></tr><tr><th scope='row'><a href='#MQTT_Figuras'>Conectividad IoT: MQTT (ejercicio 1)</a></th><td>Jarvis habla con el visor por WebSocket y no por MQTT, porque cada orden espera su acuse y se mide el tiempo de ida y vuelta. MQTT es lo que falta para el ejercicio 2 y para conectar sensores y actuadores de una ESP32.</td></tr>
         <tr><th scope="row">Latencia y protocolos en CPS</th><td>UDP para el descubrimiento, TCP para las órdenes, medición de RTT y jitter, y la latencia separada en sensado, red, cómputo y actuación.</td></tr>
       </tbody>
     </table></div>
@@ -1385,6 +1385,234 @@ public class NavegacionEscenas : MonoBehaviour
     <p>Jarvis cambia lo que se ve sin cargar otra escena: todo vive en una sola escena y el HUD aparece o desaparece por órdenes. El menú de prácticas de esta app sí usa SceneManager.LoadScene, igual que NavegacionEscenas. <a href="#proyecto">Ver el proyecto</a></p>
   </aside>
   <p class="controles">Tocar un botón con la mano o el control, o apuntarle y apretar el gatillo. En el editor, clic con el mouse. Y / X: cambiar de práctica.</p>
+</article>
+
+<article class="practica" id="MQTT_Figuras">
+  <header>
+    <h3>Conectividad IoT: MQTT (ejercicio 1)</h3>
+    <p class="origen">Presentación: MQTT Unity. Escena: <code>Assets/Scene/MQTT_Figuras.unity</code></p>
+    <p class="objetivo">Mandar y recibir mensajes MQTT desde Unity: tres figuras geométricas y tres más complejas que, al tocarlas, cambian de color y avisan por MQTT qué se tocó y de qué color quedó.</p>
+  </header>
+  <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/MQTT_Figuras/poster.jpg"><source src="evidencias/MQTT_Figuras/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity. Los toques los dispara el grabador; cada mensaje sí pasa por test.mosquitto.org.</figcaption></figure>
+<div class="fotos"><figure><a href="evidencias/MQTT_Figuras/escena.png"><img src="evidencias/MQTT_Figuras/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png"><img src="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png" alt="Inspector de Boton Publicar." loading="lazy"></a><figcaption>Inspector de Boton Publicar.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_Figura_Robot.png"><img src="evidencias/MQTT_Figuras/inspector_Figura_Robot.png" alt="Inspector de Figura Robot." loading="lazy"></a><figcaption>Inspector de Figura Robot.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png"><img src="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png" alt="Inspector de MQTT Manager." loading="lazy"></a><figcaption>Inspector de MQTT Manager.</figcaption></figure></div>
+<figure class="codigo"><figcaption>Lo que recibió un cliente MQTT aparte en la laptop mientras se grababa el video (hora de la laptop)</figcaption><pre><code># 2026-11-23 14:13:44  suscrito a clase/te/quest3/texto en test.mosquitto.org:1883 (herramientas/mqtt_escucha.py, en la laptop)
+14:14:02.641  Tocaron: Cubo | Color: rojo
+14:14:03.772  Tocaron: Robot | Color: amarillo
+14:14:04.894  Tocaron: Esfera | Color: verde
+14:14:06.026  Tocaron: Muñeco de nieve | Color: morado
+14:14:07.153  Tocaron: Cilindro | Color: azul
+14:14:08.290  Tocaron: Cohete | Color: naranja
+14:14:09.509  Tocaron: Cubo | Color: verde
+14:14:10.541  Hola desde Unity</code></pre></figure>
+  <h4>Paso a paso</h4>
+  <ol class="pasos">
+<li><p class="pide">Window &gt; Package Manager &gt; + &gt; Add package from git URL: NuGetForUnity. Ya instalado, NuGet &gt; Manage NuGet Packages &gt; Online: MQTTnet versión 4.3.7.1207.</p><p class="hecho">NuGetForUnity está en Packages/manifest.json y MQTTnet 4.3.7.1207 en Assets/Packages. Tiene que ser esa versión: en la 5 cambiaron las clases y el script de la clase ya no compila.</p></li>
+<li><p class="pide">Crea un script MQTTBasico.cs: se conecta a test.mosquitto.org:1883, se suscribe al topic clase/te/quest3/texto, publica con Publicar() y muestra en Update lo que llega.</p><p class="hecho">MQTTBasico.cs es el de la presentación, sin cambios.</p></li>
+<li><p class="pide">Añade MQTTBasico a un objeto vacío llamado MQTT_Manager y arrastra tu TextMeshPro al campo Texto Recibido.</p><p class="hecho">MQTT_Manager tiene el script, y Texto Recibido apunta al texto flotante del panel, como se ve en la captura del Inspector.</p></li>
+<li><p class="pide">En el botón, configura On Click () → MQTT_Manager → MQTTBasico → Publicar(). Presiona Play, espera &quot;MQTT conectado y suscrito&quot; y pulsa el botón.</p><p class="hecho">El botón Publicar del panel tiene ese On Click() y manda &quot;Hola desde Unity&quot;. El aviso de conexión sale en una consola flotante, porque dentro del visor no está la ventana Console.</p></li>
+<li><p class="pide">MQTT Explorer: conexión a test.mosquitto.org, puerto 1883, sin usuario ni TLS; en el buscador, clase/te/quest3/texto.</p><p class="hecho">Falta la captura de MQTT Explorer. Mientras tanto, un cliente MQTT aparte en la laptop (herramientas/mqtt_escucha.py) hace lo mismo: se suscribe al topic y anota lo que llega. Su registro está abajo del video.</p></li>
+<li><p class="pide">Ejercicio 1: 3 figuras geométricas y 3 más complejas; al tocarlas cambian de color y envían por MQTT qué tocaron y qué color tienen, y eso se ve en un Texto flotante y en MQTT Explorer.</p><p class="hecho">Cubo, esfera y cilindro, más un robot, un muñeco de nieve y un cohete armados con primitivas. Cada figura lleva FiguraTocable: pasa al siguiente color, escribe &quot;Tocaron: &lt;figura&gt; | Color: &lt;color&gt;&quot; en el campo Mensaje de MQTTBasico y llama a Publicar(), lo mismo que hace el botón.</p></li>
+  </ol>
+  <h4>Lo observado y comprendido</h4>
+  <ul class="observado">
+<li>Al arrancar, la consola flotante muestra &quot;MQTT conectado y suscrito&quot;: el script ya abrió la conexión con test.mosquitto.org y se suscribió al topic.</li>
+<li>Cada toque cambia el color de la figura y, enseguida, el Texto flotante muestra ese mismo mensaje. Ese texto no lo escribe la figura: llega del broker, porque Unity está suscrito al mismo topic en el que publica. Si el texto cambia, el mensaje sí fue y volvió por internet.</li>
+<li>El cliente de la laptop recibió los 8 mensajes en el orden del video: los 7 toques y el &quot;Hola desde Unity&quot; del botón.</li>
+<li>Cada figura empieza su ciclo en un color distinto (cubo rojo, robot amarillo, esfera verde, muñeco morado, cilindro azul, cohete naranja); el segundo toque pasa el cubo de rojo a verde.</li>
+<li>La figura y el botón comparten el campo Mensaje. En la primera prueba, después de tocar una figura el botón reenviaba ese texto; ahora FiguraTocable deja otra vez &quot;Hola desde Unity&quot; justo después de publicar.</li>
+<li>En el video los toques los dispara el grabador, porque en el editor no hay manos. En el visor se toca con la mano o el control, o se apunta con el rayo y se aprieta el gatillo.</li>
+  </ul>
+  
+  <h4>Scripts de la presentación</h4><figure class="codigo"><figcaption>Assets/Scripts/MQTTBasico.cs</figcaption><pre><code>using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
+using MQTTnet;
+using MQTTnet.Client;
+using TMPro;
+using UnityEngine;
+
+public class MQTTBasico : MonoBehaviour
+{
+    // Texto de la escena donde veremos los mensajes.
+    public TMP_Text textoRecibido;
+
+    // Todos los participantes deben usar el mismo topic.
+    public string topic = &quot;clase/te/quest3/texto&quot;;
+
+    // Mensaje que enviará el botón.
+    public string mensaje = &quot;Hola desde Unity&quot;;
+
+    private IMqttClient cliente;
+
+    // Guarda los mensajes para mostrarlos desde Update.
+    private readonly ConcurrentQueue&lt;string&gt; mensajes =
+        new ConcurrentQueue&lt;string&gt;();
+
+    private async void Start()
+    {
+        try
+        {
+            // 1. Crear el cliente MQTT.
+            cliente = new MqttFactory().CreateMqttClient();
+
+            // 2. Definir qué hacer cuando llegue un mensaje.
+            cliente.ApplicationMessageReceivedAsync += e =&gt;
+            {
+                mensajes.Enqueue(
+                    e.ApplicationMessage.ConvertPayloadToString());
+
+                return Task.CompletedTask;
+            };
+
+            // 3. Configurar el servidor y un identificador único.
+            var opciones = new MqttClientOptionsBuilder()
+                .WithTcpServer(&quot;test.mosquitto.org&quot;, 1883)
+                .WithClientId(&quot;Unity_&quot; + Guid.NewGuid())
+                .Build();
+
+            // 4. Conectarse al servidor.
+            await cliente.ConnectAsync(opciones);
+
+            if (this == null) return;
+
+            // 5. Suscribirse para recibir mensajes del topic.
+            var suscripcion = new MqttClientSubscribeOptionsBuilder()
+                .WithTopicFilter(topic)
+                .Build();
+
+            await cliente.SubscribeAsync(suscripcion);
+
+            if (this != null)
+                Debug.Log(&quot;MQTT conectado y suscrito&quot;);
+        }
+        catch (Exception error)
+        {
+            Debug.LogError(&quot;Error MQTT: &quot; + error.Message);
+        }
+    }
+
+    public async void Publicar()
+    {
+        // Solo publicar si existe una conexión.
+        if (cliente == null || !cliente.IsConnected) return;
+
+        try
+        {
+            // 6. Preparar y publicar el mensaje.
+            var envio = new MqttApplicationMessageBuilder()
+                .WithTopic(topic)
+                .WithPayload(mensaje)
+                .Build();
+
+            await cliente.PublishAsync(envio);
+        }
+        catch (Exception error)
+        {
+            Debug.LogError(&quot;Error al publicar: &quot; + error.Message);
+        }
+    }
+
+    private void Update()
+    {
+        // 7. Mostrar el mensaje recibido en Unity.
+        if (mensajes.TryDequeue(out string recibido))
+        {
+            if (textoRecibido != null)
+                textoRecibido.text = recibido;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Liberar la conexión al salir de la escena.
+        cliente?.Dispose();
+    }
+}</code></pre></figure>
+  <details class="jerarquia"><summary>Jerarquía de la escena en Unity</summary><p class="nota">Cada renglón es un GameObject con su Transform local: P es posición, R rotación y S escala. Cada número lleva el color de su eje: <i class="x">X</i>, <i class="y">Y</i>, <i class="z">Z</i>.</p><div class="arbol"><div class="fila" style="--n:0"><span class="obj">Directional Light</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">52</i><i class="y">328</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">Light</span></div>
+<div class="fila" style="--n:0"><span class="obj">Practica_MQTT</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0.6</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:1"><span class="obj">MQTT_Manager</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">MQTTBasico</span></div>
+<div class="fila" style="--n:1"><span class="obj">Canvas</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">1.6</i><i class="z">0.3</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.001</i><i class="y">0.001</i><i class="z">0.001</i></span></span><span class="comp">Canvas</span> <span class="comp">CanvasScaler</span> <span class="comp">GraphicRaycaster</span></div>
+<div class="fila" style="--n:2"><span class="obj">Fondo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">Image</span></div>
+<div class="fila" style="--n:2"><span class="obj">Subtitulo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">117</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">TextMeshProUGUI</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Recibido</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">75</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">TextMeshProUGUI</span></div>
+<div class="fila" style="--n:2"><span class="obj">Texto_Recibido</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">8</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">TextMeshProUGUI</span></div>
+<div class="fila" style="--n:2"><span class="obj">Boton_Publicar</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">-95</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">Image</span> <span class="comp">Button</span> <span class="comp">BotonRM</span></div>
+<div class="fila" style="--n:3"><span class="obj">Texto</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">CanvasRenderer</span> <span class="comp">TextMeshProUGUI</span></div>
+<div class="fila" style="--n:1"><span class="obj">Figuras</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Cubo</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.32</i><i class="y">1.25</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">15</i><i class="y">30</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.12</i><i class="y">0.12</i><i class="z">0.12</i></span></span><span class="comp">BoxCollider</span> <span class="comp">Girar</span> <span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Esfera</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">1.25</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.14</i><i class="y">0.14</i><i class="z">0.14</i></span></span><span class="comp">SphereCollider</span> <span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Cilindro</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.32</i><i class="y">1.25</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">20</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.12</i><i class="y">0.07</i><i class="z">0.12</i></span></span><span class="comp">CapsuleCollider</span> <span class="comp">Girar</span> <span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Robot</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.32</i><i class="y">0.88</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:3"><span class="obj">Cuerpo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.11</i><i class="y">0.12</i><i class="z">0.07</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Cabeza</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.1</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.08</i><i class="y">0.07</i><i class="z">0.07</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Brazo_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.075</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">350</i></span><span class="terna"><b>S</b><i class="x">0.025</i><i class="y">0.1</i><i class="z">0.025</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Brazo_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.075</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">10</i></span><span class="terna"><b>S</b><i class="x">0.025</i><i class="y">0.1</i><i class="z">0.025</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Pierna_izquierda</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.03</i><i class="y">-0.095</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.07</i><i class="z">0.03</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Pierna_derecha</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.03</i><i class="y">-0.095</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.07</i><i class="z">0.03</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Ojo_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.02</i><i class="y">0.108</i><i class="z">-0.035</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.018</i><i class="y">0.018</i><i class="z">0.018</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Ojo_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.02</i><i class="y">0.108</i><i class="z">-0.035</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.018</i><i class="y">0.018</i><i class="z">0.018</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Antena</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.152</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.006</i><i class="y">0.02</i><i class="z">0.006</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Punta_antena</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.176</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.018</i><i class="y">0.018</i><i class="z">0.018</i></span></span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Muneco_de_nieve</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.88</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:3"><span class="obj">Base</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">-0.04</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.12</i><i class="y">0.12</i><i class="z">0.12</i></span></span><span class="comp">SphereCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Torso</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.05</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.09</i><i class="y">0.09</i><i class="z">0.09</i></span></span><span class="comp">SphereCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Cabeza</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.125</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.065</i><i class="y">0.065</i><i class="z">0.065</i></span></span><span class="comp">SphereCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Ojo_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.013</i><i class="y">0.135</i><i class="z">-0.029</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.011</i><i class="y">0.011</i><i class="z">0.011</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Ojo_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.013</i><i class="y">0.135</i><i class="z">-0.029</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.011</i><i class="y">0.011</i><i class="z">0.011</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Nariz</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.124</i><i class="z">-0.04</i></span><span class="terna"><b>R</b><i class="x">90</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.012</i><i class="y">0.018</i><i class="z">0.012</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Boton_1</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.065</i><i class="z">-0.044</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.012</i><i class="y">0.012</i><i class="z">0.012</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Boton_2</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.035</i><i class="z">-0.044</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.012</i><i class="y">0.012</i><i class="z">0.012</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Ala_sombrero</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.158</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.065</i><i class="y">0.004</i><i class="z">0.065</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Copa_sombrero</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.18</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.042</i><i class="y">0.02</i><i class="z">0.042</i></span></span></div>
+<div class="fila" style="--n:2"><span class="obj">Figura_Cohete</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.32</i><i class="y">0.88</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">FiguraTocable</span></div>
+<div class="fila" style="--n:3"><span class="obj">Cuerpo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.01</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.06</i><i class="y">0.08</i><i class="z">0.06</i></span></span><span class="comp">CapsuleCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Punta</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.095</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.06</i><i class="y">0.075</i><i class="z">0.06</i></span></span><span class="comp">SphereCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Ventana</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.04</i><i class="z">-0.027</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.03</i><i class="z">0.012</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">Aleta_izquierda</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.042</i><i class="y">-0.05</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">20</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.05</i><i class="z">0.008</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Aleta_derecha</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.042</i><i class="y">-0.05</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">340</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.05</i><i class="z">0.008</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Aleta_trasera</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">-0.05</i><i class="z">0.042</i></span><span class="terna"><b>R</b><i class="x">340</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.008</i><i class="y">0.05</i><i class="z">0.03</i></span></span><span class="comp">BoxCollider</span></div>
+<div class="fila" style="--n:3"><span class="obj">Fuego</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">-0.085</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.04</i><i class="y">0.03</i><i class="z">0.04</i></span></span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Cubo</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.32</i><i class="y">1.13</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Esfera</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">1.13</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Cilindro</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.32</i><i class="y">1.13</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Robot</span><span class="tf"><span class="terna"><b>P</b><i class="x">-0.32</i><i class="y">0.71</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Muneco_de_nieve</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0.71</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:2"><span class="obj">Etiqueta_Cohete</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.32</i><i class="y">0.71</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:1"><span class="obj">Consola_RM</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.5</i><i class="y">1.32</i><i class="z">0.1</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">25</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">ConsolaRM</span></div>
+<div class="fila" style="--n:2"><span class="obj">Fondo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.31</i><i class="y">-0.1</i><i class="z">0.01</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.66</i><i class="y">0.25</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:2"><span class="obj">Texto</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:0"><span class="obj">EventSystem</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">EventSystem</span> <span class="comp">StandaloneInputModule</span></div>
+<div class="fila" style="--n:0"><span class="obj">RM (Realidad Mixta)</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">ArranqueRM</span></div>
+<div class="fila" style="--n:1"><span class="obj">OVRCameraRig (inactivo)</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">OVRCameraRig</span> <span class="comp">OVRManager</span> <span class="comp">OVRHeadsetEmulator</span> <span class="comp">OVRPassthroughLayer</span></div>
+<div class="fila" style="--n:2"><span class="obj">TrackingSpace</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">LeftEyeAnchor #MainCamera</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">Camera</span></div>
+<div class="fila" style="--n:3"><span class="obj">CenterEyeAnchor #MainCamera</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">AudioListener</span> <span class="comp">Camera</span></div>
+<div class="fila" style="--n:3"><span class="obj">RightEyeAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">Camera</span></div>
+<div class="fila" style="--n:3"><span class="obj">TrackerAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">LeftHandAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">ManoRM</span> <span class="comp">TocadorRM</span></div>
+<div class="fila" style="--n:4"><span class="obj">LeftControllerAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">LeftControllerInHandAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:5"><span class="obj">LeftHandOnControllerAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">Puntero_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.03</i><i class="z">0.03</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">Rayo_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">LineRenderer</span></div>
+<div class="fila" style="--n:4"><span class="obj">Rayo_toque_izquierdo</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">LineRenderer</span></div>
+<div class="fila" style="--n:3"><span class="obj">RightHandAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">ManoRM</span> <span class="comp">TocadorRM</span></div>
+<div class="fila" style="--n:4"><span class="obj">RightControllerAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">RightControllerInHandAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:5"><span class="obj">RightHandOnControllerAnchor</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">Puntero_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">0.03</i><i class="y">0.03</i><i class="z">0.03</i></span></span></div>
+<div class="fila" style="--n:4"><span class="obj">Rayo_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">LineRenderer</span></div>
+<div class="fila" style="--n:4"><span class="obj">Rayo_toque_derecho</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">LineRenderer</span></div>
+<div class="fila" style="--n:3"><span class="obj">LeftHandAnchorDetached</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:3"><span class="obj">RightHandAnchorDetached</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span></div>
+<div class="fila" style="--n:1"><span class="obj">Menu de practicas</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">2.3</i><i class="z">3</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">MenuPracticasRM</span></div>
+<div class="fila" style="--n:2"><span class="obj">Letrero</span><span class="tf"><span class="terna"><b>P</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>R</b><i class="x">0</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">TextMesh</span></div>
+<div class="fila" style="--n:0"><span class="obj">CamaraEvidencia #EditorOnly</span><span class="tf"><span class="terna"><b>P</b><i class="x">0.3</i><i class="y">1.6</i><i class="z">-0.65</i></span><span class="terna"><b>R</b><i class="x">13.335</i><i class="y">0</i><i class="z">0</i></span><span class="terna"><b>S</b><i class="x">1</i><i class="y">1</i><i class="z">1</i></span></span><span class="comp">Camera</span> <span class="comp">CamaraEvidencia</span></div></div></details>
+  <aside class="al-proyecto">
+    <h4>Cómo entra en el proyecto final</h4>
+    <p>Jarvis habla con el visor por WebSocket y no por MQTT, porque cada orden espera su acuse y se mide el tiempo de ida y vuelta. MQTT es lo que falta para el ejercicio 2 y para conectar sensores y actuadores de una ESP32. <a href="#proyecto">Ver el proyecto</a></p>
+  </aside>
+  <p class="controles">Tocar una figura o el botón con la mano o el control, o apuntarles y apretar el gatillo. En el editor, el botón también se pulsa con el mouse. Y / X: cambiar de práctica.</p>
 </article>
     </section>
 
