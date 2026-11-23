@@ -164,6 +164,32 @@ PRACTICAS = [
         "codigo": ["Assets/Scripts/DetectorColision.cs"],
         "consola": True,
     },
+    {
+        "id": "Inicio",
+        "titulo": "Conexión de escenas",
+        "presentacion": "Conexión de escenas",
+        "escena": "Assets/Scene/Inicio.unity",
+        "objetivo": "Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) con botones y un script que cambia de escena.",
+        "pasos": [
+            ("Conectar escenas en Unity: script NavegacionEscenas con IrAInicio(), IrAActividad1() e IrAActividad2(), que usan SceneManager.LoadScene.",
+             "NavegacionEscenas.cs es el de la presentación, sin cambios."),
+            ("Guarda las tres escenas y agrégalas en File > Build Settings > Scenes In Build.",
+             "Inicio, Actividad1 y Actividad2 están en Assets/Scene y en Scenes In Build, junto con las demás prácticas."),
+            ("En cada escena, crea un objeto vacío llamado Navegador y asígnale el script NavegacionEscenas.",
+             "Cada escena tiene su objeto vacío Navegador con el script."),
+            ("Selecciona un botón, busca On Click() en su Inspector, pulsa +, arrastra Navegador y elige, por ejemplo, NavegacionEscenas > IrAActividad1(). Repite con los otros botones.",
+             "Cada escena tiene un panel con dos botones que llevan a las otras dos escenas; su On Click() apunta al Navegador y a la función que corresponde."),
+        ],
+        "observado": [
+            "En el video cada botón carga otra escena: Inicio → Actividad 1 → Actividad 2 → Inicio → Actividad 2. El cambio se nota de un cuadro al siguiente, porque SceneManager.LoadScene quita todo lo de la escena anterior y pone lo de la nueva.",
+            "El botón no sabe nada de escenas: su On Click() guarda un objeto (Navegador) y una función (por ejemplo IrAActividad1), y al pulsarlo Unity llama esa función, como se ve en la captura del Inspector.",
+            "Como al cambiar de escena se destruye todo lo de la anterior, cada escena necesita su propio Navegador; por eso la presentación pide crearlo en las tres.",
+            "En el visor los botones están en un Canvas en el espacio del mundo, a 75 cm del usuario: se pulsan tocándolos con la mano o el control, o apuntando con el rayo y apretando el gatillo.",
+        ],
+        "proyecto": "Jarvis cambia lo que se ve sin cargar otra escena: todo vive en una sola escena y el HUD aparece o desaparece por órdenes. El menú de prácticas de esta app sí usa SceneManager.LoadScene, igual que NavegacionEscenas.",
+        "controles": "Tocar un botón con la mano o el control, o apuntarle y apretar el gatillo. En el editor, clic con el mouse. Y / X: cambiar de práctica.",
+        "codigo": ["Assets/Scripts/NavegacionEscenas.cs"],
+    },
 ]
 
 PROYECTO = {
