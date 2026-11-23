@@ -90,7 +90,8 @@ def terna(letra: str, valores: str) -> str:
 
 
 def bloque_codigo(ruta: str) -> str:
-    archivo = UNITY / ruta
+    # Las rutas de Unity empiezan con Assets/; las demás (por ejemplo esp32/) son del repositorio
+    archivo = (UNITY if ruta.startswith("Assets/") else RAIZ) / ruta
     if not archivo.is_file():
         return ""
     codigo = archivo.read_text(encoding="utf-8").rstrip()
@@ -188,7 +189,7 @@ def seccion_practica(p: dict) -> str:
         ) + "</dl>"
     codigo = "".join(bloque_codigo(r) for r in p.get("codigo", []))
     if codigo:
-        codigo = "<h4>Scripts de la presentación</h4>" + codigo
+        codigo = f"<h4>{e(p.get('titulo_codigo', 'Scripts de la presentación'))}</h4>" + codigo
     jerarquia = ""
     if ev["jerarquia"]:
         jerarquia = (

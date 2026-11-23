@@ -1,0 +1,141 @@
+Directional Light  pos(0, 0, 0) rot(52, 328, 0) esc(1, 1, 1)  {Light}
+Practica_MQTT_Carro  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Pista  pos(0, 0, 1.7) rot(0, 0, 0) esc(1, 1, 1)
+    Tapete  pos(0, 0.002, 0) rot(90, 0, 0) esc(2.4, 2.4, 1)  {MeshFilter, MeshRenderer}
+    Raya_x0  pos(-1.2, 0.004, 0) rot(0, 0, 0) esc(0.02, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z0  pos(0, 0.004, -1.2) rot(0, 0, 0) esc(2.4, 0.002, 0.02)  {MeshFilter, MeshRenderer}
+    Raya_x1  pos(-0.8, 0.004, 0) rot(0, 0, 0) esc(0.006, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z1  pos(0, 0.004, -0.8) rot(0, 0, 0) esc(2.4, 0.002, 0.006)  {MeshFilter, MeshRenderer}
+    Raya_x2  pos(-0.4, 0.004, 0) rot(0, 0, 0) esc(0.006, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z2  pos(0, 0.004, -0.4) rot(0, 0, 0) esc(2.4, 0.002, 0.006)  {MeshFilter, MeshRenderer}
+    Raya_x3  pos(0, 0.004, 0) rot(0, 0, 0) esc(0.006, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z3  pos(0, 0.004, 0) rot(0, 0, 0) esc(2.4, 0.002, 0.006)  {MeshFilter, MeshRenderer}
+    Raya_x4  pos(0.4, 0.004, 0) rot(0, 0, 0) esc(0.006, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z4  pos(0, 0.004, 0.4) rot(0, 0, 0) esc(2.4, 0.002, 0.006)  {MeshFilter, MeshRenderer}
+    Raya_x5  pos(0.8, 0.004, 0) rot(0, 0, 0) esc(0.006, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z5  pos(0, 0.004, 0.8) rot(0, 0, 0) esc(2.4, 0.002, 0.006)  {MeshFilter, MeshRenderer}
+    Raya_x6  pos(1.2, 0.004, 0) rot(0, 0, 0) esc(0.02, 0.002, 2.4)  {MeshFilter, MeshRenderer}
+    Raya_z6  pos(0, 0.004, 1.2) rot(0, 0, 0) esc(2.4, 0.002, 0.02)  {MeshFilter, MeshRenderer}
+  Carro_Omnidireccional  pos(0, 0, 1.4) rot(0, 0, 0) esc(1.5, 1.5, 1.5)  {CarroOmnidireccional}
+    Chasis  pos(0, 0.07, 0) rot(0, 0, 0) esc(0.19, 0.05, 0.3)  {MeshFilter, MeshRenderer}
+    Cubierta  pos(0, 0.11, -0.02) rot(0, 0, 0) esc(0.15, 0.03, 0.16)  {MeshFilter, MeshRenderer}
+    Defensa_delantera  pos(0, 0.06, 0.16) rot(0, 0, 0) esc(0.17, 0.025, 0.02)  {MeshFilter, MeshRenderer}
+    Defensa_trasera  pos(0, 0.06, -0.16) rot(0, 0, 0) esc(0.17, 0.025, 0.02)  {MeshFilter, MeshRenderer}
+    Antena  pos(0.05, 0.16, -0.08) rot(0, 0, 0) esc(0.004, 0.035, 0.004)  {MeshFilter, MeshRenderer}
+    Punta_antena  pos(0.05, 0.197, -0.08) rot(0, 0, 0) esc(0.012, 0.012, 0.012)  {MeshFilter, MeshRenderer}
+    Rueda_delantera_izquierda  pos(-0.125, 0.045, 0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Llanta  pos(0, 0, 0) rot(0, 0, 90) esc(0.07, 0.018, 0.07)  {MeshFilter, MeshRenderer}
+      Rodillo_0  pos(0, 0, 0.038) rot(0, 0, 315) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_1  pos(0, 0.027, 0.027) rot(330, 15.793, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_2  pos(0, 0.038, 0) rot(315, 45, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_3  pos(0, 0.027, -0.027) rot(330, 54.736, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_4  pos(0, 0, -0.038) rot(0, 0, 225) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_5  pos(0, -0.027, -0.027) rot(30, 305.264, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_6  pos(0, -0.038, 0) rot(45, 315, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_7  pos(0, -0.027, 0.027) rot(30, 344.207, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+    Rueda_delantera_derecha  pos(0.125, 0.045, 0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Llanta  pos(0, 0, 0) rot(0, 0, 90) esc(0.07, 0.018, 0.07)  {MeshFilter, MeshRenderer}
+      Rodillo_0  pos(0, 0, 0.038) rot(0, 0, 225) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_1  pos(0, 0.027, 0.027) rot(30, 305.264, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_2  pos(0, 0.038, 0) rot(45, 315, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_3  pos(0, 0.027, -0.027) rot(30, 344.207, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_4  pos(0, 0, -0.038) rot(0, 0, 315) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_5  pos(0, -0.027, -0.027) rot(330, 15.793, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_6  pos(0, -0.038, 0) rot(315, 45, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_7  pos(0, -0.027, 0.027) rot(330, 54.736, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+    Rueda_trasera_izquierda  pos(-0.125, 0.045, -0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Llanta  pos(0, 0, 0) rot(0, 0, 90) esc(0.07, 0.018, 0.07)  {MeshFilter, MeshRenderer}
+      Rodillo_0  pos(0, 0, 0.038) rot(0, 0, 225) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_1  pos(0, 0.027, 0.027) rot(30, 305.264, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_2  pos(0, 0.038, 0) rot(45, 315, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_3  pos(0, 0.027, -0.027) rot(30, 344.207, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_4  pos(0, 0, -0.038) rot(0, 0, 315) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_5  pos(0, -0.027, -0.027) rot(330, 15.793, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_6  pos(0, -0.038, 0) rot(315, 45, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_7  pos(0, -0.027, 0.027) rot(330, 54.736, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+    Rueda_trasera_derecha  pos(0.125, 0.045, -0.1) rot(0, 0, 0) esc(1, 1, 1)
+      Llanta  pos(0, 0, 0) rot(0, 0, 90) esc(0.07, 0.018, 0.07)  {MeshFilter, MeshRenderer}
+      Rodillo_0  pos(0, 0, 0.038) rot(0, 0, 315) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_1  pos(0, 0.027, 0.027) rot(330, 15.793, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_2  pos(0, 0.038, 0) rot(315, 45, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_3  pos(0, 0.027, -0.027) rot(330, 54.736, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_4  pos(0, 0, -0.038) rot(0, 0, 225) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_5  pos(0, -0.027, -0.027) rot(30, 305.264, 234.736) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_6  pos(0, -0.038, 0) rot(45, 315, 270) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+      Rodillo_7  pos(0, -0.027, 0.027) rot(30, 344.207, 305.264) esc(0.011, 0.016, 0.011)  {MeshFilter, MeshRenderer}
+    Faro_izquierdo  pos(-0.055, 0.09, 0.15) rot(0, 0, 0) esc(0.026, 0.026, 0.026)  {MeshFilter, MeshRenderer}
+    Faro_derecho  pos(0.055, 0.09, 0.15) rot(0, 0, 0) esc(0.026, 0.026, 0.026)  {MeshFilter, MeshRenderer}
+    Calavera_izquierda  pos(-0.055, 0.085, -0.151) rot(0, 0, 0) esc(0.045, 0.016, 0.006)  {MeshFilter, MeshRenderer}
+    Calavera_derecha  pos(0.055, 0.085, -0.151) rot(0, 0, 0) esc(0.045, 0.016, 0.006)  {MeshFilter, MeshRenderer}
+    Direccional_delantera_izquierda  pos(-0.088, 0.098, 0.14) rot(0, 0, 0) esc(0.02, 0.02, 0.02)  {MeshFilter, MeshRenderer}
+    Direccional_trasera_izquierda  pos(-0.088, 0.098, -0.14) rot(0, 0, 0) esc(0.02, 0.02, 0.02)  {MeshFilter, MeshRenderer}
+    Direccional_delantera_derecha  pos(0.088, 0.098, 0.14) rot(0, 0, 0) esc(0.02, 0.02, 0.02)  {MeshFilter, MeshRenderer}
+    Direccional_trasera_derecha  pos(0.088, 0.098, -0.14) rot(0, 0, 0) esc(0.02, 0.02, 0.02)  {MeshFilter, MeshRenderer}
+    Luz_faros  pos(0, 0.09, 0.17) rot(28, 0, 0) esc(1, 1, 1)  {Light}
+  MQTT_Manager  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CarroMQTT}
+  Tablero  pos(0, 1.12, 3.05) rot(0, 0, 0) esc(0.002, 0.002, 0.002)  {Canvas, CanvasScaler, GraphicRaycaster}
+    Fondo  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image}
+    Titulo  pos(0, 105, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Topics  pos(0, 52, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Texto_Estado  pos(0, -55, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+  Control_ESP32_virtual  pos(-0.5, 1, 0.4) rot(30, 320, 0) esc(0.001, 0.001, 0.001)  {Canvas, CanvasScaler, GraphicRaycaster, ControlVirtualESP32}
+    Fondo  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image}
+    Titulo  pos(0, 245, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_adelante_izquierda  pos(-195, 165, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_adelante  pos(0, 165, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_adelante_derecha  pos(195, 165, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_izquierda  pos(-195, 80, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_alto  pos(0, 80, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_derecha  pos(195, 80, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_atras_izquierda  pos(-195, -5, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_atras  pos(0, -5, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_atras_derecha  pos(195, -5, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_girar_izquierda  pos(-147, -95, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_girar_derecha  pos(147, -95, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_luces  pos(-195, -185, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_direccional_izquierda  pos(0, -185, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+    Boton_direccional_derecha  pos(195, -185, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, Image, Button, BotonRM}
+      Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {CanvasRenderer, TextMeshProUGUI}
+  Consola_RM  pos(-0.95, 1.55, 0.95) rot(0, 315, 0) esc(1, 1, 1)  {ConsolaRM}
+    Fondo  pos(0.31, -0.1, 0.01) rot(0, 0, 0) esc(0.66, 0.25, 1)  {MeshFilter, MeshRenderer}
+    Texto  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+EventSystem  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {EventSystem, StandaloneInputModule}
+RM (Realidad Mixta)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ArranqueRM}
+  OVRCameraRig (inactivo)  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {OVRCameraRig, OVRManager, OVRHeadsetEmulator, OVRPassthroughLayer}
+    TrackingSpace  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      CenterEyeAnchor #MainCamera  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {AudioListener, Camera}
+      RightEyeAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {Camera}
+      TrackerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      LeftHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM, TocadorRM}
+        LeftControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        LeftControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          LeftHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+        Rayo_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {LineRenderer}
+        Rayo_toque_izquierdo  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {LineRenderer}
+      RightHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {ManoRM, TocadorRM}
+        RightControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        RightControllerInHandAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+          RightHandOnControllerAnchor  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+        Puntero_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(0.03, 0.03, 0.03)  {MeshFilter, MeshRenderer}
+        Rayo_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {LineRenderer}
+        Rayo_toque_derecho  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {LineRenderer}
+      LeftHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+      RightHandAnchorDetached  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)
+  Menu de practicas  pos(0, 2.3, 3) rot(0, 0, 0) esc(1, 1, 1)  {MenuPracticasRM}
+    Letrero  pos(0, 0, 0) rot(0, 0, 0) esc(1, 1, 1)  {MeshRenderer, TextMesh}
+CamaraEvidencia #EditorOnly  pos(0.855, 1.9, -0.42) rot(34.542, 340, 0) esc(1, 1, 1)  {Camera, CamaraEvidencia}
