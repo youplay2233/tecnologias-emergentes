@@ -31,7 +31,7 @@ El Meta XR Core SDK 85 no compila en el editor de Linux: `Editor/MetaXRSimulator
 | `Fisica_Sesion1` | Físicas S1 · Rigidbody y gravedad | Físicas 1 |
 | `Fisica_Sesion2` | Físicas S2 · Colliders y colisiones | Físicas 2 |
 | `Jarvis_RM` | Proyecto final · Jarvis en realidad mixta | Latencia y protocolos |
-| `Inicio`, `Actividad1`, `Actividad2` | Conexión de escenas | Conexión de escenas |
+| `Inicio`, `Actividad1`, `Actividad2` | Conexión y navegación de escenas | Conexión de escenas |
 | `MQTT_Figuras` | Conectividad IoT · MQTT (ejercicio 1) | MQTT Unity |
 
 ## Verlo en el Quest 3 (Linux)

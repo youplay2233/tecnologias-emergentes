@@ -172,11 +172,11 @@ PRACTICAS = [
     },
     {
         "id": "Inicio",
-        "titulo": "Conexión de escenas",
+        "titulo": "Conexión y navegación de escenas",
         "etiquetas": ["UI", "Botones", "SceneManager"],
         "presentacion": "Conexión de escenas",
         "escena": "Assets/Scene/Inicio.unity",
-        "objetivo": "Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) con botones y un script que cambia de escena.",
+        "objetivo": "Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) y navegar entre ellas con botones y el script NavegacionEscenas.",
         "pasos": [
             ("Conectar escenas en Unity: script NavegacionEscenas con IrAInicio(), IrAActividad1() e IrAActividad2(), que usan SceneManager.LoadScene.",
              "NavegacionEscenas.cs es el de la presentación, sin cambios."),
