@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEditor.SceneManagement;
@@ -56,7 +57,8 @@ namespace TecEmergentes
                 new KeyValuePair<string, Action>("Jarvis_RM", EscenaJarvis),
                 new KeyValuePair<string, Action>("Inicio", EscenaInicio),
                 new KeyValuePair<string, Action>("Actividad1", EscenaActividad1),
-                new KeyValuePair<string, Action>("Actividad2", EscenaActividad2)
+                new KeyValuePair<string, Action>("Actividad2", EscenaActividad2),
+                new KeyValuePair<string, Action>("MQTT_Figuras", EscenaMQTT)
             };
 
             string resumen = "";
@@ -102,6 +104,7 @@ namespace TecEmergentes
                 case "Inicio": EscenaInicio(); break;
                 case "Actividad1": EscenaActividad1(); break;
                 case "Actividad2": EscenaActividad2(); break;
+                case "MQTT_Figuras": EscenaMQTT(); break;
                 default: return "No existe la práctica " + nombre;
             }
             AssetDatabase.SaveAssets();
@@ -194,6 +197,136 @@ namespace TecEmergentes
             if (c == Verde) return "Verde";
             if (c == Naranja) return "Naranja";
             return "Gris";
+        }
+
+        // ================================================================== Conectividad IoT: MQTT, ejercicio 1
+        // Mqtt.pptx:
+        //   Diapositiva 3: Window > Package Manager > + > Add package from git URL (NuGetForUnity), y en
+        //                  NuGet > Manage NuGet Packages > Online: "Selecciona: MQTTnet versión 4.3.7.1207".
+        //   Diapositivas 6 y 7: script MQTTBasico (test.mosquitto.org:1883, topic clase/te/quest3/texto). "Cómo configurarlo:
+        //                  Añade MQTTBasico a un objeto vacío llamado MQTT_Manager. Arrastra tu TextMeshPro al campo Texto Recibido.
+        //                  En el botón, configura On Click () → MQTT_Manager → MQTTBasico → Publicar()."
+        //   Diapositiva 9, ejercicio 1: "Crear un sistema en realidad mixta, que tenga 3 figuras geométricas, 3 figuras más
+        //                  complejas que ustedes decidan, al tocarlas cambiarán de color y enviarán un mensaje por mqtt donde
+        //                  diga qué tocaron y qué color tiene, esto se debe observar en un Texto flotante y en MQTT Explore."
+
+        private static void EscenaMQTT()
+        {
+            TE.AsegurarTMP();
+            Scene escena = TE.NuevaEscena();
+            GameObject raiz = TE.Vacio("Practica_MQTT", null, new Vector3(0f, 0f, 0.6f));
+
+            // "Añade MQTTBasico a un objeto vacío llamado MQTT_Manager."
+            MQTTBasico mqtt = TE.Vacio("MQTT_Manager", raiz.transform, Vector3.zero).AddComponent<MQTTBasico>();
+
+            // Texto flotante con el último mensaje que llegó del broker, y el botón de la presentación
+            Canvas canvas = TE.CanvasMundo("Canvas", raiz.transform, new Vector3(0f, 1.6f, 0.3f), new Vector2(780f, 300f), new Color(0.06f, 0.08f, 0.11f, 0.85f));
+            TE.TextoUI("MQTT · test.mosquitto.org · " + mqtt.topic, canvas.transform, new Vector2(0f, 117f), new Vector2(740f, 44f), 26, TextoSuave, "Subtitulo");
+            TE.TextoUI("Último mensaje recibido:", canvas.transform, new Vector2(0f, 75f), new Vector2(740f, 40f), 28, TextoSuave, "Etiqueta_Recibido");
+            TextMeshProUGUI recibido = TE.TextoUI("Esperando mensajes...", canvas.transform, new Vector2(0f, 8f), new Vector2(740f, 100f), 40, Cian, "Texto_Recibido");
+            recibido.enableAutoSizing = true;
+            recibido.fontSizeMin = 22f;
+            recibido.fontSizeMax = 40f;
+            // "Arrastra tu TextMeshPro al campo Texto Recibido."
+            mqtt.textoRecibido = recibido;
+            // "En el botón, configura On Click () → MQTT_Manager → MQTTBasico → Publicar()."
+            Button boton = TE.BotonUI("Publicar", canvas.transform, new Vector2(0f, -95f), new Vector2(280f, 80f), Azul, "Boton_Publicar");
+            UnityEventTools.AddPersistentListener(boton.onClick, mqtt.Publicar);
+
+            // Ejercicio 1: tres figuras geométricas (arriba) y tres más complejas armadas con primitivas (abajo).
+            // Cada una lleva FiguraTocable: al tocarla cambia de color y publica "Tocaron: <figura> | Color: <color>".
+            Transform figuras = TE.Vacio("Figuras", raiz.transform, Vector3.zero).transform;
+            Material blanco = TE.Mat("Blanco", Blanco), gris = TE.Mat("Gris", Gris), grisOscuro = TE.Mat("Gris_Oscuro", GrisOscuro);
+            Material negro = TE.Mat("Negro", new Color(0.06f, 0.06f, 0.07f)), cian = TE.Mat("Cian", Cian);
+            Material rojo = TE.Mat("Rojo", Rojo), naranja = TE.Mat("Naranja", Naranja);
+
+            GameObject cubo = TE.Prim(PrimitiveType.Cube, "Figura_Cubo", figuras, new Vector3(-0.32f, 1.25f, 0f), new Vector3(15f, 30f, 0f), Vector3.one * 0.12f, blanco);
+            GameObject esfera = TE.Prim(PrimitiveType.Sphere, "Figura_Esfera", figuras, new Vector3(0f, 1.25f, 0f), Vector3.zero, Vector3.one * 0.14f, blanco);
+            GameObject cilindro = TE.Prim(PrimitiveType.Cylinder, "Figura_Cilindro", figuras, new Vector3(0.32f, 1.25f, 0f), new Vector3(20f, 0f, 0f), new Vector3(0.12f, 0.07f, 0.12f), blanco);
+            foreach (GameObject g in new[] { cubo, cilindro })
+            {
+                Girar giro = g.AddComponent<Girar>();
+                giro.eje = Vector3.up;
+                giro.gradosPorSegundo = 30f;
+            }
+
+            // Robot: cuerpo, cabeza, brazos y piernas cambian de color; ojos y antena no
+            GameObject robot = TE.Vacio("Figura_Robot", figuras, new Vector3(-0.32f, 0.88f, 0f));
+            Transform r = robot.transform;
+            var piezasRobot = new List<Renderer>
+            {
+                TE.Prim(PrimitiveType.Cube, "Cuerpo", r, new Vector3(0f, 0f, 0f), Vector3.zero, new Vector3(0.11f, 0.12f, 0.07f), gris).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Cube, "Cabeza", r, new Vector3(0f, 0.1f, 0f), Vector3.zero, new Vector3(0.08f, 0.07f, 0.07f), gris).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Cube, "Brazo_izquierdo", r, new Vector3(-0.075f, 0f, 0f), new Vector3(0f, 0f, -10f), new Vector3(0.025f, 0.1f, 0.025f), gris).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Cube, "Brazo_derecho", r, new Vector3(0.075f, 0f, 0f), new Vector3(0f, 0f, 10f), new Vector3(0.025f, 0.1f, 0.025f), gris).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Cube, "Pierna_izquierda", r, new Vector3(-0.03f, -0.095f, 0f), Vector3.zero, new Vector3(0.03f, 0.07f, 0.03f), gris).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Cube, "Pierna_derecha", r, new Vector3(0.03f, -0.095f, 0f), Vector3.zero, new Vector3(0.03f, 0.07f, 0.03f), gris).GetComponent<Renderer>()
+            };
+            TE.Adorno(PrimitiveType.Sphere, "Ojo_izquierdo", r, new Vector3(-0.02f, 0.108f, -0.035f), Vector3.zero, Vector3.one * 0.018f, cian);
+            TE.Adorno(PrimitiveType.Sphere, "Ojo_derecho", r, new Vector3(0.02f, 0.108f, -0.035f), Vector3.zero, Vector3.one * 0.018f, cian);
+            TE.Adorno(PrimitiveType.Cylinder, "Antena", r, new Vector3(0f, 0.152f, 0f), Vector3.zero, new Vector3(0.006f, 0.02f, 0.006f), grisOscuro);
+            TE.Adorno(PrimitiveType.Sphere, "Punta_antena", r, new Vector3(0f, 0.176f, 0f), Vector3.zero, Vector3.one * 0.018f, rojo);
+
+            // Muñeco de nieve: las tres bolas cambian de color; ojos, nariz, botones y sombrero no
+            GameObject muneco = TE.Vacio("Figura_Muneco_de_nieve", figuras, new Vector3(0f, 0.88f, 0f));
+            Transform m = muneco.transform;
+            var piezasMuneco = new List<Renderer>
+            {
+                TE.Prim(PrimitiveType.Sphere, "Base", m, new Vector3(0f, -0.04f, 0f), Vector3.zero, Vector3.one * 0.12f, blanco).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Sphere, "Torso", m, new Vector3(0f, 0.05f, 0f), Vector3.zero, Vector3.one * 0.09f, blanco).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Sphere, "Cabeza", m, new Vector3(0f, 0.125f, 0f), Vector3.zero, Vector3.one * 0.065f, blanco).GetComponent<Renderer>()
+            };
+            TE.Adorno(PrimitiveType.Sphere, "Ojo_izquierdo", m, new Vector3(-0.013f, 0.135f, -0.029f), Vector3.zero, Vector3.one * 0.011f, negro);
+            TE.Adorno(PrimitiveType.Sphere, "Ojo_derecho", m, new Vector3(0.013f, 0.135f, -0.029f), Vector3.zero, Vector3.one * 0.011f, negro);
+            TE.Adorno(PrimitiveType.Cylinder, "Nariz", m, new Vector3(0f, 0.124f, -0.04f), new Vector3(90f, 0f, 0f), new Vector3(0.012f, 0.018f, 0.012f), naranja);
+            TE.Adorno(PrimitiveType.Sphere, "Boton_1", m, new Vector3(0f, 0.065f, -0.044f), Vector3.zero, Vector3.one * 0.012f, negro);
+            TE.Adorno(PrimitiveType.Sphere, "Boton_2", m, new Vector3(0f, 0.035f, -0.044f), Vector3.zero, Vector3.one * 0.012f, negro);
+            TE.Adorno(PrimitiveType.Cylinder, "Ala_sombrero", m, new Vector3(0f, 0.158f, 0f), Vector3.zero, new Vector3(0.065f, 0.004f, 0.065f), negro);
+            TE.Adorno(PrimitiveType.Cylinder, "Copa_sombrero", m, new Vector3(0f, 0.18f, 0f), Vector3.zero, new Vector3(0.042f, 0.02f, 0.042f), negro);
+
+            // Cohete: cuerpo y punta cambian de color; ventana, aletas y fuego no
+            GameObject cohete = TE.Vacio("Figura_Cohete", figuras, new Vector3(0.32f, 0.88f, 0f));
+            Transform c = cohete.transform;
+            var piezasCohete = new List<Renderer>
+            {
+                TE.Prim(PrimitiveType.Cylinder, "Cuerpo", c, new Vector3(0f, 0.01f, 0f), Vector3.zero, new Vector3(0.06f, 0.08f, 0.06f), blanco).GetComponent<Renderer>(),
+                TE.Prim(PrimitiveType.Sphere, "Punta", c, new Vector3(0f, 0.095f, 0f), Vector3.zero, new Vector3(0.06f, 0.075f, 0.06f), blanco).GetComponent<Renderer>()
+            };
+            TE.Adorno(PrimitiveType.Sphere, "Ventana", c, new Vector3(0f, 0.04f, -0.027f), Vector3.zero, new Vector3(0.03f, 0.03f, 0.012f), cian);
+            TE.Prim(PrimitiveType.Cube, "Aleta_izquierda", c, new Vector3(-0.042f, -0.05f, 0f), new Vector3(0f, 0f, 20f), new Vector3(0.03f, 0.05f, 0.008f), rojo);
+            TE.Prim(PrimitiveType.Cube, "Aleta_derecha", c, new Vector3(0.042f, -0.05f, 0f), new Vector3(0f, 0f, -20f), new Vector3(0.03f, 0.05f, 0.008f), rojo);
+            TE.Prim(PrimitiveType.Cube, "Aleta_trasera", c, new Vector3(0f, -0.05f, 0.042f), new Vector3(-20f, 0f, 0f), new Vector3(0.008f, 0.05f, 0.03f), rojo);
+            TE.Adorno(PrimitiveType.Sphere, "Fuego", c, new Vector3(0f, -0.085f, 0f), Vector3.zero, new Vector3(0.04f, 0.03f, 0.04f), TE.MatEmisivo("Fuego", Naranja, Naranja));
+
+            var tocables = new (GameObject go, string nombre, List<Renderer> piezas)[]
+            {
+                (cubo, "Cubo", null), (esfera, "Esfera", null), (cilindro, "Cilindro", null),
+                (robot, "Robot", piezasRobot), (muneco, "Muñeco de nieve", piezasMuneco), (cohete, "Cohete", piezasCohete)
+            };
+            for (int i = 0; i < tocables.Length; i++)
+            {
+                FiguraTocable f = tocables[i].go.AddComponent<FiguraTocable>();
+                f.nombre = tocables[i].nombre;
+                f.mqtt = mqtt;
+                f.primerColor = i;   // cada figura arranca el ciclo de colores en uno distinto
+                if (tocables[i].piezas != null) f.piezas = tocables[i].piezas.ToArray();
+                Vector3 p = tocables[i].go.transform.localPosition;
+                TE.Etiqueta(tocables[i].nombre, figuras, new Vector3(p.x, i < 3 ? p.y - 0.12f : 0.71f, 0f), 0.028f, TextoSuave, TextAnchor.MiddleCenter, "Etiqueta_" + tocables[i].go.name.Substring(7));
+            }
+
+            // Consola flotante: "MQTT conectado y suscrito" y cada toque, porque en el visor no está la ventana Console
+            GameObject consola = TE.Vacio("Consola_RM", raiz.transform, new Vector3(0.5f, 1.32f, 0.1f), new Vector3(0f, 25f, 0f));
+            TE.Adorno(PrimitiveType.Quad, "Fondo", consola.transform, new Vector3(0.31f, -0.1f, 0.01f), Vector3.zero, new Vector3(0.66f, 0.25f, 1f), TE.MatTransparente("Consola_Fondo", new Color(0.05f, 0.07f, 0.1f, 0.6f)));
+            ConsolaRM cr = consola.AddComponent<ConsolaRM>();
+            cr.titulo = "Consola (Debug.Log)";
+            cr.maximoDeLineas = 7;
+            cr.mostrarErrores = true;
+            cr.texto = TE.Etiqueta("Consola (Debug.Log)", consola.transform, new Vector3(0f, 0f, 0f), 0.024f, new Color(0.75f, 1f, 0.8f), TextAnchor.UpperLeft, "Texto");
+
+            TE.SistemaDeEventos();
+            GameObject rm = TE.InfraestructuraRM(Array.IndexOf(TE.Escenas, "MQTT_Figuras"), new Vector3(0.3f, 1.28f, 0.7f), 1.35f, 1.6f, 10f);
+            TE.AgregarTocador(rm);
+            TE.GuardarEscena(escena, "MQTT_Figuras");
         }
 
         // ================================================================== Práctica 1: Game Object

@@ -24,7 +24,7 @@ namespace TecEmergentes
         public static readonly string[] Escenas =
         {
             "objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM",
-            "Inicio", "Actividad1", "Actividad2"
+            "Inicio", "Actividad1", "Actividad2", "MQTT_Figuras"
         };
 
         public static readonly string[] Titulos =
@@ -38,7 +38,8 @@ namespace TecEmergentes
             "Proyecto final · Jarvis en realidad mixta",
             "Conexión de escenas · Inicio",
             "Conexión de escenas · Actividad 1",
-            "Conexión de escenas · Actividad 2"
+            "Conexión de escenas · Actividad 2",
+            "Conectividad IoT · MQTT"
         };
 
         public static string RutaEscena(string nombre)

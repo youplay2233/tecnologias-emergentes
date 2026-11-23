@@ -32,6 +32,7 @@ El Meta XR Core SDK 85 no compila en el editor de Linux: `Editor/MetaXRSimulator
 | `Fisica_Sesion2` | Físicas S2 · Colliders y colisiones | Físicas 2 |
 | `Jarvis_RM` | Proyecto final · Jarvis en realidad mixta | Latencia y protocolos |
 | `Inicio`, `Actividad1`, `Actividad2` | Conexión de escenas | Conexión de escenas |
+| `MQTT_Figuras` | Conectividad IoT · MQTT (ejercicio 1) | MQTT Unity |
 
 ## Verlo en el Quest 3 (Linux)
 
@@ -52,10 +53,12 @@ En Linux no existe Quest Link, así que la app se instala en el visor:
 | Mismo empuje a los tres cubos (Física S1) | B | E |
 | Quitar el Collider del piso (Física S2) | Gatillo izquierdo | C |
 | Agarrar y lanzar objetos | Botón de agarre (grip) | — |
+| Pulsar un botón o tocar una figura (Conexión de escenas, MQTT) | Tocarlo con la mano o el control, o apuntar y gatillo | Clic en el botón |
 
 ## Carpetas
 
-- `Assets/Scripts`: los scripts de las presentaciones (`Bala`, `ControlCañon`, `DetectorColision`) tal como vienen en clase, más `Girar` y `MantenerVertical` del parque.
+- `Assets/Scripts`: los scripts de las presentaciones (`Bala`, `ControlCañon`, `DetectorColision`, `NavegacionEscenas`, `MQTTBasico`) tal como vienen en clase, más `Girar` y `MantenerVertical` del parque.
+- `Assets/Packages`: MQTTnet 4.3.7.1207, instalado con NuGetForUnity como pide la presentación de MQTT.
 - `Assets/RM`: lo que se agrega para realidad mixta (controles del Quest, agarre, menú de prácticas, consola flotante).
 - `Assets/Editor`: el constructor que arma las escenas siguiendo el paso a paso de las presentaciones.
 - `Assets/Jarvis`: la interfaz del proyecto final. `JarvisEnlace` es la red (UDP para encontrar la laptop, WebSocket para las órdenes, ping para medir latencia) y `JarvisRM` ejecuta las órdenes en la escena.

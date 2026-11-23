@@ -36,7 +36,7 @@ PUENTE = PROYECTO / "PuenteJarvis"
 EVIDENCIAS = RAIZ / "evidencias"
 
 ESCENAS = ["objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM",
-           "Inicio", "Actividad1", "Actividad2"]
+           "Inicio", "Actividad1", "Actividad2", "MQTT_Figuras"]
 
 # Objetos cuyo Inspector se captura como evidencia de cada práctica
 INSPECTOR = {
@@ -48,6 +48,7 @@ INSPECTOR = {
     "Fisica_Sesion2": ["Pelota", "Pelota_Continuous", "Obstaculo_2_MeshCollider"],
     "Jarvis_RM": ["Jarvis_RM"],
     "Inicio": ["Navegador", "Boton_Actividad1"],
+    "MQTT_Figuras": ["MQTT_Manager", "Boton_Publicar", "Figura_Robot"],
 }
 
 
@@ -64,6 +65,18 @@ ACCIONES = {
         {"t": 9.0, "objetivo": "Boton_Actividad2", "mensaje": "Pulsar"},
         {"t": 14.0, "objetivo": "Boton_Inicio", "mensaje": "Pulsar"},
         {"t": 18.0, "objetivo": "Boton_Actividad2", "mensaje": "Pulsar"},
+    ],
+    # MQTT: se toca cada figura (lo mismo que hace TocadorRM con la mano o el gatillo) y al final se pulsa Publicar.
+    # Cada toque publica en test.mosquitto.org y el Texto flotante muestra lo que el broker devuelve.
+    "MQTT_Figuras": [
+        {"t": 4.0, "objetivo": "Figura_Cubo", "mensaje": "Tocar"},
+        {"t": 6.0, "objetivo": "Figura_Robot", "mensaje": "Tocar"},
+        {"t": 8.0, "objetivo": "Figura_Esfera", "mensaje": "Tocar"},
+        {"t": 10.0, "objetivo": "Figura_Muneco_de_nieve", "mensaje": "Tocar"},
+        {"t": 12.0, "objetivo": "Figura_Cilindro", "mensaje": "Tocar"},
+        {"t": 14.0, "objetivo": "Figura_Cohete", "mensaje": "Tocar"},
+        {"t": 16.0, "objetivo": "Figura_Cubo", "mensaje": "Tocar"},
+        {"t": 18.0, "objetivo": "Boton_Publicar", "mensaje": "Pulsar"},
     ],
     # El cañón dispara cada 1.2 s (lo mismo que hace el clic o el gatillo derecho)
     "Canon_Autonomo": [{"t": round(1.0 + 1.2 * i, 1), "objetivo": "Cañon", "mensaje": "Disparar"} for i in range(15)],
