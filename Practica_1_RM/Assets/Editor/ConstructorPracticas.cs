@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace TecEmergentes
 {
@@ -50,7 +53,10 @@ namespace TecEmergentes
                 new KeyValuePair<string, Action>("Canon_Autonomo", EscenaCanon),
                 new KeyValuePair<string, Action>("Fisica_Sesion1", EscenaFisica1),
                 new KeyValuePair<string, Action>("Fisica_Sesion2", EscenaFisica2),
-                new KeyValuePair<string, Action>("Jarvis_RM", EscenaJarvis)
+                new KeyValuePair<string, Action>("Jarvis_RM", EscenaJarvis),
+                new KeyValuePair<string, Action>("Inicio", EscenaInicio),
+                new KeyValuePair<string, Action>("Actividad1", EscenaActividad1),
+                new KeyValuePair<string, Action>("Actividad2", EscenaActividad2)
             };
 
             string resumen = "";
@@ -93,6 +99,9 @@ namespace TecEmergentes
                 case "Fisica_Sesion1": EscenaFisica1(); break;
                 case "Fisica_Sesion2": EscenaFisica2(); break;
                 case "Jarvis_RM": EscenaJarvis(); break;
+                case "Inicio": EscenaInicio(); break;
+                case "Actividad1": EscenaActividad1(); break;
+                case "Actividad2": EscenaActividad2(); break;
                 default: return "No existe la práctica " + nombre;
             }
             AssetDatabase.SaveAssets();
@@ -107,6 +116,84 @@ namespace TecEmergentes
                 .Where(r => System.IO.File.Exists(r))
                 .Select(r => new EditorBuildSettingsScene(r, true))
                 .ToArray();
+        }
+
+        // ================================================================== Conexión de escenas
+        // Conexion_escenas.pptx:
+        //   Diapositiva 2: script NavegacionEscenas con IrAInicio(), IrAActividad1() e IrAActividad2() (SceneManager.LoadScene).
+        //   Diapositiva 3: "Guarda las tres escenas y agrégalas en File > Build Settings > Scenes In Build.
+        //                   En cada escena, crea un objeto vacío llamado Navegador y asígnale el script NavegacionEscenas.
+        //                   Selecciona un botón existente y busca On Click() en su Inspector.
+        //                   Pulsa +, arrastra Navegador al espacio del objeto y elige, por ejemplo, NavegacionEscenas > IrAActividad1().
+        //                   Repite con los otros botones y selecciona la función que corresponda."
+
+        private static void EscenaInicio()
+        {
+            EscenaNavegable("Inicio", "Inicio", "Conexión de escenas", Azul, PrimitiveType.Cube,
+                new[] { ("Actividad 1", "Boton_Actividad1"), ("Actividad 2", "Boton_Actividad2") });
+        }
+
+        private static void EscenaActividad1()
+        {
+            EscenaNavegable("Actividad1", "Actividad 1", "Conexión de escenas", Verde, PrimitiveType.Sphere,
+                new[] { ("Inicio", "Boton_Inicio"), ("Actividad 2", "Boton_Actividad2") });
+        }
+
+        private static void EscenaActividad2()
+        {
+            EscenaNavegable("Actividad2", "Actividad 2", "Conexión de escenas", Naranja, PrimitiveType.Cylinder,
+                new[] { ("Inicio", "Boton_Inicio"), ("Actividad 1", "Boton_Actividad1") });
+        }
+
+        private static void EscenaNavegable(string escenaNombre, string titulo, string subtitulo, Color color, PrimitiveType figura, (string texto, string nombre)[] botones)
+        {
+            TE.AsegurarTMP();
+            Scene escena = TE.NuevaEscena();
+            GameObject raiz = TE.Vacio("Conexion_de_escenas", null, new Vector3(0f, 0f, 0.75f));
+
+            // "En cada escena, crea un objeto vacío llamado Navegador y asígnale el script NavegacionEscenas."
+            GameObject navegadorGo = TE.Vacio("Navegador", raiz.transform, Vector3.zero);
+            NavegacionEscenas navegador = navegadorGo.AddComponent<NavegacionEscenas>();
+
+            // Panel con el nombre de la escena y sus botones (Canvas en el espacio del mundo, a 75 cm, para tocarlo)
+            Canvas canvas = TE.CanvasMundo("Canvas", raiz.transform, new Vector3(0f, 1.2f, 0f), new Vector2(720f, 420f), new Color(0.06f, 0.08f, 0.11f, 0.85f));
+            TE.TextoUI(subtitulo, canvas.transform, new Vector2(0f, 150f), new Vector2(680f, 60f), 34, TextoSuave, "Subtitulo");
+            TE.TextoUI(titulo, canvas.transform, new Vector2(0f, 80f), new Vector2(680f, 90f), 72, color, "Titulo");
+
+            for (int i = 0; i < botones.Length; i++)
+            {
+                float x = (i - (botones.Length - 1) / 2f) * 330f;
+                Button boton = TE.BotonUI(botones[i].texto, canvas.transform, new Vector2(x, -90f), new Vector2(290f, 110f), color, botones[i].nombre);
+                // "Selecciona un botón, busca On Click(), pulsa +, arrastra Navegador y elige la función que corresponda."
+                UnityAction accion;
+                switch (botones[i].nombre)
+                {
+                    case "Boton_Inicio": accion = navegador.IrAInicio; break;
+                    case "Boton_Actividad1": accion = navegador.IrAActividad1; break;
+                    default: accion = navegador.IrAActividad2; break;
+                }
+                UnityEventTools.AddPersistentListener(boton.onClick, accion);
+            }
+
+            // Una figura distinta en cada escena para reconocerla de un vistazo
+            GameObject f = TE.Prim(figura, "Figura_" + escenaNombre, raiz.transform, new Vector3(0f, 1.62f, 0.15f), new Vector3(20f, 0f, 0f),
+                figura == PrimitiveType.Cylinder ? new Vector3(0.18f, 0.08f, 0.18f) : Vector3.one * 0.18f, TE.Mat(ColorNombre(color), color));
+            Girar giro = f.AddComponent<Girar>();
+            giro.eje = Vector3.up;
+            giro.gradosPorSegundo = 45f;
+
+            TE.SistemaDeEventos();
+            GameObject rm = TE.InfraestructuraRM(Array.IndexOf(TE.Escenas, escenaNombre), new Vector3(0f, 1.38f, 0.75f), 1.05f, 1.45f, 16f);
+            TE.AgregarTocador(rm);
+            TE.GuardarEscena(escena, escenaNombre);
+        }
+
+        private static string ColorNombre(Color c)
+        {
+            if (c == Azul) return "Azul";
+            if (c == Verde) return "Verde";
+            if (c == Naranja) return "Naranja";
+            return "Gris";
         }
 
         // ================================================================== Práctica 1: Game Object

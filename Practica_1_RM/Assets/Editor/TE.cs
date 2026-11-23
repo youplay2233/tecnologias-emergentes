@@ -6,6 +6,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
 
 namespace TecEmergentes
 {
@@ -20,7 +23,8 @@ namespace TecEmergentes
 
         public static readonly string[] Escenas =
         {
-            "objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM"
+            "objetos", "Parque_diversiones", "Proyecto_final", "Canon_Autonomo", "Fisica_Sesion1", "Fisica_Sesion2", "Jarvis_RM",
+            "Inicio", "Actividad1", "Actividad2"
         };
 
         public static readonly string[] Titulos =
@@ -31,7 +35,10 @@ namespace TecEmergentes
             "Práctica 3 · El Cañón Autónomo",
             "Físicas S1 · Rigidbody y gravedad",
             "Físicas S2 · Colliders y colisiones",
-            "Proyecto final · Jarvis en realidad mixta"
+            "Proyecto final · Jarvis en realidad mixta",
+            "Conexión de escenas · Inicio",
+            "Conexión de escenas · Actividad 1",
+            "Conexión de escenas · Actividad 2"
         };
 
         public static string RutaEscena(string nombre)
@@ -469,6 +476,109 @@ namespace TecEmergentes
             linea.receiveShadows = false;
             linea.enabled = false;
             mano.rayo = linea;
+        }
+
+        // ------------------------------------------------------------------ UI en el espacio del mundo (botones en el visor)
+
+        // Los textos de UI usan TextMeshPro: la primera vez se importan sus recursos esenciales (Window > TextMeshPro >
+        // Import TMP Essential Resources), que vienen dentro del paquete com.unity.textmeshpro.
+        public static void AsegurarTMP()
+        {
+            if (TMP_Settings.instance != null && TMP_Settings.defaultFontAsset != null) return;
+            string paquete = Path.GetFullPath("Packages/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage");
+            AssetDatabase.ImportPackage(paquete, false);
+            AssetDatabase.Refresh();
+        }
+
+        // GameObject > UI > Canvas, con Render Mode = World Space: 1 unidad del Canvas = 1 mm
+        public static Canvas CanvasMundo(string nombre, Transform padre, Vector3 pos, Vector2 tamano, Color fondo)
+        {
+            GameObject go = new GameObject(nombre, typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            go.transform.SetParent(padre, false);
+            Canvas canvas = go.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.WorldSpace;
+            RectTransform rt = (RectTransform)go.transform;
+            rt.sizeDelta = tamano;
+            rt.localPosition = pos;
+            rt.localScale = Vector3.one * 0.001f;
+            GameObject panel = new GameObject("Fondo", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(go.transform, false);
+            RectTransform rp = (RectTransform)panel.transform;
+            rp.anchorMin = Vector2.zero; rp.anchorMax = Vector2.one; rp.offsetMin = Vector2.zero; rp.offsetMax = Vector2.zero;
+            Image img = panel.GetComponent<Image>();
+            img.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            img.type = Image.Type.Sliced;
+            img.color = fondo;
+            img.raycastTarget = false;
+            return canvas;
+        }
+
+        public static TextMeshProUGUI TextoUI(string texto, Transform padre, Vector2 pos, Vector2 tamano, float tamFuente, Color color, string nombre = "Texto")
+        {
+            GameObject go = new GameObject(nombre, typeof(RectTransform));
+            go.transform.SetParent(padre, false);
+            RectTransform rt = (RectTransform)go.transform;
+            rt.anchoredPosition = pos;
+            rt.sizeDelta = tamano;
+            TextMeshProUGUI t = go.AddComponent<TextMeshProUGUI>();
+            t.text = texto;
+            t.fontSize = tamFuente;
+            t.color = color;
+            t.alignment = TextAlignmentOptions.Center;
+            t.raycastTarget = false;
+            return t;
+        }
+
+        // GameObject > UI > Button - TextMeshPro, más BotonRM para poder pulsarlo en el visor
+        public static Button BotonUI(string texto, Transform padre, Vector2 pos, Vector2 tamano, Color color, string nombre)
+        {
+            GameObject go = new GameObject(nombre, typeof(RectTransform), typeof(Image), typeof(Button));
+            go.transform.SetParent(padre, false);
+            RectTransform rt = (RectTransform)go.transform;
+            rt.anchoredPosition = pos;
+            rt.sizeDelta = tamano;
+            Image img = go.GetComponent<Image>();
+            img.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            img.type = Image.Type.Sliced;
+            img.color = color;
+            Button b = go.GetComponent<Button>();
+            b.targetGraphic = img;
+            TextoUI(texto, go.transform, Vector2.zero, tamano, 42, Color.white);
+            go.AddComponent<BotonRM>();
+            return b;
+        }
+
+        // GameObject > UI > Event System: con él los botones también se pulsan con el mouse en el editor
+        public static void SistemaDeEventos()
+        {
+            new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
+        }
+
+        // TocadorRM en las dos manos del rig (tocar de cerca o apuntar y apretar el gatillo) y la cámara del editor
+        // como cámara de eventos de los Canvas, para el mouse.
+        public static void AgregarTocador(GameObject infraestructura)
+        {
+            foreach (Transform ancla in infraestructura.GetComponentsInChildren<Transform>(true))
+            {
+                bool derecha = ancla.name == "RightHandAnchor";
+                if (!derecha && ancla.name != "LeftHandAnchor") continue;
+                TocadorRM tocador = ancla.gameObject.AddComponent<TocadorRM>();
+                tocador.derecha = derecha;
+                GameObject rayoGo = new GameObject(derecha ? "Rayo_toque_derecho" : "Rayo_toque_izquierdo");
+                rayoGo.transform.SetParent(ancla, false);
+                LineRenderer linea = rayoGo.AddComponent<LineRenderer>();
+                linea.sharedMaterial = MatEstela("Rayo_Toque_RM", new Color(1f, 0.85f, 0.3f, 0.8f));
+                linea.positionCount = 2;
+                linea.useWorldSpace = true;
+                linea.widthMultiplier = 0.005f;
+                linea.shadowCastingMode = ShadowCastingMode.Off;
+                linea.receiveShadows = false;
+                linea.enabled = false;
+                tocador.rayo = linea;
+            }
+            ArranqueRM arranque = infraestructura.GetComponent<ArranqueRM>();
+            Camera camaraEditor = arranque != null && arranque.camaraSimulacion != null ? arranque.camaraSimulacion.GetComponent<Camera>() : null;
+            foreach (Canvas c in UnityEngine.Object.FindObjectsOfType<Canvas>()) c.worldCamera = camaraEditor;
         }
 
         public static string V(Vector3 v)

@@ -141,6 +141,9 @@ namespace TecEmergentes
         [MenuItem("Tecnologías Emergentes/Abrir práctica/Físicas S2 · Colliders y colisiones", priority = 25)]
         private static void Abrir5() { Abrir(5); }
 
+        [MenuItem("Tecnologías Emergentes/Abrir práctica/Conexión de escenas · Inicio", priority = 26)]
+        private static void Abrir7() { Abrir(7); }
+
         [MenuItem("Tecnologías Emergentes/Abrir práctica/Proyecto final · Jarvis en realidad mixta", priority = 40)]
         private static void Abrir6() { Abrir(6); }
 

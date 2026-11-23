@@ -7,7 +7,7 @@ Proyecto de Unity **2022.3.58f1** con las prácticas de Tecnologías Emergentes 
 
 1. Unity Hub > **Add** > *Add project from disk* > esta carpeta.
 2. Ábrelo con el editor 2022.3.58f1. La primera vez descarga el SDK de Meta y tarda varios minutos.
-3. Al terminar de importar, el proyecto cambia solo a Android y construye las siete escenas en `Assets/Scene`.
+3. Al terminar de importar, el proyecto cambia solo a Android y construye las escenas de las prácticas en `Assets/Scene`.
    Si no lo hace: menú **Tecnologías Emergentes > 1. Construir todas las prácticas**.
 
 ### En Linux
@@ -31,6 +31,7 @@ El Meta XR Core SDK 85 no compila en el editor de Linux: `Editor/MetaXRSimulator
 | `Fisica_Sesion1` | Físicas S1 · Rigidbody y gravedad | Físicas 1 |
 | `Fisica_Sesion2` | Físicas S2 · Colliders y colisiones | Físicas 2 |
 | `Jarvis_RM` | Proyecto final · Jarvis en realidad mixta | Latencia y protocolos |
+| `Inicio`, `Actividad1`, `Actividad2` | Conexión de escenas | Conexión de escenas |
 
 ## Verlo en el Quest 3 (Linux)
 
