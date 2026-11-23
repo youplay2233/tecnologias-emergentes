@@ -9,20 +9,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-/* Paleta tomada del editor de Unity (tema oscuro) y de los colores de sus ejes X, Y y Z. */
+/* Realidad mixta de noche: fondo azul muy oscuro, cian del HUD de Jarvis y violeta como acento.
+   Del editor de Unity quedan la columna Hierarchy, el gizmo y los colores de los ejes X, Y y Z. */
 :root {
-  --ventana: #333333;
-  --panel: #3c3c3c;
-  --hondo: #2a2a2a;
-  --borde: #1f1f1f;
-  --linea: #505050;
-  --texto: #e2e2e2;
-  --suave: #b3b3b3;
-  --seleccion: #2c5d87;
-  --enlace: #9cc8ff;
-  --eje-x: #f0705f;
-  --eje-y: #9bd45c;
-  --eje-z: #6aa5ff;
+  --fondo: #070b13;
+  --fondo-2: #0a101c;
+  --superficie: #0e1625;
+  --superficie-2: #131d31;
+  --hondo: #080d17;
+  --borde: rgba(148, 178, 255, 0.12);
+  --borde-fuerte: rgba(148, 178, 255, 0.24);
+  --linea: rgba(148, 178, 255, 0.14);
+  --texto: #e6edf8;
+  --suave: #9eabc2;
+  --tenue: #6d7a93;
+  --acento: #4cd7ff;
+  --acento-2: #9585ff;
+  --enlace: #7fdcff;
+  --seleccion: rgba(76, 215, 255, 0.14);
+  --eje-x: #ff6f61;
+  --eje-y: #9be15d;
+  --eje-z: #5ea2ff;
+  --radio: 16px;
+  --radio-chico: 10px;
+  --sombra: 0 18px 40px -22px rgba(0, 0, 0, 0.85);
   --titulo: "Chakra Petch", "Trebuchet MS", sans-serif;
   --cuerpo: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "DejaVu Sans Mono", monospace;
@@ -36,25 +46,30 @@ html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
 
 body {
   margin: 0;
-  background: var(--ventana);
+  background:
+    radial-gradient(1100px 600px at 85% -10%, rgba(149, 133, 255, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 25% 0%, rgba(76, 215, 255, 0.07), transparent 60%),
+    var(--fondo);
+  background-attachment: fixed;
   color: var(--texto);
-  font: 400 1.0625rem/1.6 var(--cuerpo);
+  font: 400 1.0625rem/1.65 var(--cuerpo);
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--enlace); text-underline-offset: 0.18em; }
+a { color: var(--enlace); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { color: #ffffff; }
-:focus-visible { outline: 2px solid var(--eje-z); outline-offset: 2px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 6px; }
+::selection { background: rgba(76, 215, 255, 0.3); }
 
-code, pre { font-family: var(--mono); font-size: 0.9em; }
-code { background: var(--hondo); padding: 0.08em 0.35em; border-radius: 3px; }
+code, pre { font-family: var(--mono); font-size: 0.88em; }
+code { background: rgba(148, 178, 255, 0.08); border: 1px solid var(--borde); padding: 0.05em 0.38em; border-radius: 6px; }
 :not(pre) > code { overflow-wrap: anywhere; }   /* rutas largas: que se partan en celular */
 
 /* ------------------------------------------------------------------ estructura: Hierarchy a la izquierda */
 
 .marco {
   display: grid;
-  grid-template-columns: 19rem minmax(0, 1fr);
+  grid-template-columns: 18.5rem minmax(0, 1fr);
   min-height: 100vh;
 }
 
@@ -64,148 +79,482 @@ code { background: var(--hondo); padding: 0.08em 0.35em; border-radius: 3px; }
   align-self: start;
   height: 100vh;
   overflow-y: auto;
-  background: var(--panel);
+  background: rgba(8, 13, 23, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-right: 1px solid var(--borde);
+  scrollbar-width: thin;
+  scrollbar-color: var(--linea) transparent;
 }
 
 .pestana {
   margin: 0;
-  padding: 0.55rem 1rem;
-  font: 600 0.875rem/1 var(--cuerpo);
-  background: var(--hondo);
-  border-bottom: 1px solid var(--borde);
-  color: var(--suave);
+  padding: 1.1rem 1.25rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font: 600 0.75rem/1 var(--titulo);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+.pestana::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 3px;
+  background: linear-gradient(135deg, var(--acento), var(--acento-2));
+  box-shadow: 0 0 12px rgba(76, 215, 255, 0.6);
 }
 
-.jerarquia-nav { padding: 0.5rem 0 2rem; font-size: 0.9375rem; line-height: 1.35; }
-.jerarquia-nav ul { list-style: none; margin: 0; padding: 0 0 0 1.05rem; }
-.jerarquia-nav > details > ul { padding-left: 1.05rem; }
-.jerarquia-nav summary { cursor: pointer; padding: 0.3rem 0.75rem 0.3rem 0.5rem; }
-.jerarquia-nav > details > summary { font-weight: 600; }
-.jerarquia-nav summary::marker { color: var(--suave); }
-.jerarquia-nav a { color: var(--texto); text-decoration: none; }
-.jerarquia-nav li > a { display: block; padding: 0.3rem 0.75rem 0.3rem 1.45rem; }
-.jerarquia-nav a:hover { color: #ffffff; text-decoration: underline; }
-.jerarquia-nav li > a[aria-current="true"],
-.jerarquia-nav summary:has(> a[aria-current="true"]) { background: var(--seleccion); color: #ffffff; }
+.jerarquia-nav { padding: 0 0.6rem 2rem; font-size: 0.9375rem; line-height: 1.35; }
+.jerarquia-nav ul { list-style: none; margin: 0; padding: 0 0 0 0.85rem; }
+.jerarquia-nav > details > ul { padding-left: 0.4rem; }
+.jerarquia-nav summary { cursor: pointer; padding: 0.4rem 0.6rem; border-radius: 8px; }
+.jerarquia-nav summary:hover { background: rgba(148, 178, 255, 0.06); }
+.jerarquia-nav > details > summary { font: 600 1rem/1.3 var(--titulo); color: #ffffff; }
+.jerarquia-nav summary::marker { color: var(--tenue); }
+.jerarquia-nav a { color: var(--suave); text-decoration: none; }
+.jerarquia-nav summary > a { color: var(--texto); font-weight: 500; }
+.jerarquia-nav li > a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.38rem 0.6rem 0.38rem 0.75rem;
+  border-radius: 8px;
+  border-left: 2px solid transparent;
+}
+.jerarquia-nav li > a::before {
+  content: "";
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 2px;
+  background: var(--tenue);
+  transform: translateY(-0.08rem) rotate(45deg);
+}
+.jerarquia-nav a:hover { color: #ffffff; }
+.jerarquia-nav li > a:hover { background: rgba(148, 178, 255, 0.06); }
+.jerarquia-nav li > a[aria-current="true"] {
+  background: var(--seleccion);
+  border-left-color: var(--acento);
+  color: #ffffff;
+}
+.jerarquia-nav li > a[aria-current="true"]::before { background: var(--acento); box-shadow: 0 0 8px var(--acento); }
+.jerarquia-nav summary:has(> a[aria-current="true"]) { background: var(--seleccion); }
 .jerarquia-nav summary > a[aria-current="true"] { color: #ffffff; }
 
-main { padding: 0 clamp(1.25rem, 4vw, 4rem) 5rem; max-width: 62rem; }
+main { padding: 0 clamp(1rem, 4vw, 3.5rem) 5rem; max-width: 66rem; width: 100%; margin: 0 auto; }
 
 /* ------------------------------------------------------------------ portada */
 
-.portada { position: relative; padding: clamp(2.5rem, 7vw, 5rem) 0 2.5rem; border-bottom: 1px solid var(--linea); }
+.portada {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: clamp(1rem, 3vw, 2rem);
+  padding: clamp(2rem, 6vw, 4.25rem) clamp(1.25rem, 5vw, 3.5rem) clamp(2rem, 5vw, 3.25rem);
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  background:
+    radial-gradient(70% 90% at 100% 0%, rgba(149, 133, 255, 0.22), transparent 60%),
+    radial-gradient(60% 80% at 0% 0%, rgba(76, 215, 255, 0.16), transparent 60%),
+    linear-gradient(180deg, var(--superficie-2), var(--fondo-2));
+  box-shadow: var(--sombra);
+}
+/* El piso del cuarto: una cuadrícula en perspectiva, como la del modo de realidad mixta */
+.portada::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -25%;
+  right: -25%;
+  bottom: -2px;
+  height: 62%;
+  background-image:
+    linear-gradient(rgba(76, 215, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76, 215, 255, 0.22) 1px, transparent 1px);
+  background-size: 54px 54px;
+  transform: perspective(420px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 85%);
+  mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 85%);
+  pointer-events: none;
+}
 .portada h1 {
-  margin: 0;
-  font: 700 clamp(2.4rem, 6.2vw, 4.4rem)/1.02 var(--titulo);
-  letter-spacing: -0.01em;
+  margin: 0.35rem 0 0;
+  font: 700 clamp(2.5rem, 7vw, 4.9rem)/0.98 var(--titulo);
+  letter-spacing: -0.015em;
   max-width: 11ch;
 }
-.portada .bajada { margin: 1rem 0 1.25rem; color: var(--suave); font-size: 1.125rem; }
-.portada p { max-width: 66ch; }
-.portada p:last-child { margin-bottom: 0; }
+.portada h1 span {
+  background: linear-gradient(92deg, var(--acento) 0%, #8fe6ff 40%, var(--acento-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.portada .bajada { margin: 1.1rem 0 1rem; color: var(--texto); font-size: 1.1875rem; font-weight: 500; }
+.portada p { max-width: 62ch; }
+.portada > p:not(.kicker):not(.bajada):not(.acciones) { color: var(--suave); }
 
-.gizmo { position: absolute; right: 0; top: clamp(1.5rem, 5vw, 3.5rem); width: clamp(5.5rem, 12vw, 8.5rem); height: auto; }
+.kicker {
+  display: block;
+  margin: 0;
+  font: 600 0.75rem/1.4 var(--titulo);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+.cifras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cifras li {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 999px;
+  background: rgba(8, 13, 23, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--suave);
+  font-size: 0.9375rem;
+}
+.cifras b { color: #ffffff; font: 600 1rem var(--titulo); margin-right: 0.3rem; }
+
+.acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.2rem;
+  border-radius: 12px;
+  font: 600 0.9688rem/1 var(--cuerpo);
+  text-decoration: none;
+  color: #04121b;
+  background: linear-gradient(135deg, var(--acento), #7fe3ff);
+  box-shadow: 0 8px 24px -10px rgba(76, 215, 255, 0.8);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.boton:hover { color: #04121b; transform: translateY(-1px); box-shadow: 0 12px 28px -10px rgba(76, 215, 255, 0.95); }
+.boton.secundario { color: #ffffff; background: linear-gradient(135deg, #6f5cff, var(--acento-2)); box-shadow: 0 8px 24px -10px rgba(149, 133, 255, 0.8); }
+.boton.secundario:hover { color: #ffffff; }
+.boton.fantasma { color: var(--texto); background: rgba(148, 178, 255, 0.06); border: 1px solid var(--borde-fuerte); box-shadow: none; }
+.boton.fantasma:hover { color: #ffffff; background: rgba(148, 178, 255, 0.12); }
+
+.gizmo {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2.75rem);
+  top: clamp(1.25rem, 4vw, 2.5rem);
+  width: clamp(5rem, 11vw, 7.5rem);
+  height: auto;
+  filter: drop-shadow(0 0 14px rgba(76, 215, 255, 0.25));
+}
 .gizmo line { stroke-width: 5; stroke-linecap: round; }
-.gizmo text { font: 700 11px var(--titulo); fill: #1c1c1c; }
+.gizmo text { font: 700 11px var(--titulo); fill: #0b0f17; }
 .gizmo .gx { stroke: var(--eje-x); fill: var(--eje-x); }
 .gizmo .gy { stroke: var(--eje-y); fill: var(--eje-y); }
 .gizmo .gz { stroke: var(--eje-z); fill: var(--eje-z); }
-.gizmo .gc { fill: #9a9a9a; }
+.gizmo .gc { fill: #c9d4e8; }
 
 /* ------------------------------------------------------------------ secciones */
 
-main > section { padding-top: 3.5rem; }
-h2 { margin: 0 0 0.75rem; font: 700 2.1rem/1.1 var(--titulo); }
-.entrada { max-width: 66ch; color: var(--suave); margin: 0 0 1rem; }
+main > section { padding-top: 4rem; }
+h2 {
+  margin: 0 0 1rem;
+  font: 700 clamp(1.8rem, 4vw, 2.3rem)/1.1 var(--titulo);
+  letter-spacing: -0.01em;
+}
+h2::after {
+  content: "";
+  display: block;
+  width: 3.25rem;
+  height: 3px;
+  margin-top: 0.7rem;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--acento), var(--acento-2));
+}
+.entrada { max-width: 66ch; color: var(--suave); margin: 0 0 1.5rem; }
 
-.practica { padding: 2.25rem 0 2.75rem; border-top: 1px solid var(--linea); }
-section > .practica:first-of-type { border-top: 0; padding-top: 0.75rem; }
-.practica > header { margin-bottom: 1.5rem; }
-.practica h3 { margin: 0 0 0.4rem; font: 600 1.6rem/1.2 var(--titulo); }
-.practica h4 { margin: 2.25rem 0 0.75rem; font: 600 1.125rem/1.3 var(--titulo); color: #ffffff; }
-.practica p, .practica li { max-width: 68ch; }
-.origen { margin: 0 0 0.75rem; color: var(--suave); font-size: 0.9375rem; }
-.objetivo { margin: 0; font-size: 1.125rem; }
+/* ------------------------------------------------------------------ índice: tarjetas con un cuadro de cada video */
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--texto);
+  text-decoration: none;
+  box-shadow: var(--sombra);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.tarjeta:hover {
+  color: var(--texto);
+  transform: translateY(-3px);
+  border-color: rgba(76, 215, 255, 0.45);
+  box-shadow: 0 22px 44px -24px rgba(76, 215, 255, 0.45);
+}
+@media (prefers-reduced-motion: reduce) { .tarjeta, .boton { transition: none; } .tarjeta:hover, .boton:hover { transform: none; } }
+
+.tarjeta-img { display: block; aspect-ratio: 16 / 9; background: var(--hondo); overflow: hidden; border-bottom: 1px solid var(--borde); }
+.tarjeta-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.tarjeta:hover .tarjeta-img img { transform: scale(1.03); }
+.tarjeta-cuerpo { display: flex; flex-direction: column; gap: 0.45rem; padding: 1rem 1.1rem 1.15rem; flex: 1; }
+.tarjeta-titulo { font: 600 1.125rem/1.25 var(--titulo); color: #ffffff; }
+.tarjeta-texto {
+  color: var(--suave);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tarjeta .chips { margin-top: auto; padding-top: 0.35rem; }
+
+.galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: 1.1rem; }
+
+.tarjeta.destacada {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  margin-bottom: 1.1rem;
+  border-color: rgba(76, 215, 255, 0.3);
+  background:
+    radial-gradient(80% 100% at 100% 0%, rgba(149, 133, 255, 0.16), transparent 70%),
+    var(--superficie);
+}
+.tarjeta.destacada .tarjeta-img { aspect-ratio: auto; min-height: 15rem; border-bottom: 0; border-right: 1px solid var(--borde); }
+.tarjeta.destacada .tarjeta-cuerpo { padding: 1.5rem 1.6rem; justify-content: center; }
+.tarjeta.destacada .tarjeta-titulo { font-size: 1.6rem; }
+.tarjeta.destacada .tarjeta-texto { -webkit-line-clamp: 5; font-size: 1rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.chips li {
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(76, 215, 255, 0.28);
+  background: rgba(76, 215, 255, 0.08);
+  color: #bfefff;
+  font: 500 0.78rem/1.5 var(--mono);
+}
+
+/* ------------------------------------------------------------------ cada práctica, en su tarjeta */
+
+.practica {
+  margin: 0 0 1.75rem;
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(19, 29, 49, 0.9), rgba(14, 22, 37, 0.9));
+  box-shadow: var(--sombra);
+}
+.practica > header { margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.practica h3 { margin: 0; font: 700 clamp(1.45rem, 3vw, 1.85rem)/1.15 var(--titulo); color: #ffffff; }
+.practica h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 2.4rem 0 0.9rem;
+  font: 600 1.15rem/1.3 var(--titulo);
+  color: #ffffff;
+}
+.practica h4::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--acento);
+  box-shadow: 0 0 10px rgba(76, 215, 255, 0.7);
+  transform: rotate(45deg);
+}
+.practica p, .practica li { max-width: 70ch; }
+.origen { margin: 0; color: var(--tenue); font-size: 0.875rem; }
+.objetivo { margin: 0; font-size: 1.125rem; color: var(--texto); }
+
+.proyecto {
+  border-color: rgba(76, 215, 255, 0.3);
+  background:
+    radial-gradient(60% 40% at 100% 0%, rgba(149, 133, 255, 0.14), transparent 70%),
+    linear-gradient(180deg, rgba(19, 29, 49, 0.95), rgba(14, 22, 37, 0.95));
+}
 
 /* ------------------------------------------------------------------ evidencia */
 
-.video { margin: 0 0 1rem; }
-.video video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #151515; border: 1px solid var(--borde); border-radius: 4px; }
-figcaption { margin-top: 0.45rem; color: var(--suave); font-size: 0.875rem; }
+.video { margin: 0 0 1.1rem; }
+.video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #04070d;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 14px;
+  box-shadow: 0 24px 50px -30px rgba(76, 215, 255, 0.55);
+}
+figcaption { margin-top: 0.55rem; color: var(--suave); font-size: 0.875rem; }
 p.nota { color: var(--suave); font-size: 0.875rem; }
 
-.fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; margin: 1rem 0 0; }
+.fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 1rem; margin: 1.1rem 0 0; }
 .fotos figure { margin: 0; }
-.fotos img { display: block; width: 100%; height: auto; border: 1px solid var(--borde); border-radius: 4px; background: var(--hondo); }
+.fotos a { display: block; border-radius: 12px; }
+.fotos img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--hondo);
+  transition: border-color 0.15s ease;
+}
+.fotos a:hover img { border-color: rgba(76, 215, 255, 0.5); }
+/* Las capturas del Inspector son altas y abajo casi siempre están vacías: se recortan (el enlace abre la completa) */
+.fotos .inspector img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
 
 .vacio {
   padding: 1rem 1.15rem;
-  border: 1px dashed var(--linea);
-  border-radius: 4px;
+  border: 1px dashed var(--borde-fuerte);
+  border-radius: 12px;
   color: var(--suave);
-  max-width: 68ch;
+  max-width: 70ch;
 }
 .vacio strong { color: var(--texto); }
 
 /* ------------------------------------------------------------------ paso a paso: lo que pide la presentación y cómo quedó */
 
 .pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; }
-.pasos > li { counter-increment: paso; position: relative; padding: 0 0 1.1rem 2.6rem; }
+.pasos > li { counter-increment: paso; position: relative; padding: 0 0 1.25rem 3rem; }
+.pasos > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  top: 2.2rem;
+  bottom: 0.3rem;
+  width: 1px;
+  background: linear-gradient(var(--borde-fuerte), transparent);
+}
 .pasos > li::before {
   content: counter(paso);
-  position: absolute; left: 0; top: 0.1rem;
-  width: 1.75rem; height: 1.75rem;
-  display: grid; place-items: center;
-  font: 600 0.9375rem/1 var(--titulo);
-  background: var(--panel); border: 1px solid var(--linea); border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 1.95rem;
+  height: 1.95rem;
+  display: grid;
+  place-items: center;
+  font: 700 0.875rem/1 var(--titulo);
+  color: var(--acento);
+  background: rgba(76, 215, 255, 0.08);
+  border: 1px solid rgba(76, 215, 255, 0.4);
+  border-radius: 50%;
 }
-.pasos .pide { margin: 0 0 0.25rem; color: var(--suave); font-style: italic; }
+.pasos .pide { margin: 0 0 0.3rem; color: var(--suave); font-style: italic; font-size: 0.9688rem; }
 .pasos .hecho { margin: 0; }
 
-.observado { margin: 0; padding-left: 1.2rem; }
-.observado li { margin-bottom: 0.6rem; }
-.observado li::marker { color: var(--eje-y); }
+.observado { margin: 0; padding: 0; list-style: none; }
+.observado li { position: relative; margin-bottom: 0.7rem; padding-left: 1.5rem; }
+.observado li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.62em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 2px;
+  background: var(--eje-y);
+  transform: rotate(45deg);
+}
 
 .preguntas { margin: 0; }
-.preguntas dt { font-weight: 600; margin-top: 0.9rem; }
-.preguntas dd { margin: 0.2rem 0 0; max-width: 68ch; }
+.preguntas dt { font-weight: 600; margin-top: 1rem; color: #ffffff; }
+.preguntas dd { margin: 0.25rem 0 0; max-width: 70ch; color: var(--suave); }
 
 /* ------------------------------------------------------------------ código y jerarquía de Unity */
 
-.codigo { margin: 0 0 1.25rem; border: 1px solid var(--borde); border-radius: 4px; overflow: hidden; }
-.codigo figcaption { margin: 0; padding: 0.45rem 0.9rem; background: var(--panel); border-bottom: 1px solid var(--borde); font-family: var(--mono); }
-.codigo pre { margin: 0; padding: 0.9rem; overflow-x: auto; background: var(--hondo); line-height: 1.5; tab-size: 4; }
-.codigo code { background: none; padding: 0; }
+.codigo { margin: 0 0 1.25rem; border: 1px solid var(--borde-fuerte); border-radius: 12px; overflow: hidden; background: var(--hondo); }
+.codigo figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  background: var(--superficie-2);
+  border-bottom: 1px solid var(--borde);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+/* Tres puntos de ventana, cada uno del color de un eje */
+.codigo figcaption::before {
+  content: "";
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--eje-x);
+  box-shadow: 0.95rem 0 0 var(--eje-y), 1.9rem 0 0 var(--eje-z);
+  margin-right: 1.9rem;
+}
+.codigo pre { margin: 0; padding: 1rem 1.1rem; overflow-x: auto; background: var(--hondo); line-height: 1.55; tab-size: 4; }
+.codigo code { background: none; border: 0; padding: 0; }
 
-.jerarquia { margin-top: 1.75rem; border: 1px solid var(--borde); border-radius: 4px; background: var(--panel); }
-.jerarquia > summary { cursor: pointer; padding: 0.6rem 0.9rem; font-weight: 600; }
-.jerarquia .nota { margin: 0; padding: 0 0.9rem 0.6rem; color: var(--suave); font-size: 0.875rem; }
-.arbol { max-height: 30rem; overflow: auto; padding: 0.5rem 0; background: var(--hondo); border-top: 1px solid var(--borde); font: 400 0.8125rem/1.5 var(--mono); }
-.arbol .fila { white-space: nowrap; padding: 0.05rem 0.9rem 0.05rem calc(0.9rem + var(--n) * 1.1rem); }
-.arbol .fila:hover { background: var(--panel); }
+.jerarquia { margin-top: 1.75rem; border: 1px solid var(--borde-fuerte); border-radius: 12px; background: var(--superficie-2); overflow: hidden; }
+.jerarquia > summary { cursor: pointer; padding: 0.75rem 1rem; font-weight: 600; }
+.jerarquia > summary:hover { background: rgba(148, 178, 255, 0.05); }
+.jerarquia .nota { margin: 0; padding: 0 1rem 0.7rem; color: var(--suave); font-size: 0.875rem; }
+.arbol { max-height: 30rem; overflow: auto; padding: 0.5rem 0; background: var(--hondo); border-top: 1px solid var(--borde); font: 400 0.8125rem/1.55 var(--mono); }
+.arbol .fila { white-space: nowrap; padding: 0.05rem 1rem 0.05rem calc(1rem + var(--n) * 1.1rem); }
+.arbol .fila:hover { background: rgba(76, 215, 255, 0.07); }
 .arbol .obj { color: var(--texto); }
 .arbol .tf { margin-left: 1rem; }
 .arbol .terna { margin-right: 0.9rem; }
-.arbol .terna b { font-weight: 500; color: var(--suave); margin-right: 0.35rem; }
+.arbol .terna b { font-weight: 500; color: var(--tenue); margin-right: 0.35rem; }
 .arbol .terna i { margin-right: 0.4rem; }
-.arbol .comp { margin-left: 0.4rem; padding: 0 0.4rem; border: 1px solid var(--linea); border-radius: 3px; color: var(--suave); }
+.arbol .comp { margin-left: 0.4rem; padding: 0 0.45rem; border: 1px solid var(--borde-fuerte); border-radius: 6px; color: var(--suave); }
 i.x { color: var(--eje-x); font-style: normal; }
 i.y { color: var(--eje-y); font-style: normal; }
 i.z { color: var(--eje-z); font-style: normal; }
 
 /* ------------------------------------------------------------------ enlace práctica -> proyecto */
 
-.al-proyecto { margin-top: 2rem; padding: 0.9rem 1.15rem 1rem; background: var(--panel); border-left: 3px solid var(--eje-z); border-radius: 0 4px 4px 0; max-width: 72ch; }
-.al-proyecto h4 { margin: 0 0 0.3rem; }
+.al-proyecto {
+  position: relative;
+  margin-top: 2.2rem;
+  padding: 1.1rem 1.3rem 1.2rem 1.5rem;
+  border: 1px solid rgba(76, 215, 255, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(76, 215, 255, 0.09), rgba(149, 133, 255, 0.07));
+  max-width: 74ch;
+  overflow: hidden;
+}
+.al-proyecto::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(var(--acento), var(--acento-2));
+}
+.al-proyecto h4 { margin: 0 0 0.35rem; }
+.al-proyecto h4::before { display: none; }
 .al-proyecto p { margin: 0; }
-.controles { margin: 1.25rem 0 0; color: var(--suave); font-size: 0.9375rem; }
+.controles {
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linea);
+  color: var(--suave);
+  font-size: 0.9375rem;
+}
+.controles::before { content: "Controles  "; font: 600 0.75rem var(--titulo); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); }
 
 /* ------------------------------------------------------------------ proyecto */
 
 .diagrama { display: block; width: 100%; height: auto; margin: 0.5rem 0 1.5rem; color: var(--suave); }
-.diagrama .caja > rect { fill: var(--panel); stroke: var(--borde); }
-.diagrama .caja .sub { fill: var(--hondo); stroke: var(--linea); }
+.diagrama .caja > rect { fill: var(--superficie-2); stroke: var(--borde-fuerte); }
+.diagrama .caja .sub { fill: var(--hondo); stroke: var(--borde); }
 .diagrama text { fill: var(--texto); font-family: var(--cuerpo); }
 .diagrama .t1 { font: 600 19px var(--titulo); }
 .diagrama .t2 { font-size: 13px; fill: var(--suave); }
@@ -217,22 +566,33 @@ i.z { color: var(--eje-z); font-style: normal; }
 .diagrama .flecha.y { color: var(--eje-y); }
 .diagrama .flecha.z { color: var(--eje-z); }
 
-.partes { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem 2rem; margin: 0; }
-.partes dt { font: 600 1.0625rem var(--titulo); }
-.partes dd { margin: 0.2rem 0 0; color: var(--suave); }
+.partes { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin: 0; }
+.partes > div { padding: 1rem 1.1rem; border: 1px solid var(--borde); border-radius: 12px; background: rgba(8, 13, 23, 0.45); }
+.partes dt { font: 600 1.0625rem var(--titulo); color: #ffffff; }
+.partes dd { margin: 0.3rem 0 0; color: var(--suave); }
 
-.tabla { overflow-x: auto; margin: 0.25rem 0 1rem; }
-table { border-collapse: collapse; width: 100%; font-size: 0.9688rem; }
-th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.9rem 0.55rem 0; border-bottom: 1px solid var(--linea); }
-thead th { color: var(--suave); font-weight: 500; border-bottom-color: var(--suave); }
-tbody th { font-weight: 600; min-width: 11rem; }
+.tabla { overflow-x: auto; margin: 0.25rem 0 1rem; border: 1px solid var(--borde); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--linea); }
+tbody tr:last-child > * { border-bottom: 0; }
+tbody tr:hover { background: rgba(148, 178, 255, 0.04); }
+thead th { color: var(--suave); font: 600 0.75rem/1.4 var(--titulo); letter-spacing: 0.1em; text-transform: uppercase; background: var(--superficie-2); }
+tbody th { font-weight: 600; min-width: 11rem; color: #ffffff; }
 
-.medicion { margin: 0.5rem 0 0; padding: 0.9rem; background: var(--hondo); border: 1px solid var(--borde); border-radius: 4px; overflow-x: auto; line-height: 1.5; }
+.medicion { margin: 0.5rem 0 0; padding: 1rem 1.1rem; background: var(--hondo); border: 1px solid var(--borde-fuerte); border-radius: 12px; overflow-x: auto; line-height: 1.55; }
 
-.pasos.simples > li { padding-bottom: 0.7rem; }
+.pasos.simples > li { padding-bottom: 0.8rem; }
+#abrir .pasos { padding: 1.5rem 1.5rem 0.75rem; border: 1px solid var(--borde); border-radius: 16px; background: var(--superficie); }
 
-footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--linea); color: var(--suave); font-size: 0.9375rem; }
-footer p { max-width: 68ch; margin: 0; }
+footer {
+  margin-top: 4.5rem;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--linea);
+  color: var(--suave);
+  font-size: 0.9375rem;
+}
+footer p { max-width: 70ch; margin: 0 0 0.5rem; }
+footer strong { color: #ffffff; font-family: var(--titulo); }
 
 /* ------------------------------------------------------------------ pantallas angostas: la jerarquía pasa arriba */
 
@@ -240,8 +600,18 @@ footer p { max-width: 68ch; margin: 0; }
   .marco { grid-template-columns: minmax(0, 1fr); }
   .lateral { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--borde); }
   .jerarquia-nav { padding-bottom: 0.75rem; }
-  .gizmo { position: static; display: block; margin-bottom: 1rem; }
+  .gizmo { width: 4.25rem; top: 1.1rem; right: 1.1rem; }
   .arbol .tf, .arbol .comp { display: none; }
+  .tarjeta.destacada { grid-template-columns: minmax(0, 1fr); }
+  .tarjeta.destacada .tarjeta-img { min-height: 0; aspect-ratio: 16 / 9; border-right: 0; border-bottom: 1px solid var(--borde); }
+  .tarjeta.destacada .tarjeta-titulo { font-size: 1.35rem; }
+}
+
+@media (max-width: 30rem) {
+  .portada h1 { max-width: none; }
+  .portada > .kicker { padding-right: 5rem; }
+  .boton { flex: 1 1 auto; justify-content: center; }
+  .pasos > li { padding-left: 2.6rem; }
 }
 
 </style>
@@ -272,17 +642,38 @@ footer p { max-width: 68ch; margin: 0; }
         <line x1="60" y1="64" x2="22" y2="88" class="gz"/><circle cx="20" cy="89" r="9" class="gz"/><text x="20" y="93" text-anchor="middle">Z</text>
         <rect x="52" y="56" width="16" height="16" class="gc"/>
       </svg>
-      <h1>Tecnologías Emergentes</h1>
-      <p class="bajada">Realidad mixta con Unity 2022.3 y Meta Quest 3. Carlos Ariel Ramos, otoño de 2026.</p>
-      <p>Esta página reúne las prácticas de la clase y el proyecto final. Todo vive en un solo proyecto de Unity, <code>Practica_1_RM</code>, que se instala en el visor: cada práctica es una escena y se cambia de una a otra con los botones X y Y del control.</p>
+      <p class="kicker">Universidad Iberoamericana · Otoño 2026</p>
+      <h1>Tecnologías <span>Emergentes</span></h1>
+      <p class="bajada">Realidad mixta con Unity 2022.3 y Meta Quest 3. Carlos Ariel Ramos.</p>
+      <p>Esta página reúne las prácticas de la clase y el proyecto final. Las prácticas viven en un solo proyecto de Unity, <code>Practica_1_RM</code>, que se instala en el visor: cada práctica es una escena y se cambia de una a otra con los botones X y Y del control. El proyecto final, Jarvis, es una app aparte que se maneja con la voz.</p>
+      <ul class="cifras">
+        <li><b>8</b> prácticas</li>
+        <li><b>1</b> proyecto final</li>
+        <li><b>Unity</b> 2022.3.58f1</li>
+        <li><b>Quest 3</b> passthrough</li>
+      </ul>
+      <p class="acciones">
+        <a class="boton" href="#proyecto">Ver el proyecto final</a>
+        <a class="boton secundario" href="#practicas">Ver las prácticas</a>
+        <a class="boton fantasma" href="https://github.com/youplay2233/tecnologias-emergentes">Código en GitHub</a>
+      </p>
     </header>
+
+    
+<section id="indice" aria-labelledby="t-indice">
+  <h2 id="t-indice">De un vistazo</h2>
+  <a class="tarjeta destacada" href="#Jarvis_RM"><span class="tarjeta-img"><img src="evidencias/Jarvis_RM/hud_1_armado.png" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Proyecto final</span><strong class="tarjeta-titulo">Jarvis en realidad mixta</strong><span class="tarjeta-texto">Jarvis es un asistente con la personalidad de J.A.R.V.I.S.: su cerebro (Claude) corre en la laptop y su interfaz se ve en realidad mixta con el Meta Quest 3. Le hablas con el visor puesto, te contesta con voz y actúa sobre tu cuarto: carga robots y los despieza, mueve sus articulaciones, crea objetos con física y pone música.</span><ul class="chips"><li>Claude</li><li>Voz</li><li>WebSocket</li><li>Robots</li></ul></span></a>
+  <div class="galeria"><a class="tarjeta" href="#objetos"><span class="tarjeta-img"><img src="evidencias/objetos/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Unity (fundamentos y estructura)</span><strong class="tarjeta-titulo">Práctica 1: Game Objects</strong><span class="tarjeta-texto">Cimentar el uso de Transform y objetos: crear todas las figuras de GameObject &gt; 3D Object y modificar su componente Transform.</span><ul class="chips"><li>GameObject</li><li>Transform</li></ul></span></a><a class="tarjeta" href="#Parque_diversiones"><span class="tarjeta-img"><img src="evidencias/Parque_diversiones/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Unity (fundamentos y estructura)</span><strong class="tarjeta-titulo">Práctica 1: Parque de diversiones</strong><span class="tarjeta-texto">Cimentar el uso de Transform, jerarquías y prefabs, sin programar todavía.</span><ul class="chips"><li>Jerarquía</li><li>Prefabs</li><li>Transform</li></ul></span></a><a class="tarjeta" href="#Proyecto_final"><span class="tarjeta-img"><img src="evidencias/Proyecto_final/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Unity (fundamentos y estructura)</span><strong class="tarjeta-titulo">Práctica 1: Propuesta de proyecto final</strong><span class="tarjeta-texto">Proponer un ejemplo de proyecto final que use GameObject, jerarquía y prefab.</span><ul class="chips"><li>Diseño</li><li>Prefabs</li></ul></span></a><a class="tarjeta" href="#Canon_Autonomo"><span class="tarjeta-img"><img src="evidencias/Canon_Autonomo/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Objetos y Script</span><strong class="tarjeta-titulo">Práctica 3: El Cañón Autónomo</strong><span class="tarjeta-texto">Crear un cañón que dispara balas físicas usando variables públicas, GetComponent, Instantiate y Destroy.</span><ul class="chips"><li>C#</li><li>Instantiate</li><li>Física</li></ul></span></a><a class="tarjeta" href="#Fisica_Sesion1"><span class="tarjeta-img"><img src="evidencias/Fisica_Sesion1/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Físicas S1</span><strong class="tarjeta-titulo">Físicas, sesión 1: Rigidbody y gravedad</strong><span class="tarjeta-texto">Comprender cómo participa un objeto en la simulación física de Unity.</span><ul class="chips"><li>Rigidbody</li><li>Gravedad</li><li>Masa</li></ul></span></a><a class="tarjeta" href="#Fisica_Sesion2"><span class="tarjeta-img"><img src="evidencias/Fisica_Sesion2/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Físicas S2</span><strong class="tarjeta-titulo">Físicas, sesión 2: Colliders y colisiones</strong><span class="tarjeta-texto">Configurar superficies físicas y detectar contactos entre objetos.</span><ul class="chips"><li>Colliders</li><li>Colisiones</li><li>Tunneling</li></ul></span></a><a class="tarjeta" href="#Inicio"><span class="tarjeta-img"><img src="evidencias/Inicio/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">Conexión de escenas</span><strong class="tarjeta-titulo">Conexión de escenas</strong><span class="tarjeta-texto">Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) con botones y un script que cambia de escena.</span><ul class="chips"><li>UI</li><li>Botones</li><li>SceneManager</li></ul></span></a><a class="tarjeta" href="#MQTT_Figuras"><span class="tarjeta-img"><img src="evidencias/MQTT_Figuras/poster.jpg" alt="" loading="lazy"></span><span class="tarjeta-cuerpo"><span class="kicker">MQTT Unity</span><strong class="tarjeta-titulo">Conectividad IoT: MQTT (ejercicio 1)</strong><span class="tarjeta-texto">Mandar y recibir mensajes MQTT desde Unity: tres figuras geométricas y tres más complejas que, al tocarlas, cambian de color y avisan por MQTT qué se tocó y de qué color quedó.</span><ul class="chips"><li>IoT</li><li>MQTT</li><li>UI</li></ul></span></a></div>
+</section>
 
     
 <section id="proyecto">
   <h2>Proyecto final</h2>
   <article class="practica proyecto" id="Jarvis_RM">
     <header>
+      <p class="kicker">Proyecto final</p>
       <h3>Jarvis en realidad mixta</h3>
+      <ul class="chips"><li>Claude</li><li>Voz</li><li>WebSocket</li><li>Robots</li></ul>
       <p class="objetivo">Jarvis es un asistente con la personalidad de J.A.R.V.I.S.: su cerebro (Claude) corre en la laptop y su interfaz se ve en realidad mixta con el Meta Quest 3. Le hablas con el visor puesto, te contesta con voz y actúa sobre tu cuarto: carga robots y los despieza, mueve sus articulaciones, crea objetos con física y pone música.</p>
     </header>
     <h4>Lo que hace</h4>
@@ -292,7 +683,7 @@ footer p { max-width: 68ch; margin: 0; }
     <h4>Primera versión</h4>
     <p>Antes de la app actual, Jarvis vivía en la escena <code>Jarvis_RM</code> del proyecto de las prácticas. Este video es de esa versión.</p>
     <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Jarvis_RM/poster.jpg"><source src="evidencias/Jarvis_RM/video.mp4" type="video/mp4"></video><figcaption>Primera versión, en la escena Jarvis_RM del proyecto de las prácticas. Video de 20 segundos grabado en el editor de Unity con el enlace real: la laptop corre «uv run jarvis-rm --demo», la escena la encuentra por UDP y recibe las órdenes por WebSocket. La frase del usuario y las órdenes son una secuencia fija de prueba (no pasan por el micrófono ni por Claude). La latencia del panel ENLACE se midió con la escena y el servidor en la misma laptop, no por Wi-Fi con el visor.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Jarvis_RM/escena.png"><img src="evidencias/Jarvis_RM/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Jarvis_RM/inspector_Jarvis_RM.png"><img src="evidencias/Jarvis_RM/inspector_Jarvis_RM.png" alt="Inspector de Jarvis RM." loading="lazy"></a><figcaption>Inspector de Jarvis RM.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Jarvis_RM/escena.png"><img src="evidencias/Jarvis_RM/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Jarvis_RM/inspector_Jarvis_RM.png"><img src="evidencias/Jarvis_RM/inspector_Jarvis_RM.png" alt="Inspector de Jarvis RM." loading="lazy"></a><figcaption>Inspector de Jarvis RM.</figcaption></figure></div>
     <h4>Cómo está armado</h4>
     
 <svg class="diagrama" viewBox="0 0 880 330" role="img" aria-labelledby="dt dd">
@@ -494,16 +885,18 @@ Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.<
 
     <section id="practicas">
       <h2>Prácticas</h2>
-      <p class="entrada">Seis prácticas, cada una en su escena. Los objetos se ven sobre el cuarto real y a escala real: una unidad de Unity es un metro.</p>
+      <p class="entrada">Ocho prácticas, cada una en su escena. Los objetos se ven sobre el cuarto real y a escala real: una unidad de Unity es un metro.</p>
       
 <article class="practica" id="objetos">
   <header>
+    <p class="kicker">Presentación · Unity (fundamentos y estructura)</p>
     <h3>Práctica 1: Game Objects</h3>
-    <p class="origen">Presentación: Unity (fundamentos y estructura). Escena: <code>Assets/Scene/objetos.unity</code></p>
+    <ul class="chips"><li>GameObject</li><li>Transform</li></ul>
     <p class="objetivo">Cimentar el uso de Transform y objetos: crear todas las figuras de GameObject &gt; 3D Object y modificar su componente Transform.</p>
+    <p class="origen">Escena <code>Assets/Scene/objetos.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/objetos/poster.jpg"><source src="evidencias/objetos/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/objetos/escena.png"><img src="evidencias/objetos/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/objetos/inspector_Cube.png"><img src="evidencias/objetos/inspector_Cube.png" alt="Inspector de Cube." loading="lazy"></a><figcaption>Inspector de Cube.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/objetos/escena.png"><img src="evidencias/objetos/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/objetos/inspector_Cube.png"><img src="evidencias/objetos/inspector_Cube.png" alt="Inspector de Cube." loading="lazy"></a><figcaption>Inspector de Cube.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">Abre Unity Hub y crea un nuevo proyecto 3D Core. Llámalo &quot;Practica_1_RM&quot;.</p><p class="hecho">El proyecto se llama Practica_1_RM y usa el render integrado (3D Core) con el Meta XR Core SDK para verse en el Quest 3.</p></li>
@@ -565,12 +958,14 @@ Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.<
 
 <article class="practica" id="Parque_diversiones">
   <header>
+    <p class="kicker">Presentación · Unity (fundamentos y estructura)</p>
     <h3>Práctica 1: Parque de diversiones</h3>
-    <p class="origen">Presentación: Unity (fundamentos y estructura). Escena: <code>Assets/Scene/Parque_diversiones.unity</code></p>
+    <ul class="chips"><li>Jerarquía</li><li>Prefabs</li><li>Transform</li></ul>
     <p class="objetivo">Cimentar el uso de Transform, jerarquías y prefabs, sin programar todavía.</p>
+    <p class="origen">Escena <code>Assets/Scene/Parque_diversiones.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Parque_diversiones/poster.jpg"><source src="evidencias/Parque_diversiones/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Parque_diversiones/escena.png"><img src="evidencias/Parque_diversiones/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Parque_diversiones/inspector_Cabina_01.png"><img src="evidencias/Parque_diversiones/inspector_Cabina_01.png" alt="Inspector de Cabina 01." loading="lazy"></a><figcaption>Inspector de Cabina 01.</figcaption></figure><figure><a href="evidencias/Parque_diversiones/inspector_Rueda_giratoria.png"><img src="evidencias/Parque_diversiones/inspector_Rueda_giratoria.png" alt="Inspector de Rueda giratoria." loading="lazy"></a><figcaption>Inspector de Rueda giratoria.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Parque_diversiones/escena.png"><img src="evidencias/Parque_diversiones/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Parque_diversiones/inspector_Cabina_01.png"><img src="evidencias/Parque_diversiones/inspector_Cabina_01.png" alt="Inspector de Cabina 01." loading="lazy"></a><figcaption>Inspector de Cabina 01.</figcaption></figure><figure class="inspector"><a href="evidencias/Parque_diversiones/inspector_Rueda_giratoria.png"><img src="evidencias/Parque_diversiones/inspector_Rueda_giratoria.png" alt="Inspector de Rueda giratoria." loading="lazy"></a><figcaption>Inspector de Rueda giratoria.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">Crea una nueva escena y guárdala en la carpeta &quot;Scene&quot;, coloca el nombre de Parque_diversiones.</p><p class="hecho">La escena está en Assets/Scene/Parque_diversiones.unity.</p></li>
@@ -855,12 +1250,14 @@ Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.<
 
 <article class="practica" id="Proyecto_final">
   <header>
+    <p class="kicker">Presentación · Unity (fundamentos y estructura)</p>
     <h3>Práctica 1: Propuesta de proyecto final</h3>
-    <p class="origen">Presentación: Unity (fundamentos y estructura). Escena: <code>Assets/Scene/Proyecto_final.unity</code></p>
+    <ul class="chips"><li>Diseño</li><li>Prefabs</li></ul>
     <p class="objetivo">Proponer un ejemplo de proyecto final que use GameObject, jerarquía y prefab.</p>
+    <p class="origen">Escena <code>Assets/Scene/Proyecto_final.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Proyecto_final/poster.jpg"><source src="evidencias/Proyecto_final/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Proyecto_final/escena.png"><img src="evidencias/Proyecto_final/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Proyecto_final/inspector_Panel_Cerebro.png"><img src="evidencias/Proyecto_final/inspector_Panel_Cerebro.png" alt="Inspector de Panel Cerebro." loading="lazy"></a><figcaption>Inspector de Panel Cerebro.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Proyecto_final/escena.png"><img src="evidencias/Proyecto_final/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Proyecto_final/inspector_Panel_Cerebro.png"><img src="evidencias/Proyecto_final/inspector_Panel_Cerebro.png" alt="Inspector de Panel Cerebro." loading="lazy"></a><figcaption>Inspector de Panel Cerebro.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">GameObject.</p><p class="hecho">El núcleo de Jarvis: una esfera emisiva que representa al asistente.</p></li>
@@ -1015,12 +1412,14 @@ Pendiente: medir escucha, cerebro (Claude) y voz con el ciclo completo por voz.<
 
 <article class="practica" id="Canon_Autonomo">
   <header>
+    <p class="kicker">Presentación · Objetos y Script</p>
     <h3>Práctica 3: El Cañón Autónomo</h3>
-    <p class="origen">Presentación: Objetos y Script. Escena: <code>Assets/Scene/Canon_Autonomo.unity</code></p>
+    <ul class="chips"><li>C#</li><li>Instantiate</li><li>Física</li></ul>
     <p class="objetivo">Crear un cañón que dispara balas físicas usando variables públicas, GetComponent, Instantiate y Destroy.</p>
+    <p class="origen">Escena <code>Assets/Scene/Canon_Autonomo.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Canon_Autonomo/poster.jpg"><source src="evidencias/Canon_Autonomo/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Canon_Autonomo/escena.png"><img src="evidencias/Canon_Autonomo/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Canon_Autonomo/inspector_Cañon.png"><img src="evidencias/Canon_Autonomo/inspector_Cañon.png" alt="Inspector de Cañon." loading="lazy"></a><figcaption>Inspector de Cañon.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Canon_Autonomo/escena.png"><img src="evidencias/Canon_Autonomo/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Canon_Autonomo/inspector_Cañon.png"><img src="evidencias/Canon_Autonomo/inspector_Cañon.png" alt="Inspector de Cañon." loading="lazy"></a><figcaption>Inspector de Cañon.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">Paso 1. Crea una esfera pequeña (escala 0.2). Añádele un Rigidbody. Crea un material nuevo (negro o rojo) y pónselo. Borra la esfera de la escena.</p><p class="hecho">El prefab Assets/Prefabs/Bala.prefab es una esfera de escala 0.2 con Rigidbody y material rojo. En la escena no hay ninguna bala hasta que se dispara.</p></li>
@@ -1132,12 +1531,14 @@ public class ControlCañon : MonoBehaviour
 
 <article class="practica" id="Fisica_Sesion1">
   <header>
+    <p class="kicker">Presentación · Físicas S1</p>
     <h3>Físicas, sesión 1: Rigidbody y gravedad</h3>
-    <p class="origen">Presentación: Físicas S1. Escena: <code>Assets/Scene/Fisica_Sesion1.unity</code></p>
+    <ul class="chips"><li>Rigidbody</li><li>Gravedad</li><li>Masa</li></ul>
     <p class="objetivo">Comprender cómo participa un objeto en la simulación física de Unity.</p>
+    <p class="origen">Escena <code>Assets/Scene/Fisica_Sesion1.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Fisica_Sesion1/poster.jpg"><source src="evidencias/Fisica_Sesion1/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Fisica_Sesion1/escena.png"><img src="evidencias/Fisica_Sesion1/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion1/inspector_Cubo_masa_100.png"><img src="evidencias/Fisica_Sesion1/inspector_Cubo_masa_100.png" alt="Inspector de Cubo masa 100." loading="lazy"></a><figcaption>Inspector de Cubo masa 100.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion1/inspector_Objeto_A_Esfera.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_A_Esfera.png" alt="Inspector de Objeto A Esfera." loading="lazy"></a><figcaption>Inspector de Objeto A Esfera.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion1/inspector_Objeto_B_Cubo.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_B_Cubo.png" alt="Inspector de Objeto B Cubo." loading="lazy"></a><figcaption>Inspector de Objeto B Cubo.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion1/inspector_Objeto_C_Capsula.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_C_Capsula.png" alt="Inspector de Objeto C Capsula." loading="lazy"></a><figcaption>Inspector de Objeto C Capsula.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Fisica_Sesion1/escena.png"><img src="evidencias/Fisica_Sesion1/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion1/inspector_Cubo_masa_100.png"><img src="evidencias/Fisica_Sesion1/inspector_Cubo_masa_100.png" alt="Inspector de Cubo masa 100." loading="lazy"></a><figcaption>Inspector de Cubo masa 100.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion1/inspector_Objeto_A_Esfera.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_A_Esfera.png" alt="Inspector de Objeto A Esfera." loading="lazy"></a><figcaption>Inspector de Objeto A Esfera.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion1/inspector_Objeto_B_Cubo.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_B_Cubo.png" alt="Inspector de Objeto B Cubo." loading="lazy"></a><figcaption>Inspector de Objeto B Cubo.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion1/inspector_Objeto_C_Capsula.png"><img src="evidencias/Fisica_Sesion1/inspector_Objeto_C_Capsula.png" alt="Inspector de Objeto C Capsula." loading="lazy"></a><figcaption>Inspector de Objeto C Capsula.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">Crear un cubo sin Rigidbody y preguntar por qué no cae.</p><p class="hecho">Cubo_sin_Rigidbody se queda flotando: sin Rigidbody el motor de física no lo mueve.</p></li>
@@ -1208,12 +1609,14 @@ public class ControlCañon : MonoBehaviour
 
 <article class="practica" id="Fisica_Sesion2">
   <header>
+    <p class="kicker">Presentación · Físicas S2</p>
     <h3>Físicas, sesión 2: Colliders y colisiones</h3>
-    <p class="origen">Presentación: Físicas S2. Escena: <code>Assets/Scene/Fisica_Sesion2.unity</code></p>
+    <ul class="chips"><li>Colliders</li><li>Colisiones</li><li>Tunneling</li></ul>
     <p class="objetivo">Configurar superficies físicas y detectar contactos entre objetos.</p>
+    <p class="origen">Escena <code>Assets/Scene/Fisica_Sesion2.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Fisica_Sesion2/poster.jpg"><source src="evidencias/Fisica_Sesion2/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Fisica_Sesion2/escena.png"><img src="evidencias/Fisica_Sesion2/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion2/inspector_Obstaculo_2_MeshCollider.png"><img src="evidencias/Fisica_Sesion2/inspector_Obstaculo_2_MeshCollider.png" alt="Inspector de Obstaculo 2 MeshCollider." loading="lazy"></a><figcaption>Inspector de Obstaculo 2 MeshCollider.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion2/inspector_Pelota.png"><img src="evidencias/Fisica_Sesion2/inspector_Pelota.png" alt="Inspector de Pelota." loading="lazy"></a><figcaption>Inspector de Pelota.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion2/inspector_Pelota_Continuous.png"><img src="evidencias/Fisica_Sesion2/inspector_Pelota_Continuous.png" alt="Inspector de Pelota Continuous." loading="lazy"></a><figcaption>Inspector de Pelota Continuous.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion2/consola.png"><img src="evidencias/Fisica_Sesion2/consola.png" alt="Consola de Unity con los mensajes de DetectorColision." loading="lazy"></a><figcaption>Consola de Unity con los mensajes de DetectorColision.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Fisica_Sesion2/escena.png"><img src="evidencias/Fisica_Sesion2/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion2/inspector_Obstaculo_2_MeshCollider.png"><img src="evidencias/Fisica_Sesion2/inspector_Obstaculo_2_MeshCollider.png" alt="Inspector de Obstaculo 2 MeshCollider." loading="lazy"></a><figcaption>Inspector de Obstaculo 2 MeshCollider.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion2/inspector_Pelota.png"><img src="evidencias/Fisica_Sesion2/inspector_Pelota.png" alt="Inspector de Pelota." loading="lazy"></a><figcaption>Inspector de Pelota.</figcaption></figure><figure class="inspector"><a href="evidencias/Fisica_Sesion2/inspector_Pelota_Continuous.png"><img src="evidencias/Fisica_Sesion2/inspector_Pelota_Continuous.png" alt="Inspector de Pelota Continuous." loading="lazy"></a><figcaption>Inspector de Pelota Continuous.</figcaption></figure><figure><a href="evidencias/Fisica_Sesion2/consola.png"><img src="evidencias/Fisica_Sesion2/consola.png" alt="Consola de Unity con los mensajes de DetectorColision." loading="lazy"></a><figcaption>Consola de Unity con los mensajes de DetectorColision.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">1. Crear un piso. 2. Añadir una rampa inclinada. 3. Construir dos paredes laterales.</p><p class="hecho">El piso, la rampa (inclinada 25°, con dos rieles como hijos) y las paredes son cubos con Box Collider.</p></li>
@@ -1300,12 +1703,14 @@ public class DetectorColision : MonoBehaviour
 
 <article class="practica" id="Inicio">
   <header>
+    <p class="kicker">Presentación · Conexión de escenas</p>
     <h3>Conexión de escenas</h3>
-    <p class="origen">Presentación: Conexión de escenas. Escena: <code>Assets/Scene/Inicio.unity</code></p>
+    <ul class="chips"><li>UI</li><li>Botones</li><li>SceneManager</li></ul>
     <p class="objetivo">Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) con botones y un script que cambia de escena.</p>
+    <p class="origen">Escena <code>Assets/Scene/Inicio.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/Inicio/poster.jpg"><source src="evidencias/Inicio/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity con la cámara de simulación de la escena.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/Inicio/escena.png"><img src="evidencias/Inicio/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/Inicio/inspector_Boton_Actividad1.png"><img src="evidencias/Inicio/inspector_Boton_Actividad1.png" alt="Inspector de Boton Actividad1." loading="lazy"></a><figcaption>Inspector de Boton Actividad1.</figcaption></figure><figure><a href="evidencias/Inicio/inspector_Navegador.png"><img src="evidencias/Inicio/inspector_Navegador.png" alt="Inspector de Navegador." loading="lazy"></a><figcaption>Inspector de Navegador.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/Inicio/escena.png"><img src="evidencias/Inicio/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/Inicio/inspector_Boton_Actividad1.png"><img src="evidencias/Inicio/inspector_Boton_Actividad1.png" alt="Inspector de Boton Actividad1." loading="lazy"></a><figcaption>Inspector de Boton Actividad1.</figcaption></figure><figure class="inspector"><a href="evidencias/Inicio/inspector_Navegador.png"><img src="evidencias/Inicio/inspector_Navegador.png" alt="Inspector de Navegador." loading="lazy"></a><figcaption>Inspector de Navegador.</figcaption></figure></div>
   <h4>Paso a paso</h4>
   <ol class="pasos">
 <li><p class="pide">Conectar escenas en Unity: script NavegacionEscenas con IrAInicio(), IrAActividad1() e IrAActividad2(), que usan SceneManager.LoadScene.</p><p class="hecho">NavegacionEscenas.cs es el de la presentación, sin cambios.</p></li>
@@ -1389,12 +1794,14 @@ public class NavegacionEscenas : MonoBehaviour
 
 <article class="practica" id="MQTT_Figuras">
   <header>
+    <p class="kicker">Presentación · MQTT Unity</p>
     <h3>Conectividad IoT: MQTT (ejercicio 1)</h3>
-    <p class="origen">Presentación: MQTT Unity. Escena: <code>Assets/Scene/MQTT_Figuras.unity</code></p>
+    <ul class="chips"><li>IoT</li><li>MQTT</li><li>UI</li></ul>
     <p class="objetivo">Mandar y recibir mensajes MQTT desde Unity: tres figuras geométricas y tres más complejas que, al tocarlas, cambian de color y avisan por MQTT qué se tocó y de qué color quedó.</p>
+    <p class="origen">Escena <code>Assets/Scene/MQTT_Figuras.unity</code></p>
   </header>
   <figure class="video"><video controls preload="metadata" playsinline poster="evidencias/MQTT_Figuras/poster.jpg"><source src="evidencias/MQTT_Figuras/video.mp4" type="video/mp4"></video><figcaption>Video de 20 segundos grabado en el editor de Unity. Los toques los dispara el grabador; cada mensaje sí pasa por test.mosquitto.org.</figcaption></figure>
-<div class="fotos"><figure><a href="evidencias/MQTT_Figuras/escena.png"><img src="evidencias/MQTT_Figuras/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png"><img src="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png" alt="Inspector de Boton Publicar." loading="lazy"></a><figcaption>Inspector de Boton Publicar.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_Figura_Robot.png"><img src="evidencias/MQTT_Figuras/inspector_Figura_Robot.png" alt="Inspector de Figura Robot." loading="lazy"></a><figcaption>Inspector de Figura Robot.</figcaption></figure><figure><a href="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png"><img src="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png" alt="Inspector de MQTT Manager." loading="lazy"></a><figcaption>Inspector de MQTT Manager.</figcaption></figure></div>
+<div class="fotos"><figure><a href="evidencias/MQTT_Figuras/escena.png"><img src="evidencias/MQTT_Figuras/escena.png" alt="La escena en el editor de Unity." loading="lazy"></a><figcaption>La escena en el editor de Unity.</figcaption></figure><figure class="inspector"><a href="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png"><img src="evidencias/MQTT_Figuras/inspector_Boton_Publicar.png" alt="Inspector de Boton Publicar." loading="lazy"></a><figcaption>Inspector de Boton Publicar.</figcaption></figure><figure class="inspector"><a href="evidencias/MQTT_Figuras/inspector_Figura_Robot.png"><img src="evidencias/MQTT_Figuras/inspector_Figura_Robot.png" alt="Inspector de Figura Robot." loading="lazy"></a><figcaption>Inspector de Figura Robot.</figcaption></figure><figure class="inspector"><a href="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png"><img src="evidencias/MQTT_Figuras/inspector_MQTT_Manager.png" alt="Inspector de MQTT Manager." loading="lazy"></a><figcaption>Inspector de MQTT Manager.</figcaption></figure></div>
 <figure class="codigo"><figcaption>Lo que recibió un cliente MQTT aparte en la laptop mientras se grababa el video (hora de la laptop)</figcaption><pre><code># 2026-11-23 14:13:44  suscrito a clase/te/quest3/texto en test.mosquitto.org:1883 (herramientas/mqtt_escucha.py, en la laptop)
 14:14:02.641  Tocaron: Cubo | Color: rojo
 14:14:03.772  Tocaron: Robot | Color: amarillo
@@ -1627,7 +2034,8 @@ public class MQTTBasico : MonoBehaviour
     </section>
 
     <footer>
-      <p>Universidad Iberoamericana Ciudad de México. Los scripts <code>Bala</code>, <code>ControlCañon</code> y <code>DetectorColision</code> son los de las presentaciones de la clase.</p>
+      <p><strong>Tecnologías Emergentes</strong> · Universidad Iberoamericana Ciudad de México · Carlos Ariel Ramos, otoño de 2026.</p>
+      <p>Los scripts <code>Bala</code>, <code>ControlCañon</code>, <code>DetectorColision</code>, <code>NavegacionEscenas</code> y <code>MQTTBasico</code> son los de las presentaciones de la clase. <a href="https://github.com/youplay2233/tecnologias-emergentes">Repositorio en GitHub</a></p>
     </footer>
   </main>
 </div>

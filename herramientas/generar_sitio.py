@@ -130,13 +130,49 @@ def bloque_evidencia(p: dict, ev: dict) -> str:
         fotos.append((ev["consola"], "Consola de Unity con los mensajes de DetectorColision."))
     if fotos:
         partes.append('<div class="fotos">' + "".join(
-            f'<figure><a href="{e(r)}"><img src="{e(r)}" alt="{e(t)}" loading="lazy"></a><figcaption>{e(t)}</figcaption></figure>' for r, t in fotos
+            f'<figure{" class=\"inspector\"" if "/inspector_" in r else ""}><a href="{e(r)}"><img src="{e(r)}" alt="{e(t)}" loading="lazy"></a>'
+            f'<figcaption>{e(t)}</figcaption></figure>' for r, t in fotos
         ) + "</div>")
     registro = p.get("registro")
     if registro and (RAIZ / "evidencias" / p["id"] / registro["archivo"]).is_file():
         texto = (RAIZ / "evidencias" / p["id"] / registro["archivo"]).read_text(encoding="utf-8").rstrip()
         partes.append(f'<figure class="codigo"><figcaption>{e(registro["titulo"])}</figcaption><pre><code>{e(texto)}</code></pre></figure>')
     return "\n".join(partes)
+
+
+def chips(etiquetas: list) -> str:
+    if not etiquetas:
+        return ""
+    return '<ul class="chips">' + "".join(f"<li>{e(t)}</li>" for t in etiquetas) + "</ul>"
+
+
+def tarjeta(ident: str, kicker: str, titulo: str, texto: str, etiquetas: list, imagen, clase: str = "tarjeta") -> str:
+    foto = f'<img src="{e(imagen)}" alt="" loading="lazy">' if imagen else ""
+    return (f'<a class="{clase}" href="#{e(ident)}"><span class="tarjeta-img">{foto}</span>'
+            f'<span class="tarjeta-cuerpo"><span class="kicker">{e(kicker)}</span>'
+            f'<strong class="tarjeta-titulo">{e(titulo)}</strong><span class="tarjeta-texto">{e(texto)}</span>'
+            f"{chips(etiquetas)}</span></a>")
+
+
+def indice() -> str:
+    """Tarjetas con un cuadro de cada video: el proyecto final primero y luego las prácticas."""
+    hud = RAIZ / "evidencias" / PROYECTO["id"] / "hud_1_armado.png"
+    imagen = hud.relative_to(RAIZ).as_posix() if hud.is_file() else evidencias(PROYECTO["id"])["poster"]
+    destacada = tarjeta(PROYECTO["id"], "Proyecto final", PROYECTO["titulo"], PROYECTO["resumen"],
+                        PROYECTO.get("etiquetas", []), imagen, "tarjeta destacada")
+    practicas = "".join(
+        tarjeta(p["id"], p["presentacion"], p["titulo"], p["objetivo"], p.get("etiquetas", []), evidencias(p["id"])["poster"])
+        for p in PRACTICAS)
+    return f"""
+<section id="indice" aria-labelledby="t-indice">
+  <h2 id="t-indice">De un vistazo</h2>
+  {destacada}
+  <div class="galeria">{practicas}</div>
+</section>"""
+
+
+NUMEROS = {1: "Una", 2: "Dos", 3: "Tres", 4: "Cuatro", 5: "Cinco", 6: "Seis", 7: "Siete", 8: "Ocho", 9: "Nueve", 10: "Diez",
+           11: "Once", 12: "Doce"}
 
 
 def seccion_practica(p: dict) -> str:
@@ -164,9 +200,11 @@ def seccion_practica(p: dict) -> str:
     return f"""
 <article class="practica" id="{e(p['id'])}">
   <header>
+    <p class="kicker">Presentación · {e(p['presentacion'])}</p>
     <h3>{e(p['titulo'])}</h3>
-    <p class="origen">Presentación: {e(p['presentacion'])}. Escena: <code>{e(p['escena'])}</code></p>
+    {chips(p.get('etiquetas', []))}
     <p class="objetivo">{e(p['objetivo'])}</p>
+    <p class="origen">Escena <code>{e(p['escena'])}</code></p>
   </header>
   {bloque_evidencia(p, ev)}
   <h4>Paso a paso</h4>
@@ -250,7 +288,9 @@ def seccion_proyecto() -> str:
   <h2>Proyecto final</h2>
   <article class="practica proyecto" id="{e(PROYECTO['id'])}">
     <header>
+      <p class="kicker">Proyecto final</p>
       <h3>{e(PROYECTO['titulo'])}</h3>
+      {chips(PROYECTO.get('etiquetas', []))}
       <p class="objetivo">{e(PROYECTO['resumen'])}</p>
     </header>
     <h4>Lo que hace</h4>
@@ -351,16 +391,30 @@ def pagina() -> str:
         <line x1="60" y1="64" x2="22" y2="88" class="gz"/><circle cx="20" cy="89" r="9" class="gz"/><text x="20" y="93" text-anchor="middle">Z</text>
         <rect x="52" y="56" width="16" height="16" class="gc"/>
       </svg>
-      <h1>Tecnologías Emergentes</h1>
-      <p class="bajada">Realidad mixta con Unity 2022.3 y Meta Quest 3. Carlos Ariel Ramos, otoño de 2026.</p>
-      <p>Esta página reúne las prácticas de la clase y el proyecto final. Todo vive en un solo proyecto de Unity, <code>Practica_1_RM</code>, que se instala en el visor: cada práctica es una escena y se cambia de una a otra con los botones X y Y del control.</p>
+      <p class="kicker">Universidad Iberoamericana · Otoño 2026</p>
+      <h1>Tecnologías <span>Emergentes</span></h1>
+      <p class="bajada">Realidad mixta con Unity 2022.3 y Meta Quest 3. Carlos Ariel Ramos.</p>
+      <p>Esta página reúne las prácticas de la clase y el proyecto final. Las prácticas viven en un solo proyecto de Unity, <code>Practica_1_RM</code>, que se instala en el visor: cada práctica es una escena y se cambia de una a otra con los botones X y Y del control. El proyecto final, Jarvis, es una app aparte que se maneja con la voz.</p>
+      <ul class="cifras">
+        <li><b>{len(PRACTICAS)}</b> prácticas</li>
+        <li><b>1</b> proyecto final</li>
+        <li><b>Unity</b> 2022.3.58f1</li>
+        <li><b>Quest 3</b> passthrough</li>
+      </ul>
+      <p class="acciones">
+        <a class="boton" href="#proyecto">Ver el proyecto final</a>
+        <a class="boton secundario" href="#practicas">Ver las prácticas</a>
+        <a class="boton fantasma" href="https://github.com/youplay2233/tecnologias-emergentes">Código en GitHub</a>
+      </p>
     </header>
+
+    {indice()}
 
     {seccion_proyecto()}
 
     <section id="practicas">
       <h2>Prácticas</h2>
-      <p class="entrada">Seis prácticas, cada una en su escena. Los objetos se ven sobre el cuarto real y a escala real: una unidad de Unity es un metro.</p>
+      <p class="entrada">{NUMEROS.get(len(PRACTICAS), str(len(PRACTICAS)))} prácticas, cada una en su escena. Los objetos se ven sobre el cuarto real y a escala real: una unidad de Unity es un metro.</p>
       {practicas}
     </section>
 
@@ -375,7 +429,8 @@ def pagina() -> str:
     </section>
 
     <footer>
-      <p>Universidad Iberoamericana Ciudad de México. Los scripts <code>Bala</code>, <code>ControlCañon</code> y <code>DetectorColision</code> son los de las presentaciones de la clase.</p>
+      <p><strong>Tecnologías Emergentes</strong> · Universidad Iberoamericana Ciudad de México · Carlos Ariel Ramos, otoño de 2026.</p>
+      <p>Los scripts <code>Bala</code>, <code>ControlCañon</code>, <code>DetectorColision</code>, <code>NavegacionEscenas</code> y <code>MQTTBasico</code> son los de las presentaciones de la clase. <a href="https://github.com/youplay2233/tecnologias-emergentes">Repositorio en GitHub</a></p>
     </footer>
   </main>
 </div>

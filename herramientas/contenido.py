@@ -7,6 +7,7 @@ PRACTICAS = [
     {
         "id": "objetos",
         "titulo": "Práctica 1: Game Objects",
+        "etiquetas": ["GameObject", "Transform"],
         "presentacion": "Unity (fundamentos y estructura)",
         "escena": "Assets/Scene/objetos.unity",
         "objetivo": "Cimentar el uso de Transform y objetos: crear todas las figuras de GameObject > 3D Object y modificar su componente Transform.",
@@ -30,6 +31,7 @@ PRACTICAS = [
     {
         "id": "Parque_diversiones",
         "titulo": "Práctica 1: Parque de diversiones",
+        "etiquetas": ["Jerarquía", "Prefabs", "Transform"],
         "presentacion": "Unity (fundamentos y estructura)",
         "escena": "Assets/Scene/Parque_diversiones.unity",
         "objetivo": "Cimentar el uso de Transform, jerarquías y prefabs, sin programar todavía.",
@@ -53,6 +55,7 @@ PRACTICAS = [
     {
         "id": "Proyecto_final",
         "titulo": "Práctica 1: Propuesta de proyecto final",
+        "etiquetas": ["Diseño", "Prefabs"],
         "presentacion": "Unity (fundamentos y estructura)",
         "escena": "Assets/Scene/Proyecto_final.unity",
         "objetivo": "Proponer un ejemplo de proyecto final que use GameObject, jerarquía y prefab.",
@@ -71,6 +74,7 @@ PRACTICAS = [
     {
         "id": "Canon_Autonomo",
         "titulo": "Práctica 3: El Cañón Autónomo",
+        "etiquetas": ["C#", "Instantiate", "Física"],
         "presentacion": "Objetos y Script",
         "escena": "Assets/Scene/Canon_Autonomo.unity",
         "objetivo": "Crear un cañón que dispara balas físicas usando variables públicas, GetComponent, Instantiate y Destroy.",
@@ -100,6 +104,7 @@ PRACTICAS = [
     {
         "id": "Fisica_Sesion1",
         "titulo": "Físicas, sesión 1: Rigidbody y gravedad",
+        "etiquetas": ["Rigidbody", "Gravedad", "Masa"],
         "presentacion": "Físicas S1",
         "escena": "Assets/Scene/Fisica_Sesion1.unity",
         "objetivo": "Comprender cómo participa un objeto en la simulación física de Unity.",
@@ -137,6 +142,7 @@ PRACTICAS = [
     {
         "id": "Fisica_Sesion2",
         "titulo": "Físicas, sesión 2: Colliders y colisiones",
+        "etiquetas": ["Colliders", "Colisiones", "Tunneling"],
         "presentacion": "Físicas S2",
         "escena": "Assets/Scene/Fisica_Sesion2.unity",
         "objetivo": "Configurar superficies físicas y detectar contactos entre objetos.",
@@ -167,6 +173,7 @@ PRACTICAS = [
     {
         "id": "Inicio",
         "titulo": "Conexión de escenas",
+        "etiquetas": ["UI", "Botones", "SceneManager"],
         "presentacion": "Conexión de escenas",
         "escena": "Assets/Scene/Inicio.unity",
         "objetivo": "Conectar tres escenas de Unity (Inicio, Actividad1 y Actividad2) con botones y un script que cambia de escena.",
@@ -193,6 +200,7 @@ PRACTICAS = [
     {
         "id": "MQTT_Figuras",
         "titulo": "Conectividad IoT: MQTT (ejercicio 1)",
+        "etiquetas": ["IoT", "MQTT", "UI"],
         "presentacion": "MQTT Unity",
         "escena": "Assets/Scene/MQTT_Figuras.unity",
         "objetivo": "Mandar y recibir mensajes MQTT desde Unity: tres figuras geométricas y tres más complejas que, al tocarlas, cambian de color y avisan por MQTT qué se tocó y de qué color quedó.",
@@ -230,6 +238,7 @@ PRACTICAS = [
 PROYECTO = {
     "id": "Jarvis_RM",
     "titulo": "Jarvis en realidad mixta",
+    "etiquetas": ["Claude", "Voz", "WebSocket", "Robots"],
     "pie_video": "Primera versión, en la escena Jarvis_RM del proyecto de las prácticas. Video de 20 segundos grabado en el editor de Unity con el enlace real: la laptop corre «uv run jarvis-rm --demo», la escena la encuentra por UDP y recibe las órdenes por WebSocket. La frase del usuario y las órdenes son una secuencia fija de prueba (no pasan por el micrófono ni por Claude). La latencia del panel ENLACE se midió con la escena y el servidor en la misma laptop, no por Wi-Fi con el visor.",
     "escena": "Assets/Scene/Jarvis_RM.unity",
     "resumen": "Jarvis es un asistente con la personalidad de J.A.R.V.I.S.: su cerebro (Claude) corre en la laptop y su interfaz se ve en realidad mixta con el Meta Quest 3. Le hablas con el visor puesto, te contesta con voz y actúa sobre tu cuarto: carga robots y los despieza, mueve sus articulaciones, crea objetos con física y pone música.",
