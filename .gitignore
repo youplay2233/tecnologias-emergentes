@@ -10,3 +10,6 @@ _relevo/
 
 # Configuración local de Claude Code
 .claude/
+
+# Datos de la red Wi-Fi de la ESP32
+esp32/**/secretos.h
