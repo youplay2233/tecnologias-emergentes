@@ -1,0 +1,5 @@
+<!-- En el visor (IL2CPP, Managed Stripping Level = Low) Unity quita el código que no ve usado.
+     MQTTnet arma partes de sí mismo por reflexión, así que se conserva completo. -->
+<linker>
+  <assembly fullname="MQTTnet" preserve="all"/>
+</linker>
